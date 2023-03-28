@@ -7,4 +7,4 @@ To run the program in dev build enter,
   `npm run dev`   
   
   
-**Important : ** Whenever you work on the project first do a pull request for syncing all the changes done by others to your machine.
+**Important :** Whenever you work on the project first do a pull request for syncing all the changes done by others to your machine.
