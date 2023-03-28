@@ -1,12 +1,21 @@
-import { useState } from 'react'
+
+import Navbar from './Components/Navbar';
+
 import './App.css'
+
 
 function App() {
   
 
   return (
     <>
-    <h1>Welcome</h1>
+      <Navbar />
+      <div className="main-section">
+        <h1 className="main-title">HelpHub</h1>
+        <p className="main-text">“Your Guide To Community Support”</p>
+        <button className="main-signup">Join Us</button>
+      </div>
+      <h1>fasfdas</h1>
     </>
   )
 }
