@@ -1,0 +1,15 @@
+.login-button {
+    font-family: inherit;
+    margin: 10px auto;
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 10px;
+    width: 100%;
+    height: 40px;
+    color: white;
+    cursor: pointer;
+}
+
+.login-button:hover{
+    background-color: var(--complementary-color);
+}

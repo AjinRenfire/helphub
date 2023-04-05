@@ -2,8 +2,7 @@
     --primary-color:#A494FF;
     --background-color:#F7F5FD;
     --complementary-color:#ffb4b4;
-
-   
+    --box-shadow: #c5c5c5;  
 }
 
 
@@ -12,7 +11,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 0 10px #c5c5c5;
+    box-shadow: 0 0 10px var(--box-shadow);
     padding: 20px 0;
    
 }
@@ -22,7 +21,7 @@
     color: var(--primary-color);
     font-weight: 700;
     font-size: 26px;
-    
+    text-decoration: none;
 }
 
 .nav-elements {
