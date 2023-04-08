@@ -1,0 +1,16 @@
+.alert-box{
+    color: white;
+    background-color: red;
+    padding: 20px;
+    width: fit-content;
+    min-width: 250px;
+    border-radius: 10px;
+    height: fit-content;
+    position: absolute;
+    top: 85%;
+    right: 50%;
+    transform: translate(50%, 0%);
+    font-size: 18px;
+    font-weight: 500;
+    display: block;
+}

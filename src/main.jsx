@@ -16,6 +16,9 @@ import HomePage from './routes/home-page'
 import LoginPage from './routes/login-page/login-page'
 import SignupPage from './routes/signup-page/signup-page'
 
+// contexts
+import UserContextProvider from './contexts/user.context'
+
 // css
 import './index.css'
 
@@ -32,6 +35,8 @@ const router = createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>,
+    <UserContextProvider>
+      <RouterProvider router={router} />
+    </UserContextProvider>
+  </React.StrictMode>
 )

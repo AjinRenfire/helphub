@@ -8,6 +8,7 @@
     height: 40px;
     color: white;
     cursor: pointer;
+    font-size: 18px;
 }
 
 .login-button:hover{

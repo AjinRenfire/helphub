@@ -1,9 +1,11 @@
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 // css
 import '../App.css'
 
 export default function HomePage(){
+    const navigate = useNavigate()
+
     return (
         <>
             <div className="main-section">
