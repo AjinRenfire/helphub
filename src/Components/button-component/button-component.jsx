@@ -2,7 +2,7 @@
 import './button-style.css'
 
 export default function Button({buttonOptions}){
-    return (
+    return (        
         <div className="input-container">
             <button 
                 {...buttonOptions}

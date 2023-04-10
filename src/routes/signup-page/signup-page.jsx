@@ -1,5 +1,11 @@
-import { Form, Link, useNavigate } from 'react-router-dom'
-import { useState, useContext } from 'react'
+import { useEffect } from 'react'
+import { 
+    Form,
+    Link,
+    useNavigate, 
+    useNavigation, 
+    useActionData, 
+} from 'react-router-dom'
 
 // components
 import FormInput from '../../components/input-component/input-component'
@@ -7,99 +13,36 @@ import Button from '../../components/button-component/button-component'
 import AlertBox from '../../components/alert-component/alert-box'
 
 // constants
-import { PASSWORD_MIN_LENGTH, PASSWORDS_DO_NOT_MATCH, PASSWORDS_MIN_LENGTH_TEXT, PLEASE_WAIT } from '../../utils/constants'
+import { FIREBASE_EMAIL_ALREADY_EXISTS, 
+    FIREBASE_USER_EXISTS, 
+    PASSWORD_MIN_LENGTH, 
+    PWDS_NOT_MATCH 
+} from '../../utils/constants'
 
 // css
 import '../login-page/login-page.css'
 
 // firebase
-import { createUserAccount, createUserDocument } from '../../firebase/firebase.signup'
-
-const defaultFormFields = {
-    email: '',
-    password: '',
-    confirmPassword: '',
-}
+import { createUserAccount } from '../../firebase/firebase.signup'
 
 export default function SignupPage(){
-    const [signupData, setSignupData] = useState(defaultFormFields)
-    const [alertBoxBehaviour, setAlertBoxBehaviour] = useState({
-        alertBoxShown: false,
-        alertBoxMessage: '',
-        positive: false
-    })
-
-    const {email, password, confirmPassword} = signupData
-    const {alertBoxShown, alertBoxMessage, positive} = alertBoxBehaviour
+    const navigation = useNavigation()
     const navigate = useNavigate()
+    const actionData = useActionData()
 
-    // function is triggered whenever the values in the inputs get changed
-    const onChangeHandler = (event) => {
-        const {value, name} = event.target
-
-        // updating the state
-        setSignupData({...signupData, [name]:value})
-    }
-
-    // function to handle the form submission
-    const handleSubmit = async (event) => {
-        event.preventDefault()
-
-        // checking if the passwords are upto expectations
-        if((password.length < PASSWORD_MIN_LENGTH) || (confirmPassword.length < PASSWORD_MIN_LENGTH)){
-            // making the alert box visible 
-            // also, displaying an alert message in the same
-            setAlertBoxBehaviour({
-                alertBoxShown: true,
-                alertBoxMessage: PASSWORDS_MIN_LENGTH_TEXT,
-                positive: false
-            })
-        }
-
-        else if(! (password === confirmPassword)){
-            setAlertBoxBehaviour({
-                alertBoxShown: true,
-                alertBoxMessage: PASSWORDS_DO_NOT_MATCH,
-                positive: false
-            })
-        }
-
-        else{
-            // passwords are validated
-            // creating an account for the user
-            try{
-                setAlertBoxBehaviour({
-                    alertBoxShown: true,
-                    alertBoxMessage: PLEASE_WAIT,
-                    positive: true
-                })
-
-                const { user } = await createUserAccount(email, password)
-                await createUserDocument(user)
-
-                // navigating the user to the login page
-                navigate('/login')
-            }
-            catch(error){
-                const message = error.code
-
-                setAlertBoxBehaviour({
-                    alertBoxShown: true,
-                    alertBoxMessage: message,
-                    positive: false
-                })
-
-                console.log(error)
-            }
-        }
-    }
+    useEffect(() => {
+        actionData && 
+            actionData.status === 1000 && 
+                actionData.user && 
+                    navigate('/login/')
+    }, [actionData])
 
     return (
         <>
             <div className='login-page-container'>
                 <h2 className="app-themed-heading">Sign up</h2>
 
-                <Form method='POST' onSubmit={handleSubmit}>
+                <Form method='POST' action={'/signup'}>
                     {/* Email input */}
                     <FormInput 
                         label='Email'
@@ -108,8 +51,6 @@ export default function SignupPage(){
                             name: 'email',
                             placeholder:'Enter your Email',
                             required:true,
-                            value: email,
-                            onChange: onChangeHandler
                         }}
                     />
 
@@ -121,8 +62,7 @@ export default function SignupPage(){
                             name: 'password',
                             placeholder:'Enter your Password',
                             required:true,
-                            value: password,
-                            onChange: onChangeHandler
+                            minLength: PASSWORD_MIN_LENGTH,
                         }}
                     />
 
@@ -134,19 +74,32 @@ export default function SignupPage(){
                             name: 'confirmPassword',
                             placeholder:'Enter your password',
                             required:true,
-                            value: confirmPassword,
-                            onChange: onChangeHandler
+                            minLength: PASSWORD_MIN_LENGTH,
                         }}
                     />
 
                     {/* Create Account Button */}
-                    <Button
-                        buttonOptions={{
-                            className:'login-button',
-                            type:'submit',
-                            value:'Create Account',
-                        }}
-                    />
+                    {
+                        navigation.state === 'submitting' ? 
+                        (
+                            <Button
+                                buttonOptions={{
+                                    className:'login-button',
+                                    type:'button',
+                                    value:'Please wait...',
+                                    disabled: "disabled",
+                                }}
+                            />
+                        ) : (
+                            <Button
+                                buttonOptions={{
+                                    className:'login-button',
+                                    type:'submit',
+                                    value:'Create Account',
+                                }}
+                            />
+                        )
+                    }
                 </Form>
 
                 <div className="input-container">
@@ -154,11 +107,44 @@ export default function SignupPage(){
                 </div>
             </div>
 
-            <AlertBox 
-                message={alertBoxMessage}
-                visibility={alertBoxShown}
-                positive={positive}
-            />
+            {
+                actionData && actionData.msg && actionData.status === 1000 && (
+                    <AlertBox 
+                        message={actionData.msg}
+                        visibility={true}
+                        positive={false}
+                    />       
+                )
+            }
         </>
     )
+}
+
+// function to handle form submission
+export const SignUpAction = async ({request}) => {
+    const formData = await request.formData()
+
+    // getting the input data from formData
+    let email = formData.get('email')
+    let password = formData.get('password')
+    let confirmPassword= formData.get('confirmPassword')
+
+    // validating the inputs
+    if(! (password === confirmPassword)){
+        return {msg: PWDS_NOT_MATCH, status: 1000}
+    }
+
+    try{
+        // creating an account for the user in the firebase
+        const { user } = await createUserAccount(email, password)
+        
+        return {user: user, status: 1000}
+    }
+    catch(error){
+        if(error.code === FIREBASE_EMAIL_ALREADY_EXISTS){
+            return {msg: FIREBASE_USER_EXISTS, status: 1000}
+        }
+
+        throw error
+    }
 }

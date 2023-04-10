@@ -8,11 +8,15 @@ export const FIREBASE_COLLECTION_USERS = 'Users'
 // firebase error codes
 export const FIREBASE_ERROR_CODE_WRONG_PWD = 'auth/wrong-password'
 export const FIREBASE_ERROR_CODE_USER_NOT_EXISTS = 'auth/user-not-found'
+export const FIREBASE_EMAIL_ALREADY_EXISTS = 'auth/email-already-in-use'
+export const FIREBASE_NETWORK_FAILED = 'auth/network-request-failed'
 
 // firebase error responses
 export const FIREBASE_USER_EXISTS = 'User already exists!'
-export const WRONG_PWD_RESPONSE = 'Password is incorrect!'
+export const PASSWORD_IS_INCORRECT = 'Password is incorrect!'
 export const USER_NOT_FOUND_RESPONSE = 'User does not exist!'
+export const PWDS_NOT_MATCH = 'Passwords do not match!'
+export const NETWORK_RESPONSE = 'Please check your Internet connection'
 
 // success responses
 export const ACCOUNT_CREATED_PLEASE_LOGIN = 'Account created! Please login'
