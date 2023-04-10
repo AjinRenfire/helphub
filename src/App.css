@@ -3,9 +3,12 @@
     --background-color:#F7F5FD;
     --complementary-color:#ffb4b4;
     --box-shadow: #c5c5c5;  
+
 }
 
-
+body {
+    background-color: var(--background-color)
+}
 /*   NavBar   */
 .nav-bar{
     display: flex;

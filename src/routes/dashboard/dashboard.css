@@ -1,0 +1,38 @@
+.view {
+    width: 1000px;
+    /* background-color: aquamarine; */
+    height:100%;
+    padding-left: 380px;
+}
+
+.options {
+    
+    font:inherit;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    position: sticky;
+    top:0;
+   
+    padding: 10px 0;
+    
+}
+
+.card{
+    background-color: #F7F5FD;
+    border-radius: 20px;
+    box-shadow: 0 0 5px #c5c5c5  ;
+    margin: 20px 0;
+    padding: 20px 30px;
+}
+
+.details {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.detail {
+    
+}

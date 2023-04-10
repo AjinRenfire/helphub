@@ -9,12 +9,14 @@ import {
 } from 'react-router-dom'
 
 // components
-import Navbar from './components/Navbar'
+import Navbar from './Components/Navbar';
+import SideNav from './Components/side-nav-component/SideNav';
 
 // routes
 import HomePage from './routes/home-page'
 import LoginPage from './routes/login-page/login-page'
 import SignupPage from './routes/signup-page/signup-page'
+import DashboardPage from './routes/dashboard/DashboardPage';
 
 // contexts
 import UserContextProvider from './contexts/user.context'
@@ -25,11 +27,17 @@ import './index.css'
 // creating a router
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path='/' element={<Navbar />}>
+   
+    <Route path='/' >
       <Route index element={<HomePage />} />
       <Route path='login' element={<LoginPage />} />
       <Route path='signup' element={<SignupPage />} />
+      <Route path='/app' element={<SideNav/>}>
+        <Route index element={<DashboardPage/>} />
+      </Route>
     </Route>
+     
+    
   )
 )
 

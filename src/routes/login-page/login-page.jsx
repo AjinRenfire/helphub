@@ -16,7 +16,15 @@ import { loginUser } from '../../firebase/firebase.login'
 import { UserContext } from '../../contexts/user.context'
 
 // constants
-import { FIREBASE_ERROR_CODE_USER_NOT_EXISTS, FIREBASE_ERROR_CODE_WRONG_PWD, PASSWORDS_MIN_LENGTH_TEXT, PASSWORD_MIN_LENGTH, SUCCESSFULLY_LOGGED_IN, USER_NOT_FOUND_RESPONSE, WRONG_PWD_RESPONSE } from '../../utils/constants'
+import { 
+    FIREBASE_ERROR_CODE_USER_NOT_EXISTS, 
+    FIREBASE_ERROR_CODE_WRONG_PWD, 
+    PASSWORDS_MIN_LENGTH_TEXT, 
+    PASSWORD_MIN_LENGTH, 
+    SUCCESSFULLY_LOGGED_IN, 
+    USER_NOT_FOUND_RESPONSE, 
+    WRONG_PWD_RESPONSE 
+} from '../../utils/constants'
 
 export default function LoginPage(){ 
     const [loginData, setLoginData] = useState({
