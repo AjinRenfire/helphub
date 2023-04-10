@@ -32,8 +32,9 @@ const router = createBrowserRouter(
       <Route index element={<HomePage />} />
       <Route path='login' element={<LoginPage />} />
       <Route path='signup' element={<SignupPage />} />
-      <Route path='/app' element={<SideNav/>}>
+      <Route path='app' element={<SideNav/>}>
         <Route index element={<DashboardPage/>} />
+        <Route />
       </Route>
     </Route>
      
