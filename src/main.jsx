@@ -17,6 +17,7 @@ import SignupPage, { SignUpAction } from './routes/signup-page/signup-page'
 import DashboardPage from './routes/dashboard/DashboardPage';
 import PostJobPage, { PostJobAction } from './routes/posting-job/post-job-page';
 import MyJobsPage from './routes/my-jobs-page/my-jobs';
+import MyActiveJobs from './routes/my-active-jobs/my-active-jobs';
 
 // contexts
 import UserContextProvider from './contexts/user.context'
@@ -64,8 +65,11 @@ const router = createBrowserRouter(
         <Route 
           path='/app/my-jobs' 
           element={<MyJobsPage/>}
-          loader={allJobsPostedByTheUser}
-        />
+          loader={await allJobsPostedByTheUser}
+        >
+          {/* Active Jobs */}
+          <Route index path='/app/my-jobs/active' element={<MyActiveJobs/>} />
+        </Route>
       </Route>
     </Route>   
   )

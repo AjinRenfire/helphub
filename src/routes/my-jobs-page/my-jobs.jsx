@@ -1,13 +1,20 @@
-import { useLoaderData } from "react-router-dom"
+import { useEffect, useState } from "react"
+import { useLoaderData, Outlet } from "react-router-dom"
+
+// components
+import WhatsappTabs from "../../components/tab-component/tab-component"
+
+// css
+import './my-jobs.css'
 
 export default function MyJobsPage(){
-    const allJobsSnapshots = useLoaderData()
+    const loaderData = useLoaderData()
 
     return (
         <div className="view">
-            {
-                allJobsSnapshots.forEach((snapshot) => <h1>My jobs page</h1>)
-            }
+            <WhatsappTabs />
+
+            <Outlet context={{loaderData}} />
         </div>
     )
 }

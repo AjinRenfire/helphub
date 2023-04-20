@@ -12,7 +12,7 @@ export default function SideNav(){
                     <h2>HelpHub</h2>
                     <ul className="menu-items">
                         <Link to={'/app/post'}>Post a Job</Link>
-                        <li><h4>My job</h4></li>
+                        <Link to={'/app/my-jobs/active'}>My Jobs</Link>
                         <li><h4>Job Activities</h4></li>
                         <li><h4>Job listings</h4></li>
                         <li><h4>Shop</h4></li>

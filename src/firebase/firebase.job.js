@@ -50,7 +50,5 @@ export const allJobsPostedByTheUser = async () => {
     // retrieving all the document snapshots from the job listings collection
     const allJobsSnapshots = await getDocs(jobListingsCollection)
 
-    allJobsSnapshots.forEach((snapshot) => console.log(snapshot.data()))
-
     return allJobsSnapshots
 }

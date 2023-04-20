@@ -36,6 +36,10 @@ var VARIOUS_CATEGORIES = [
     'Others'
 ]
 
+const JOB_PUBLIC_STATUS = {
+    NO_REQUESTS_YET : 'No requests yet'
+}
+
 export default function PostJobPage() {
     const [category, setCategory] = useState(null)
     const navigate = useNavigate()
@@ -84,7 +88,7 @@ export default function PostJobPage() {
                         cols: 100,
                         minLength: 10,
                         maxLength: 1000,
-                        
+
                     }}
                 />
                 
@@ -180,9 +184,15 @@ export const PostJobAction = async ({request}) => {
     const deadline = formData.get('job-deadline')
     const cost = formData.get('job-cost')
 
-    let job = {...DEFAULT_JOB, title, description, category, othersDescription, deadline, cost}
+    let job = {}
+
+    if(category === 'Others')
+        // inclusing the description of the others category too
+        job = {...DEFAULT_JOB, status: JOB_PUBLIC_STATUS.NO_REQUESTS_YET, title, description, category, others: othersDescription, deadline, cost}
+    else
+        job = {...DEFAULT_JOB, status: JOB_PUBLIC_STATUS.NO_REQUESTS_YET, title, description, category, deadline, cost}
 
     await createJobDocument(job)
 
-    return redirect('/app/my-jobs')
+    return redirect('/app/my-jobs/active')
 }
