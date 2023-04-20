@@ -1,11 +1,10 @@
-import { useNavigate } from 'react-router-dom'
+// components
 import Navbar from '../Components/Navbar'
+
 // css
 import '../App.css'
 
 export default function HomePage(){
-    const navigate = useNavigate()
-
     return (
         <>
             <Navbar />

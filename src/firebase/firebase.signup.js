@@ -23,6 +23,7 @@ export const createUserAccount = async(email, password) => {
  * 
  * Function to create a user document
  * 
+ * 
  */
 export const createUserDocument = async (user) => {
   if(! user) return

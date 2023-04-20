@@ -1,5 +1,5 @@
 import { auth } from "./firebase.config";
-import { signInWithEmailAndPassword, signOut, onAuthStateChanged  } from 'firebase/auth'
+import { signInWithEmailAndPassword, signOut  } from 'firebase/auth'
 
 /**
  * 

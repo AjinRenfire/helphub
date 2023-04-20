@@ -13,7 +13,6 @@ export default function DashboardPage(){
         Location:"Chennai",
         Phone:"+91 78430 23785"
     }
-    
 
     return ( 
         <div className="view">

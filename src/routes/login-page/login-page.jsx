@@ -1,4 +1,4 @@
-import { Form, Link, useNavigate, useNavigation, useActionData } from 'react-router-dom'
+import { Form, Link, useNavigate, useNavigation, useActionData, redirect } from 'react-router-dom'
 import {React, useEffect, useContext } from 'react'
 
 // components
@@ -14,6 +14,7 @@ import { UserContext } from '../../contexts/user.context'
 
 // firebase
 import { loginUser } from '../../firebase/firebase.login'
+import { auth } from '../../firebase/firebase.config'
 
 // constants
 import { 
@@ -30,18 +31,7 @@ export default function LoginPage(){
     const actionData = useActionData()
     const navigate = useNavigate()
     const navigation = useNavigation()  
-    
-    const { setCurrentUser } = useContext(UserContext)    
 
-    useEffect(() => {
-        actionData &&
-            actionData.user &&
-                actionData.status === 1000 && (
-                    setCurrentUser(actionData.user),
-                    navigate('/app')
-                )
-    }, [actionData])
-    
     return (
         <>
             <div className='login-page-container'>
@@ -99,15 +89,14 @@ export default function LoginPage(){
             </div>
             
             {
-                actionData && 
-                    actionData.msg &&
-                        actionData.status === 1000 && (
-                            <AlertBox
-                                message={actionData.msg}
-                                visibility={true}
-                                positive={false}
-                            />
-                        )
+                // rendering the alert box component, only when actionData is of some value
+                actionData && actionData.msg && actionData.status === 1000 && (
+                    <AlertBox
+                        message={actionData.msg}
+                        visibility={true}
+                        positive={false}
+                    />
+                )
             }
         </>
     )
@@ -125,7 +114,7 @@ export const LoginAction = async ({request}) => {
     try{
         await loginUser(email, password)
         
-        return {user: {email: email, password: password}, status: 1000}
+        return redirect('/app')
     }
     catch(error){
         const msg = error.code

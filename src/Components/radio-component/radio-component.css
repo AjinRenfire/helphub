@@ -1,0 +1,22 @@
+.radio-box{
+    width: 70%;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+}
+
+.radio-group{
+    width: fit-content;
+    height: 1.5em;
+    margin-top: 8px;
+    text-align: center;
+    margin-right: 10px;
+    
+}
+
+.radio-button{
+    font-size: 18px;
+    border: 0px;
+    margin-right: 8px;
+}
