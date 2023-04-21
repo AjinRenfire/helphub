@@ -90,8 +90,8 @@ const router = createBrowserRouter(
           path='/app/job-details'
           element={<JobsDetailsPage />}
         />
-        <Route path='shop' />
-        <Route path='jobactivities' />
+        <Route path='shop' element={<ShopPage/>}/>
+        <Route path='jobactivities' element={<JobActivitesPage/>} />
       </Route>
     </Route>   
   )
