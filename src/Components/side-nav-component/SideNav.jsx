@@ -13,8 +13,8 @@ export default function SideNav(){
                     <ul className="menu-items">
                         <Link to={'/app/post'}>Post a Job</Link>
                         <Link to={'/app/my-jobs/active'}>My Jobs</Link>
+                        <Link to={'/app/jobs-listing'}>Jobs listing</Link>
                         <li><h4>Job Activities</h4></li>
-                        <li><h4>Job listings</h4></li>
                         <li><h4>Shop</h4></li>
                         <li><h4>signOut</h4></li>
                     </ul>

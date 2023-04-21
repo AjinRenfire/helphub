@@ -18,6 +18,8 @@ import DashboardPage from './routes/dashboard/DashboardPage';
 import PostJobPage, { PostJobAction } from './routes/posting-job/post-job-page';
 import MyJobsPage from './routes/my-jobs-page/my-jobs';
 import MyActiveJobs from './routes/my-active-jobs/my-active-jobs';
+import JobsListingPage from './routes/jobs-listing/jobs-listing-page';
+import JobsDetailsPage from './routes/job-details-page/job-details-page';
 
 // contexts
 import UserContextProvider from './contexts/user.context'
@@ -70,6 +72,22 @@ const router = createBrowserRouter(
           {/* Active Jobs */}
           <Route index path='/app/my-jobs/active' element={<MyActiveJobs/>} />
         </Route>
+
+        {/* Jobs listing Page */}
+        <Route 
+          path='/app/jobs-listing'
+          element={<JobsListingPage/>} 
+          loader={await allJobsPostedByTheUser}
+        />
+
+        {
+        /* Jobs Details page - Multipurpose page*/
+        /* Passing job object through navigate() and accessing the same using useLocation() hook */
+        }
+        <Route
+          path='/app/job-details'
+          element={<JobsDetailsPage />}
+        />
       </Route>
     </Route>   
   )

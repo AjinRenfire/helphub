@@ -12,13 +12,13 @@ export default function MyActiveJobs(){
     const { loaderData } = useOutletContext()
 
     useEffect(() => {
+        let dummy = []
+        let currentUserID = auth.currentUser.uid
+        
         // loaderData contains the snapshots all job documents
         // 1. going through each document snapshot and getting the data
         // 2. checking if the current user ID is the creator UID
-        //    if both are same, pushing the job to the array
-        let dummy = []
-        let currentUserID = auth.currentUser.uid
-
+        //      if both are same, pushing the job to the array
         loaderData.forEach((snapshot) => {
             let data = snapshot.data()
 

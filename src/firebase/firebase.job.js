@@ -52,3 +52,16 @@ export const allJobsPostedByTheUser = async () => {
 
     return allJobsSnapshots
 }
+
+/**
+ * 
+ * 
+ * Function to add the current user's UID in the requestors UID of a job
+ * 
+ * 
+ */
+export const requestToDoTheJob = async (job) => {
+    if((! auth) || (! job)) return
+
+    
+}

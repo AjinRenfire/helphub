@@ -6,6 +6,11 @@
     border-radius: 10px;
     box-sizing: border-box;
     display: flex;
+    cursor: pointer;
+}
+
+.job-list-item:hover{
+    background: var(--box-shadow);
 }
 
 .job-list-item h3{
@@ -25,10 +30,15 @@
     margin-bottom: 8px;
 }
 
-.job-list-left{
-    flex-basis: 80%;
-}
-
 .job-list-right{
     flex-basis: 20%;
+    text-align: end;
+    margin-right: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.job-list-left{
+    flex-basis: 80%;
 }
