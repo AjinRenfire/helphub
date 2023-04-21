@@ -12,7 +12,7 @@ export default function MyJobsPage(){
 
     return (
         <div className="view">
-            <WhatsappTabs />
+            <WhatsappTabs target="/app/my-jobs/active"/>
 
             <Outlet context={{loaderData}} />
         </div>
