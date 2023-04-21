@@ -5,6 +5,8 @@ import { doc, getDoc, setDoc } from 'firebase/firestore'
 // constants
 import { FIREBASE_COLLECTION_USERS } from '../utils/constants'
 
+import { DEFAULT_USER } from '../routes/signup-page/signup-page'
+
 /**
  * 
  * Function to create a user account for the given email
@@ -40,12 +42,10 @@ export const createUserDocument = async (user) => {
     const {email, uid} = user
     const createdAt = new Date()
 
+    let newUser = {...DEFAULT_USER, email: email, createdAt: createdAt, UID: uid}
+
     try{
-      await setDoc(userDocumentReference, {
-        email,
-        createdAt,
-        uid
-      })
+      await setDoc(userDocumentReference, newUser)
     }
     catch(error) {console.log(error)}
   }

@@ -10,7 +10,15 @@ export default function JobActivitesPage(){
     return (
 
         <div className="view">
-            <WhatsappTabs target=""/>
+            <WhatsappTabs
+                firstText='Áctive Job'
+                firstLink=''
+                secondText='Pending Requests'
+                secondLink=''
+                thirdText='Job History'
+                thirdLink=''
+            />
+
             <Outlet />
         </div>
     

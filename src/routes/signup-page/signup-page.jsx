@@ -1,10 +1,9 @@
-import { useEffect } from 'react'
 import { 
     Form,
     Link,
-    useNavigate, 
-    useNavigation, 
-    useActionData, 
+    redirect,
+    useNavigation,
+    useActionData
 } from 'react-router-dom'
 
 // components
@@ -23,19 +22,22 @@ import { FIREBASE_EMAIL_ALREADY_EXISTS,
 import '../login-page/login-page.css'
 
 // firebase
-import { createUserAccount } from '../../firebase/firebase.signup'
+import { createUserAccount, createUserDocument } from '../../firebase/firebase.signup'
+
+export const DEFAULT_USER = {
+    email: '',
+    createdAt: '',
+    UID: '',
+    balance: 2000,
+    userName: '',
+    phoneNumber: '',
+    hobbies: '',
+    about: ''
+}
 
 export default function SignupPage(){
     const navigation = useNavigation()
-    const navigate = useNavigate()
     const actionData = useActionData()
-
-    useEffect(() => {
-        actionData && 
-            actionData.status === 1000 && 
-                actionData.user && 
-                    navigate('/login/')
-    }, [actionData])
 
     return (
         <>
@@ -137,8 +139,11 @@ export const SignUpAction = async ({request}) => {
     try{
         // creating an account for the user in the firebase
         const { user } = await createUserAccount(email, password)
+
+        // creating the user document for the new user
+        await createUserDocument(user)
         
-        return {user: user, status: 1000}
+        return redirect('/app')
     }
     catch(error){
         if(error.code === FIREBASE_EMAIL_ALREADY_EXISTS){

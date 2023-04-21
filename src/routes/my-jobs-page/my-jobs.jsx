@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react"
-import { useLoaderData, Outlet } from "react-router-dom"
+import { useLoaderData, Outlet, Await } from "react-router-dom"
+import { Suspense } from "react"
 
 // components
 import WhatsappTabs from "../../components/tab-component/tab-component"
@@ -12,7 +12,16 @@ export default function MyJobsPage(){
 
     return (
         <div className="view">
-            <WhatsappTabs target="/app/my-jobs/active"/>
+            <WhatsappTabs
+                firstText='Active Job'
+                firstLink='/app/my-jobs/active'
+                secondText='Pending Requests'
+                secondLink='/app/my-jobs/pending-requests'
+                thirdText='No requests yet'
+                thirdLink='/app/my-jobs/no-requests'
+                fourthText='Job History'
+                fourthLink=''
+            />
 
             <Outlet context={{loaderData}} />
         </div>

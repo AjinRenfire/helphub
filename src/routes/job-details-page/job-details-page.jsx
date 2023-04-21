@@ -1,4 +1,4 @@
-import {  useLocation } from "react-router-dom"
+import {  redirect, useLocation } from "react-router-dom"
 
 // components
 import BackButton from "../../components/back-button-component/back-button"
@@ -22,7 +22,17 @@ export default function JobsDetailsPage(){
 
     // function is called when the request to do the job button is clicked
     const request = async () => {
-        await requestToDoTheJob(job)
+        try{
+            const response = await requestToDoTheJob(job)
+            if(! response){
+                console.log('successfully updated...')
+
+                return redirect('/app/job-listing')
+            }
+        }
+        catch(error) {
+            console.log(error)
+        }
     }
     
     return (

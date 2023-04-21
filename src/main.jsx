@@ -4,7 +4,8 @@ import {
   Route,
   RouterProvider,
   createBrowserRouter, 
-  createRoutesFromElements
+  createRoutesFromElements,
+  defer
 } from 'react-router-dom'
 
 // components
@@ -22,6 +23,8 @@ import JobsListingPage from './routes/jobs-listing/jobs-listing-page';
 import JobsDetailsPage from './routes/job-details-page/job-details-page';
 import JobActivitesPage from './routes/jobactivities/JobActivitesPage';
 import ShopPage from './routes/shop/ShopPage';
+import MyJobsPendingRequestsPage from './routes/my-jobs-pending-requests/my-jobs-pending-requests';
+import MyJobsNoRequestsYetPage from './routes/my-jobs-no-requests/my-jobs-no-requests';
 
 // contexts
 import UserContextProvider from './contexts/user.context';
@@ -67,12 +70,18 @@ const router = createBrowserRouter(
 
         {/* My Jobs Page */}
         <Route 
-          path='/app/my-jobs' 
+          path='/app/my-jobs'
           element={<MyJobsPage/>}
           loader={await allJobsPostedByTheUser}
         >
           {/* Active Jobs */}
-          <Route index path='/app/my-jobs/active' element={<MyActiveJobs/>} />
+          <Route path='/app/my-jobs/active' element={<MyActiveJobs/>} />
+
+          {/* Pending requests for my job */}
+          <Route path='/app/my-jobs/pending-requests' element={<MyJobsPendingRequestsPage />} />
+        
+          {/* No requests for my job */}
+          <Route path='/app/my-jobs/no-requests' element={<MyJobsNoRequestsYetPage />} />
         </Route>
 
         {/* Jobs listing Page */}

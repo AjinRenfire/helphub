@@ -36,8 +36,11 @@ var VARIOUS_CATEGORIES = [
     'Others'
 ]
 
-const JOB_PUBLIC_STATUS = {
-    NO_REQUESTS_YET : 'No requests yet'
+export const JOB_PUBLIC_STATUS = {
+    NO_REQUESTS_YET : 'No requests yet',
+    REQUESTS_ARRIVED: 'Requests arrived',
+    YOU_ACCEPTED_THE_JOB: 'Accepted',
+    JOB_COMPLETED: 'Job successfully completed!'
 }
 
 export default function PostJobPage() {

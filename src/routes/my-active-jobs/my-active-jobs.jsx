@@ -7,6 +7,18 @@ import JobsListItem from "../../components/jobs-list-item/jobs-list-item"
 // firebase
 import { auth } from "../../firebase/firebase.config"
 
+/**
+ * 
+ * Active Jobs
+ * 
+ * The job which has been ACCEPTED for someone to do, and is still in progress
+ * 
+ * Otherwise,
+ * 
+ *  status is ACCEPTED and
+ *  privateStatus is WORK_STILL_IN_PROGRESS
+ * 
+ */
 export default function MyActiveJobs(){
     const [activeJobs, setActiveJobs] = useState([])
     const { loaderData } = useOutletContext()
@@ -30,13 +42,19 @@ export default function MyActiveJobs(){
 
     return (
         <>
-        {
-            activeJobs.length > 0 ? (
-                activeJobs.map((job) => (<JobsListItem job={job} key={job.jobUID}/>))
-            ) : (
-                <h1>U have no active jobs</h1>
-            )
-        }
+            {
+                activeJobs.length > 0 ? (
+                    activeJobs.map((job) => (
+                        <JobsListItem 
+                            job={job} 
+                            key={job.jobUID}
+                                    
+                        />
+                    ))
+                ) : (
+                    <h1>U have no active jobs</h1>
+                )
+            }
         </>
     )
 }

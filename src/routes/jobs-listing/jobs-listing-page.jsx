@@ -21,11 +21,18 @@ export default function JobsListingPage(){
         // 2. checking for some conditions
         //    2.1 -> if currentUserUID is not the creatorUID of the job
         //    2.2 -> status of the job is not ACCEPTED yet
+        //    2.3 -> currentUser has not requested for the job yet
+        //    2.4 -> deadline of the job is not over
         // 3. pushing the job to the dummy array, only if the conditions are met
         loaderData.forEach((snapshot) => {
             let data = snapshot.data()
 
-            if((! (data.creatorUID === currentUserUID)) && (! (data.status === 'ACCEPTED'))) dummy.push(data)
+            if((! (data.creatorUID === currentUserUID)) && 
+                (! (data.status === 'ACCEPTED')) && 
+                    (! (data.requestorsUID.indexOf(currentUserUID) > -1))) {
+                        console.log(data.deadline)
+                        dummy.push(data)
+            }
         });
 
         setJobsPostedByOtherUsers(dummy)

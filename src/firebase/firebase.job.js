@@ -1,11 +1,13 @@
 import { auth, database } from './firebase.config'
-import { doc, setDoc, getDocs, collection } from 'firebase/firestore'
+import { doc, setDoc, getDocs, collection, updateDoc } from 'firebase/firestore'
 
 // uuid
 import { v4 as uuidv4 } from 'uuid';
 
 // constants
 import { FIREBASE_COLLECTION_JOB_LISTINGS } from '../utils/constants'
+
+import { JOB_PUBLIC_STATUS } from '../routes/posting-job/post-job-page';
 
 /**
  * 
@@ -63,5 +65,37 @@ export const allJobsPostedByTheUser = async () => {
 export const requestToDoTheJob = async (job) => {
     if((! auth) || (! job)) return
 
-    
+    // current user UID
+    const currentUserUID = auth.currentUser.uid
+
+    /**
+     * 
+     * adding this current user UID in the requestors ID array of the job
+     * also, setting the status of the job to REQUESTS_ARRIVED
+     * 
+     * 
+     * 1. getting the current requestors usersID array
+     * 2. adding the current user UID to the same
+     *     2.1 -> if and only if, current user UID is not in the requestors usersID array
+     * 3. Updating the job document with the newly formed requestors array
+     * 4. setting the status to REQUESTS_ARRIVED
+     * 
+     */
+    let requestors = job.requestorsUID
+
+    // extra safety measure
+    if(! (requestors.indexOf(currentUserUID) > -1)){
+        requestors.push(currentUserUID)
+
+        // updating the document
+        // creating the reference for the current job document
+        const currentJobReference = doc(database, FIREBASE_COLLECTION_JOB_LISTINGS, job.jobUID)  
+        
+        return await updateDoc(currentJobReference, {
+            requestorsUID: requestors,
+            status: JOB_PUBLIC_STATUS.REQUESTS_ARRIVED
+        })
+    }
+
+    return false
 }
