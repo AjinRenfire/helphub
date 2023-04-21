@@ -20,9 +20,11 @@ import MyJobsPage from './routes/my-jobs-page/my-jobs';
 import MyActiveJobs from './routes/my-active-jobs/my-active-jobs';
 import JobsListingPage from './routes/jobs-listing/jobs-listing-page';
 import JobsDetailsPage from './routes/job-details-page/job-details-page';
+import JobActivitesPage from './routes/jobactivities/JobActivitesPage';
+import ShopPage from './routes/shop/ShopPage';
 
 // contexts
-import UserContextProvider from './contexts/user.context'
+import UserContextProvider from './contexts/user.context';
 
 // firebase
 import { allJobsPostedByTheUser } from './firebase/firebase.job';
@@ -88,6 +90,8 @@ const router = createBrowserRouter(
           path='/app/job-details'
           element={<JobsDetailsPage />}
         />
+        <Route path='shop' />
+        <Route path='jobactivities' />
       </Route>
     </Route>   
   )
