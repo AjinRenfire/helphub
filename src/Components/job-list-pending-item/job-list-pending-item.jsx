@@ -8,8 +8,9 @@ import { getUserDocument } from '../../firebase/firebase.user'
 
 export default function JobListPendingItem({job}){
     const {requestorsUID} = job
-    const [requestors, setRequestors] = useState([])
-
+    const [requestors, setRequestors] = useState([]);
+    let reqqq = [];
+    
     useEffect(() => {
         // getting all the user details of the requestors
         let dummy = []
@@ -19,10 +20,16 @@ export default function JobListPendingItem({job}){
             dummy.push(user)
         });
 
-        console.log(dummy)
+        //console.log(dummy)
 
         setRequestors(dummy)
-    }, [job])
+        reqqq = dummy;
+        
+        
+    }, [])
+
+    const value = requestors.map((req)=>req.email)
+    console.log(value);
     
     return (
         <div className="job-list-item">
@@ -37,14 +44,17 @@ export default function JobListPendingItem({job}){
                     </div>
                 </div>
             </div>
-
+            <div>
             {
                 requestors.map((requestor) => (
                     <div className="list-pending-item">
+                        
                         <p>{requestor.email}</p>
                     </div>
                 ))
             }
+            </div>
+            
         </div>
     )
 }

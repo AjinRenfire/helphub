@@ -48,18 +48,23 @@ export default function MyJobsPendingRequestsPage (){
         setPendingRequests(dummy)
     }, [loaderData])
 
+   
+
     return (
         <>
             {
+                
                 pendingRequests.length > 0 ? (
-                    pendingRequests.map((job) => (
-                        <JobListPendingItem 
-                            job={job} 
-                            key={job.jobUID}
-                        />
-                    ))
+                    pendingRequests.map((job) => 
+                        (
+                            <JobListPendingItem 
+                                job={job} 
+                                key={job.jobUID}
+                            />
+                        )
+                    )
                 ) : (
-                    <h1>U have no active jobs</h1>
+                    <h1>U have no pending jobs</h1>
                 )
             }
         </>
