@@ -28,8 +28,7 @@ export default function JobListPendingItem({job}){
         
     }, [])
 
-    const value = requestors.map((req)=>req.email)
-    console.log(value);
+    
     
     return (
         <div className="job-list-item">
