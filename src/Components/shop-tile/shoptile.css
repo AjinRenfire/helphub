@@ -1,0 +1,32 @@
+.tile-box {
+    height: 300px;
+    width:300px;
+    border: 1px solid black;
+    border-radius: 20px;
+   
+    
+}
+
+.currency {
+    font-weight: 900;
+   
+    
+    text-align: center;
+}
+
+.fiat {
+    font-weight: 500;
+    text-align: end;
+    margin: 5px 8px 0 0;
+}
+.hex-logo {
+    margin: 20px 0 10px 0;
+    
+}
+
+.img-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+   
+}
