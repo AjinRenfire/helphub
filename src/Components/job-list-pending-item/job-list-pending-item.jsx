@@ -1,35 +1,12 @@
-import { useEffect, useState } from 'react'
+// components
+import JobPendingAccept from '../job-pending-accept/job-pending-accept'
 
 // css
 import './job-list-pending-item.css'
 
-// firebase
-import { getUserDocument } from '../../firebase/firebase.user'
-
 export default function JobListPendingItem({job}){
     const {requestorsUID} = job
-    const [requestors, setRequestors] = useState([]);
-    let reqqq = [];
-    
-    useEffect(() => {
-        // getting all the user details of the requestors
-        let dummy = []
 
-        requestorsUID.forEach(async (requestorUID) => {
-            let user = (await getUserDocument(requestorUID)).data()
-            dummy.push(user)
-        });
-
-        //console.log(dummy)
-
-        setRequestors(dummy)
-        reqqq = dummy;
-        
-        
-    }, [])
-
-    
-    
     return (
         <div className="job-list-item">
             <div className="job-list-general">
@@ -44,16 +21,15 @@ export default function JobListPendingItem({job}){
                 </div>
             </div>
             <div>
+            
             {
-                requestors.map((requestor) => (
-                    <div className="list-pending-item">
-                        
-                        <p>{requestor.email}</p>
-                    </div>
+                requestorsUID.map((requestorUID) => (
+                    <JobPendingAccept
+                        requestorUID = {requestorUID}
+                    />
                 ))
             }
             </div>
-            
         </div>
     )
 }
