@@ -1,5 +1,5 @@
 import React from 'react';
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet, Link,NavLink } from 'react-router-dom';
 
 // css
 import './side-nav.css';
@@ -11,12 +11,35 @@ export default function SideNav(){
                 <div className="side">
                     <h2>HelpHub</h2>
                     <ul className="menu-items">
-                        <Link to={'/app/post'}>Post a Job</Link>
-                        <Link to={'/app/my-jobs/active'}>My Jobs</Link>
-                        <Link to={'/app/jobs-listing'}>Jobs listing</Link>
-                        <li><h4>Job Activities</h4></li>
+                        <NavLink to={'/app/post'} className={
+                            ({isActive})=>{
+                                return isActive ? "active-item":"non-active-item"
+                            }
+                        }>Post a Job</NavLink>
+                        <NavLink to={'/app/my-jobs/active'} className={
+                            ({isActive})=>{
+                                return isActive ? "active-item":"non-active-item"
+                            }
+                        }>My Jobs</NavLink>
+                        <NavLink to={'/app/jobs-listing'} className={
+                            ({isActive})=>{
+                                return isActive ? "active-item":"non-active-item"
+                            }
+                        }>Jobs listing</NavLink>
+                        <NavLink to={'/app/jobactivities'} className={
+                            ({isActive})=>{
+                                return isActive ? "active-item":"non-active-item"
+                            }
+                        }>Job Activities</NavLink>
+                        <NavLink to={'/app/shop'} className={
+                            ({isActive})=>{
+                                return isActive ? "active-item":"non-active-item"
+                            }
+                        }>Shop</NavLink>
+
+                        {/* <li><h4>Job Activities</h4></li>
                         <li><h4>Shop</h4></li>
-                        <li><h4>signOut</h4></li>
+                        <li><h4>signOut</h4></li> */}
                     </ul>
                     <div className="user-profile">
                         <h3>USERNAME</h3>
