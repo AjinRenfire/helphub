@@ -3,16 +3,13 @@ import { useEffect, useState } from 'react'
 // firebase
 import { getUserDocument } from '../../firebase/firebase.user'
 
-export default function JobPendingAccept({requestorUID}){
+export default function JobPendingAccept({requestorUID, accept, reject}){
     const [requestor, setRequestor] = useState({})
 
     useEffect(() => {
         async function fetchUserData(){
             let userDocSnapshot = await getUserDocument(requestorUID)
             let user = userDocSnapshot.data()
-
-            console.log("User snapshot : ", userDocSnapshot)
-            console.log("User : ", user)
 
             setRequestor(user)
         }
@@ -22,9 +19,20 @@ export default function JobPendingAccept({requestorUID}){
 
     return (
         <>
-            {
-                <p>{requestor.email}</p>
-            }
+        {
+            requestor.email ? (
+                <div className="list-pending-item">
+                    <div className="pending-name">
+                        <p className='margin-p'>{requestor.email}</p>
+                        <p className='margin-p'>4</p>
+                    </div>
+                    <div className="pending-accept">
+                        <p onClick={accept(event)} className='accept'>Accept</p>
+                        <p className='reject'>Reject</p>
+                    </div>
+                </div>
+            ) : <></>
+        }
         </>
     )
 }

@@ -7,6 +7,10 @@ import './job-list-pending-item.css'
 export default function JobListPendingItem({job}){
     const {requestorsUID} = job
 
+    const summa = (event) => {
+        console.log(event.target.textContent)
+    }
+
     return (
         <div className="job-list-item">
             <div className="job-list-general">
@@ -26,6 +30,8 @@ export default function JobListPendingItem({job}){
                 requestorsUID.map((requestorUID) => (
                     <JobPendingAccept
                         requestorUID = {requestorUID}
+                        accept={() => summa}
+                        reject={console.log('rejected')}
                     />
                 ))
             }
