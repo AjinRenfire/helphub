@@ -6,7 +6,7 @@ import { auth } from "../../firebase/firebase.config"
 import { JOB_PUBLIC_STATUS } from "../posting-job/post-job-page"
 
 // components
-import JobListPendingItem from "../../components/job-list-pending-item/job-list-pending-item"
+import JobListPendingItem from "../../Components/job-list-pending-item/job-list-pending-item";
 
 /**
  * 
