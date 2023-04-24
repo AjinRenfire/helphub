@@ -9,8 +9,9 @@ export default function SideNav(){
         <header className='app-container'>
             <nav className="side-nav">
                 <div className="side">
-                    <h2>HelpHub</h2>
+                    <h2 className='brand'>HelpHub</h2>
                     <ul className="menu-items">
+                    
                         <NavLink to={'/app/post'} className={
                             ({isActive})=>{
                                 return isActive ? "active-item":"non-active-item"
@@ -40,6 +41,7 @@ export default function SideNav(){
                         {/* <li><h4>Job Activities</h4></li>
                         <li><h4>Shop</h4></li>
                         <li><h4>signOut</h4></li> */}
+                        
                     </ul>
                     <div className="user-profile">
                         <h3>USERNAME</h3>

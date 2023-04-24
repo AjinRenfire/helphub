@@ -8,16 +8,17 @@
 }
 
 .currency {
-    font-weight: 900;
+    font-weight: 400;
    
-    
+    margin: 12px 0 28px 0;
     text-align: center;
 }
 
 .fiat {
-    font-weight: 500;
+    font-weight: 700;
     text-align: end;
     margin: 5px 8px 0 0;
+    font-size: 20px;
 }
 .hex-logo {
     margin: 20px 0 10px 0;
