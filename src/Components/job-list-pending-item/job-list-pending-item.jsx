@@ -8,6 +8,7 @@ export default function JobListPendingItem({job}){
     const {requestorsUID} = job
 
     const summa = (value) => {
+        
         console.log(value)
     }
 
