@@ -17,6 +17,13 @@ export default function JobPendingAccept({requestorUID, accept, reject}){
         fetchUserData()
     }, [])
 
+    // function to handle the click of the buttons
+    const clickHandler = (event) => {
+        console.log(event.target.value)
+
+        accept(event.target.value)
+    }
+
     return (
         <>
         {
@@ -27,7 +34,7 @@ export default function JobPendingAccept({requestorUID, accept, reject}){
                         <p className='margin-p'>4</p>
                     </div>
                     <div className="pending-accept">
-                        <p onClick={accept(event)} className='accept'>Accept</p>
+                        <button type='button' onClick={clickHandler} className='accept'>Accept</button>
                         <p className='reject'>Reject</p>
                     </div>
                 </div>

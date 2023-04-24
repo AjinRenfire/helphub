@@ -7,8 +7,8 @@ import './job-list-pending-item.css'
 export default function JobListPendingItem({job}){
     const {requestorsUID} = job
 
-    const summa = (event) => {
-        console.log(event.target.textContent)
+    const summa = (value) => {
+        console.log(value)
     }
 
     return (
@@ -30,8 +30,9 @@ export default function JobListPendingItem({job}){
                 requestorsUID.map((requestorUID) => (
                     <JobPendingAccept
                         requestorUID = {requestorUID}
-                        accept={() => summa}
+                        accept={summa}
                         reject={console.log('rejected')}
+                        key={requestorUID}
                     />
                 ))
             }
