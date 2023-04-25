@@ -44,7 +44,7 @@ export default function JobsDetailsPage(){
                 <div className="job-primary-detail">
                     <div className="job-primary-left">
                         <h3>{job.title}</h3>
-                        <div>{job.category}</div>
+                        <div className="job-category">{job.category}</div>
                     </div>
                     <div className="job-primary-right">
                         <p>Cost</p>

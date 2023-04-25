@@ -9,7 +9,7 @@ export default function JobsListItem({job, click}){
             <div className="job-list-general">
                 <div className='job-list-left'>
                     <h3>{job.title}</h3>
-                    <span className='job-category'>{job.category}</span>
+                    <span className='job-category-mini'>{job.category}</span>
                     <p>{job.description}</p>
                 </div>
                 <div className='job-list-right'>

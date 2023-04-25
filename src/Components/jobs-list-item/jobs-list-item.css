@@ -31,10 +31,10 @@
     margin-top: 8px;
 }
 
-.job-list-item span{
+/* .job-list-item span{
     font-size: 18px;
     margin-bottom: 8px;
-}
+} */
 
 .job-list-right{
     flex-basis: 20%;
@@ -47,4 +47,16 @@
 
 .job-list-left{
     flex-basis: 80%;
+}
+
+.job-category-mini {
+    font-size:14px;
+    border-radius: 50px;
+    /* background-color: white; */
+    color: var(--primary-color);
+    /* color: black; */
+    padding: 2px 6px;
+    border: 2px solid #222222;
+    /* border: 3px solid var(--box-shadow); */
+    /* border: 3px solid var(--primary-color); */
 }
