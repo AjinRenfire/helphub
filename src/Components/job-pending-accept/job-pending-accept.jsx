@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 // firebase
 import { getUserDocument } from '../../firebase/firebase.user'
 
-export default function JobPendingAccept({requestorUID, accept, reject}){
+export default function JobPendingAccept({requestorUID, decision}){
     const [requestor, setRequestor] = useState({})
 
     useEffect(() => {
@@ -19,10 +19,12 @@ export default function JobPendingAccept({requestorUID, accept, reject}){
 
     // function to handle the click of the buttons
     const clickHandler = (event) => {
-       
-        console.log(event.target.value)
+        let x = {
+            decision: event.target.value,
+            requestorUID: requestorUID
+        }
 
-        accept(event.target.value)
+        decision(x)
     }
 
     return (
@@ -35,8 +37,8 @@ export default function JobPendingAccept({requestorUID, accept, reject}){
                         <p className='margin-p'>4</p>
                     </div>
                     <div className="pending-accept">
-                        <button type='button' onClick={clickHandler} className='accept'value="accept">Accept</button>
-                        <p className='reject'>Reject</p>
+                        <button type='button' onClick={clickHandler} className='accept'value="Accept">Accept</button>
+                        <button type='button' onClick={clickHandler} className='reject'value="Reject">Reject</button>
                     </div>
                 </div>
             ) : <></>

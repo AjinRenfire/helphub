@@ -45,6 +45,7 @@
     color: #22E09F;
     font-style: bold;
     border-radius: 20px;
+    background: transparent;
 }
 
 .reject{
@@ -52,6 +53,7 @@
     border: 1px solid #FF5578;
     color: #FF5578;
     font-style: bold;
+    background: transparent;
     border-radius: 20px;
 }
 

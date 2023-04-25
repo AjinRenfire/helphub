@@ -6,7 +6,7 @@ import { auth } from "../../firebase/firebase.config"
 import { JOB_PUBLIC_STATUS } from "../posting-job/post-job-page"
 
 // components
-import JobListPendingItem from "../../Components/job-list-pending-item/job-list-pending-item";
+import JobListPendingItem from "../../components/job-list-pending-item/job-list-pending-item"
 
 /**
  * 
@@ -21,7 +21,7 @@ import JobListPendingItem from "../../Components/job-list-pending-item/job-list-
  * 
  */
 export default function MyJobsPendingRequestsPage (){
-    const {loaderData} = useOutletContext()
+    const {loaderData, refresh} = useOutletContext()
     const [pendingRequests, setPendingRequests] = useState([])
 
     useEffect(() => {
@@ -30,7 +30,7 @@ export default function MyJobsPendingRequestsPage (){
         
         // loaderData contains the snapshots all job documents
         // 1. going through each document snapshot and getting the data
-        // 2. consitions:
+        // 2. conditions:
         //      2.1 -> creatorUID should be === currentUserUID
         //      2.2 -> status is REQUESTS_ARRIVED
         //      2.3 -> requestors UID array is not empty 
@@ -48,8 +48,6 @@ export default function MyJobsPendingRequestsPage (){
         setPendingRequests(dummy)
     }, [loaderData])
 
-   
-
     return (
         <>
             {
@@ -60,6 +58,7 @@ export default function MyJobsPendingRequestsPage (){
                             <JobListPendingItem 
                                 job={job} 
                                 key={job.jobUID}
+                                refresh={refresh}
                             />
                         )
                     )

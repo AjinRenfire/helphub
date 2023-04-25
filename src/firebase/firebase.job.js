@@ -1,5 +1,5 @@
 import { auth, database } from './firebase.config'
-import { doc, setDoc, getDocs, collection, updateDoc } from 'firebase/firestore'
+import { doc, getDoc, setDoc, getDocs, collection, updateDoc } from 'firebase/firestore'
 
 // uuid
 import { v4 as uuidv4 } from 'uuid';
@@ -42,6 +42,8 @@ export const createJobDocument = async (job) => {
  */
 export const allJobsPostedByTheUser = async () => {
     if(! auth) return
+
+    console.log("ALL JOBS POSTED BY THE")
 
     // userId of the user
     // fucked by the auth.currentUser = null, though auth is not null    
@@ -98,4 +100,57 @@ export const requestToDoTheJob = async (job) => {
     }
 
     return false
+}
+
+/**
+ * 
+ * 
+ * 
+ * Function to respond to the Accept/Reject action by the creator of the job
+ * 
+ * 
+ * 
+ */
+export const respondToAcceptReject = async (jobUID, requestorUID, descision) => {
+    if((! auth) || (! jobUID) || (! requestorUID) || (! descision)) return
+
+    // getting the current user ID
+    const currentUserUID = auth.currentUser.uid
+
+    // getting the reference for the current job document
+    const currentJobReference = doc(database, FIREBASE_COLLECTION_JOB_LISTINGS, jobUID)
+
+    // getting the job doc with the reference
+    const job = (await getDoc(currentJobReference)).data()
+
+    if(job.creatorUID === currentUserUID){
+        // only the creator of the job has the right to accept/deny a request
+        // so, a extra safety measure!
+
+        if(descision == "Accept"){
+            // if the creator accepts the request of a requestor
+        }
+        else{
+            // creator rejects the request
+            // then deleting the requestorUID from the array
+            let requestors = job.requestorsUID
+
+            requestors = requestors.filter((requestor) => {
+                return requestor != requestorUID
+            })
+            
+            // updating the doc with the new requestors array
+            let data = {}
+            if(requestors.length == 0){
+                // no more requestors
+                // so reverting the status of the job to 'No Requests Yet'
+                data = {status: JOB_PUBLIC_STATUS.NO_REQUESTS_YET, requestorsUID: []}
+            }
+            else{
+                data = {requestorsUID: requestors}
+            }
+
+            return await updateDoc(currentJobReference, data)
+        }
+    }
 }

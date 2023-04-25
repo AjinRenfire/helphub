@@ -1,15 +1,29 @@
+import { useNavigate } from 'react-router-dom'
+
 // components
 import JobPendingAccept from '../job-pending-accept/job-pending-accept'
 
 // css
 import './job-list-pending-item.css'
 
-export default function JobListPendingItem({job}){
-    const {requestorsUID} = job
+// firebase
+import { respondToAcceptReject } from '../../firebase/firebase.job'
 
-    const summa = (value) => {
-        
-        console.log(value)
+export default function JobListPendingItem({job, refresh}){
+    const {requestorsUID} = job
+    const navigate = useNavigate()
+
+    // gets triggered when the user clicks the Accept/Reject Button
+    const decision = async ({decision, requestorUID}) => {
+        if(decision == 'Accept'){
+            
+        }   
+        else{
+            // deleting the requestorUID from the requestorsUID array of the job
+            await respondToAcceptReject(job.jobUID, requestorUID, decision)
+
+            refresh()
+        }     
     }
 
     return (
@@ -31,8 +45,7 @@ export default function JobListPendingItem({job}){
                 requestorsUID.map((requestorUID) => (
                     <JobPendingAccept
                         requestorUID = {requestorUID}
-                        accept={summa}
-                        reject={console.log('rejected')}
+                        decision={decision}
                         key={requestorUID}
                     />
                 ))

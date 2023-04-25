@@ -10,6 +10,10 @@ import './my-jobs.css'
 export default function MyJobsPage(){
     const loaderData = useLoaderData()
 
+    const refresh = () => {
+        window.location.reload(true)
+    }
+
     return (
         <div className="view">
             <WhatsappTabs
@@ -23,7 +27,7 @@ export default function MyJobsPage(){
                 fourthLink=''
             />
 
-            <Outlet context={{loaderData}} />
+            <Outlet context={{loaderData, refresh: refresh}} />
         </div>
     )
 }
