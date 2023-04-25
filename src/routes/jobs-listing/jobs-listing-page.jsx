@@ -8,6 +8,8 @@ import FilterBar from "../../Components/filter-bar/FilterBar";
 // firebase
 import { auth } from "../../firebase/firebase.config"
 
+import "./job-listing.css";
+
 export default function JobsListingPage(){
     const loaderData = useLoaderData()
     const [jobsPostedByOtherUsers, setJobsPostedByOtherUsers] = useState([])
@@ -67,13 +69,15 @@ export default function JobsListingPage(){
             <div className="filter-bar">
                 <h4>Filter</h4>
                 <div className="filters">
-                    <div className="category-filter">
+                    <div className="filter">
                         <select 
                             defaultValue="" 
                             name="category" 
                             id="category" 
                             value={selectedCategory} 
-                            onChange={(e)=>setSelectedCategory(e.target.value)}>
+                            onChange={(e)=>setSelectedCategory(e.target.value)}
+                            className="filter-selection"
+                        >
                                 <option value="" disabled selected hidden>category</option>
                                 <option value="">All</option>
                                 <option value={VARIOUS_CATEGORIES[0]}>{VARIOUS_CATEGORIES[0]}</option>
@@ -82,6 +86,7 @@ export default function JobsListingPage(){
                                 <option value={VARIOUS_CATEGORIES[3]}>{VARIOUS_CATEGORIES[3]}</option>
                                 <option value={VARIOUS_CATEGORIES[4]}>{VARIOUS_CATEGORIES[4]}</option>
                         </select>
+                        
                     </div>
                 </div>
             </div>
