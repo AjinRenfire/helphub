@@ -2,7 +2,8 @@ import { useEffect, useState } from "react"
 import { useNavigate, useLoaderData } from "react-router-dom"
 
 // components
-import JobsListItem from "../../components/jobs-list-item/jobs-list-item"
+import JobsListItem from "../../components/jobs-list-item/jobs-list-item";
+import FilterBar from "../../Components/filter-bar/FilterBar";
 
 // firebase
 import { auth } from "../../firebase/firebase.config"
@@ -11,6 +12,20 @@ export default function JobsListingPage(){
     const loaderData = useLoaderData()
     const [jobsPostedByOtherUsers, setJobsPostedByOtherUsers] = useState([])
     const navigate = useNavigate()
+
+    //variables or functions related to filtering 
+    const VARIOUS_CATEGORIES = [
+        'Shopping',
+        'Medical',
+        'Event Organising',
+        'Education',
+        'Others'
+    ]
+
+    const [selectedCategory,setSelectedCategory] = useState("");
+    console.log(selectedCategory);
+
+
 
     useEffect(() => {
         let dummy = []
@@ -47,17 +62,50 @@ export default function JobsListingPage(){
 
     return (
         <div className="view">
+
+            {/* Filter bar component start*/}
+            <div className="filter-bar">
+                <h4>Filter</h4>
+                <div className="filters">
+                    <div className="category-filter">
+                        <select 
+                            defaultValue="" 
+                            name="category" 
+                            id="category" 
+                            value={selectedCategory} 
+                            onChange={(e)=>setSelectedCategory(e.target.value)}>
+                                <option value="" disabled selected hidden>category</option>
+                                <option value="">All</option>
+                                <option value={VARIOUS_CATEGORIES[0]}>{VARIOUS_CATEGORIES[0]}</option>
+                                <option value={VARIOUS_CATEGORIES[1]}>{VARIOUS_CATEGORIES[1]}</option>
+                                <option value={VARIOUS_CATEGORIES[2]}>{VARIOUS_CATEGORIES[2]}</option>
+                                <option value={VARIOUS_CATEGORIES[3]}>{VARIOUS_CATEGORIES[3]}</option>
+                                <option value={VARIOUS_CATEGORIES[4]}>{VARIOUS_CATEGORIES[4]}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            {/* Filter bar component end */}
+
+
+
             {
-                jobsPostedByOtherUsers.map((job) => {
-                    return (
-                        <JobsListItem 
-                            job={job} 
-                            key={job.UID} 
-                            click={() => handler(job)}
-                        />
-                    )
+
+                jobsPostedByOtherUsers.filter(job =>{
+                    return ((job.category===selectedCategory)|| (selectedCategory===""));
+                }).map((job) => {
+
+                        return (
+                            <JobsListItem 
+                                job={job} 
+                                key={job.UID} 
+                                click={() => handler(job)}
+                            />
+                        )
                 })
             }
+               
+            
         </div>
     )
 }
