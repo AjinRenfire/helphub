@@ -28,10 +28,10 @@
     cursor: pointer;
 }
 
-.job-primary-left div:hover{
+/* .job-primary-left div:hover{
     background-color: var(--primary-color);
     color: white;
-}
+} */
 
 .job-secondary{
     width: 70%;

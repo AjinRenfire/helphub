@@ -6,6 +6,8 @@
     border-radius: 10px;
     box-sizing: border-box;
     cursor: pointer;
+    box-shadow: 0 0 4px var(--box-shadow);
+    border: 2px solid #F7F5FD;
 }
 
 .job-list-item .job-list-general{
@@ -13,7 +15,8 @@
 }
 
 .job-list-item:hover{
-    background: var(--box-shadow);
+    /* background: var(--box-shadow); */
+    border: 2px solid var(--primary-color);
 }
 
 .job-list-item h3{
