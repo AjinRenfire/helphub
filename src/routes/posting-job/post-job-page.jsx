@@ -67,7 +67,7 @@ export default function PostJobPage() {
         const time = `T${hrs}:${mins}`;
 
 
-        console.log(date.toString()+time.toString());
+        // console.log(date.toString()+time.toString());
         
         return date.toString()+time.toString();
     }
@@ -84,7 +84,7 @@ export default function PostJobPage() {
         }
 
         const date = dateAndTime.substring(0,dateAndTime.indexOf("T"));
-        console.log(`${date}T${hrs}:${minutes}`)
+        // console.log(`${date}T${hrs}:${minutes}`)
         return `${date}T${hrs}:${minutes}`
     }
 
