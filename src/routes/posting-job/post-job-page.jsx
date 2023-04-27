@@ -54,14 +54,21 @@ export default function PostJobPage() {
     }
 
     // function to determine the min date for the deadline
-    function minDate(){
+    function minDateAndTime(){
         const dateObj = new Date();
         const month = dateObj.getMonth() < 10? "0"+(dateObj.getMonth()+1).toString():(dateObj.getMonth()+1);
         const d = dateObj.getDate() < 10? "0"+(dateObj.getDate()).toString():(dateObj.getDate());
-        
+
         const date = `${dateObj.getFullYear()}-${month.toString()}-${dateObj.getDate()}`
+
+        const hrs = dateObj.getHours();
+        const mins = dateObj.getMinutes();
+
+        const time = `T${hrs}:${mins}`;
+
+        console.log(date.toString()+time.toString());
         
-        return date.toString();
+        return date.toString()+time.toString();
     }
 
     return (
@@ -138,11 +145,11 @@ export default function PostJobPage() {
                     label='Deadline'
                     inputOptions={{
                         className: 'modified',
-                        type: 'date',
+                        type: 'datetime-local',
                         name: 'job-deadline',
                         required: true,
                     }}
-                    min={minDate().toString()}
+                    min={minDateAndTime().toString()}
                 />
 
                 {/* Job cost */}
