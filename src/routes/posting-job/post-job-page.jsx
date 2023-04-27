@@ -66,9 +66,26 @@ export default function PostJobPage() {
 
         const time = `T${hrs}:${mins}`;
 
+
         console.log(date.toString()+time.toString());
         
         return date.toString()+time.toString();
+    }
+
+    function setDateWithAddTenMins() {
+        const dateAndTime = minDateAndTime();
+        const timeStr = dateAndTime.substring(dateAndTime.indexOf("T")+1);
+        let minutes =  parseInt(timeStr.substring(timeStr.indexOf(":")+1));
+        minutes+=10;
+        let hrs = parseInt(timeStr.substring(0,timeStr.indexOf(":")));
+        if(minutes > 59 ){
+            ++hrs;
+            minutes = minutes%60;
+        }
+
+        const date = dateAndTime.substring(0,dateAndTime.indexOf("T"));
+        console.log(`${date}T${hrs}:${minutes}`)
+        return `${date}T${hrs}:${minutes}`
     }
 
     return (
@@ -148,6 +165,7 @@ export default function PostJobPage() {
                         type: 'datetime-local',
                         name: 'job-deadline',
                         required: true,
+                        value:setDateWithAddTenMins(),
                     }}
                     min={minDateAndTime().toString()}
                 />
