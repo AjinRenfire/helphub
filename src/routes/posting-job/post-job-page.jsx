@@ -55,7 +55,13 @@ export default function PostJobPage() {
 
     // function to determine the min date for the deadline
     function minDate(){
-        return "2023-04-14"
+        const dateObj = new Date();
+        const month = dateObj.getMonth() < 10? "0"+(dateObj.getMonth()+1).toString():(dateObj.getMonth()+1);
+        const d = dateObj.getDate() < 10? "0"+(dateObj.getDate()).toString():(dateObj.getDate());
+        
+        const date = `${dateObj.getFullYear()}-${month.toString()}-${dateObj.getDate()}`
+        
+        return date.toString();
     }
 
     return (
@@ -136,7 +142,7 @@ export default function PostJobPage() {
                         name: 'job-deadline',
                         required: true,
                     }}
-                    min={minDate()}
+                    min={minDate().toString()}
                 />
 
                 {/* Job cost */}

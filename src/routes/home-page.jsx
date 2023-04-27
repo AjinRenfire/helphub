@@ -13,7 +13,7 @@ export default function HomePage(){
                 <p className="main-text">“Your Guide To Community Support”</p>
                 <button className="main-signup">Join Us</button>
             </div>
-            <h1>fasfdas</h1>
+            <h1 className='text-3xl font-bold underline'>fasfdas</h1>
         </>
     )
 }
