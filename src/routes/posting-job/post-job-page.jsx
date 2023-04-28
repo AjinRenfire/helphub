@@ -64,7 +64,7 @@ export default function PostJobPage() {
         const hrs = dateObj.getHours();
         const mins = dateObj.getMinutes();
 
-        const time = `T${hrs}:${mins}`;
+        const time = `T00:00`;
 
 
         // console.log(date.toString()+time.toString());
@@ -165,7 +165,7 @@ export default function PostJobPage() {
                         type: 'datetime-local',
                         name: 'job-deadline',
                         required: true,
-                        value:setDateWithAddTenMins(),
+                        
                     }}
                     min={minDateAndTime().toString()}
                 />

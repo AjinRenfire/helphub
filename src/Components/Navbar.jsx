@@ -21,27 +21,28 @@ export default function Navbar(){
 
     return (
         <>
-            <header>
-                <nav className="nav-bar">
-                    <h2><Link to={'/'} className="nav-title">HelpHub</Link></h2>
-                    <div className="nav-elements">
-                        <ul className="nav-list">
-                            <li>Store</li>
-                            <li>About Us</li>
-                            <li>Support</li>
+            <header className="bg-white top-0 w-full fixed ">
+                <nav className="mx-auto flex max-w-7xl items-center justify-between p-4 lg:px-8 ">
+                    <Link to={'/'}><h2 className="text-violet-600 font-extrabold text-2xl">HelpHub</h2></Link>
+                    
+                        <ul className=" inline-flex items-center space-x-12">
+                            <li className="text-sm font-semibold leading-6 text-gray-900">How</li>
+                            <li className="text-sm font-semibold leading-6 text-gray-900">Contact Us</li>
+                            <li className="text-sm font-semibold leading-6 text-gray-900">Support</li>
+                            
                         </ul>
                         {
                             // if current user is not null, showing log out button
                             // else, showing login button
                             currentUser ? (
-                                <button onClick={logoutHandler} className="login">Logout</button>
+                                <button onClick={logoutHandler} className="rounded-full bg-violet-600 text-white px-4 py-2">Logout</button>
                             ) : (
                                 <Link to={'/login'}>
-                                    <button className="login">Log In</button>
+                                    <button className="rounded-full bg-violet-600 text-white px-4 py-2">Log In</button>
                                 </Link>
                             )
                         }
-                    </div>
+                   
                 </nav>
             </header>
 
