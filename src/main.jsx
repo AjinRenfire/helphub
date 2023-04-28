@@ -29,9 +29,6 @@ import MyJobsNoRequestsYetPage from './routes/my-jobs-no-requests/my-jobs-no-req
 // contexts
 import UserContextProvider from './contexts/user.context';
 
-// firebase
-import { allJobsPostedByTheUser } from './firebase/firebase.job';
-
 // css
 import './index.css'
 
@@ -72,23 +69,21 @@ const router = createBrowserRouter(
         <Route 
           path='/app/my-jobs'
           element={<MyJobsPage/>}
-          loader={await allJobsPostedByTheUser}
         >
           {/* Active Jobs */}
-          <Route path='/app/my-jobs/active' element={<MyActiveJobs/>} />
+        <Route path='/app/my-jobs/active' element={<MyActiveJobs/>} />
 
-          {/* Pending requests for my job */}
-          <Route path='/app/my-jobs/pending-requests' element={<MyJobsPendingRequestsPage />} />
-        
-          {/* No requests for my job */}
-          <Route path='/app/my-jobs/no-requests' element={<MyJobsNoRequestsYetPage />} />
+        {/* Pending requests for my job */}
+        <Route path ='/app/my-jobs/pending-requests' element={<MyJobsPendingRequestsPage />} />
+
+        {/* No requests for my job */}
+        <Route path='/app/my-jobs/no-requests' element={<MyJobsNoRequestsYetPage />} />
         </Route>
 
         {/* Jobs listing Page */}
         <Route 
           path='/app/jobs-listing'
           element={<JobsListingPage/>} 
-          loader={await allJobsPostedByTheUser}
         />
 
         {

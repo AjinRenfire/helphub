@@ -1,5 +1,5 @@
-import { useLoaderData, Outlet, Await } from "react-router-dom"
-import { Suspense } from "react"
+import { Outlet } from "react-router-dom"
+import { useContext, useEffect, useState } from "react"
 
 // components
 import WhatsappTabs from "../../components/tab-component/tab-component"
@@ -7,12 +7,27 @@ import WhatsappTabs from "../../components/tab-component/tab-component"
 // css
 import './my-jobs.css'
 
-export default function MyJobsPage(){
-    const loaderData = useLoaderData()
+// firebase
+import { database } from "../../firebase/firebase.config"
+import { onSnapshot, query, collection, where, QuerySnapshot } from "firebase/firestore"
 
-    const refresh = () => {
-        window.location.reload(true)
-    }
+// constants
+import { FIREBASE_COLLECTION_JOB_LISTINGS } from "../../utils/constants"
+
+export default function MyJobsPage(){
+    const [data, setData] = useState([])
+    
+    useEffect(() => {
+        const currentUserUID = localStorage.getItem("userUID")
+
+        // listening to data changes in Job Listings Collection
+        onSnapshot(collection(database, FIREBASE_COLLECTION_JOB_LISTINGS), (snapshot) => {
+            let dummy = []
+            snapshot.docs.forEach((doc) => doc.data().creatorUID === currentUserUID && dummy.push(doc.data()))
+
+            setData(dummy)
+        })
+    }, [])
 
     return (
         <div className="view">
@@ -27,7 +42,7 @@ export default function MyJobsPage(){
                 fourthLink=''
             />
 
-            <Outlet context={{loaderData, refresh: refresh}} />
+            <Outlet context={{data}} />
         </div>
     )
 }

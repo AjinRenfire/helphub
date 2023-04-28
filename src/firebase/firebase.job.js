@@ -1,12 +1,11 @@
 import { auth, database } from './firebase.config'
-import { doc, getDoc, setDoc, getDocs, collection, updateDoc } from 'firebase/firestore'
+import { doc, getDoc, setDoc, getDocs, collection, updateDoc, onSnapshot, query, where } from 'firebase/firestore'
 
 // uuid
 import { v4 as uuidv4 } from 'uuid';
 
 // constants
 import { FIREBASE_COLLECTION_JOB_LISTINGS } from '../utils/constants'
-
 import { JOB_PUBLIC_STATUS } from '../routes/posting-job/post-job-page';
 
 /**
@@ -35,27 +34,6 @@ export const createJobDocument = async (job) => {
     return await setDoc(currentJobReference, job)
 }
 
-/**
- * 
- * Function to read all the jobs posted by the current user
- * 
- */
-export const allJobsPostedByTheUser = async () => {
-    if(! auth) return
-
-    console.log("ALL JOBS POSTED BY THE")
-
-    // userId of the user
-    // fucked by the auth.currentUser = null, though auth is not null    
-    
-    // job listings collection reference
-    const jobListingsCollection = collection(database, FIREBASE_COLLECTION_JOB_LISTINGS)
-
-    // retrieving all the document snapshots from the job listings collection
-    const allJobsSnapshots = await getDocs(jobListingsCollection)
-
-    return allJobsSnapshots
-}
 
 /**
  * 

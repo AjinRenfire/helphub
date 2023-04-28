@@ -1,5 +1,5 @@
 import { auth } from "./firebase.config";
-import { signInWithEmailAndPassword, signOut  } from 'firebase/auth'
+import { onAuthStateChanged, signInWithEmailAndPassword, signOut  } from 'firebase/auth'
 
 /**
  * 
@@ -21,4 +21,10 @@ export const loginUser = async (email, password) => {
 export const signoutUser = async() => {
     // also setting the cuser context to null while signing out
     return await signOut(auth)
+}
+
+export const onAuthStateChangedListener = (callback) => {
+    if(! callback) return 
+
+    onAuthStateChanged(auth, callback)
 }

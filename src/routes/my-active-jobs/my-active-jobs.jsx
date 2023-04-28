@@ -21,24 +21,13 @@ import { auth } from "../../firebase/firebase.config"
  */
 export default function MyActiveJobs(){
     const [activeJobs, setActiveJobs] = useState([])
-    const { loaderData } = useOutletContext()
+    const { data } = useOutletContext()
 
     useEffect(() => {
-        let dummy = []
-        let currentUserID = auth.currentUser.uid
-        
-        // loaderData contains the snapshots all job documents
-        // 1. going through each document snapshot and getting the data
-        // 2. checking if the current user ID is the creator UID
-        //      if both are same, pushing the job to the array
-        loaderData.forEach((snapshot) => {
-            let data = snapshot.data()
+        setActiveJobs(data)
+    }, [data])
 
-            if(data.creatorUID === currentUserID) dummy.push(data)
-        });
-
-        setActiveJobs(dummy)
-    }, [loaderData])
+    console.log("Active jobs ....", data)
 
     return (
         <>
@@ -46,13 +35,12 @@ export default function MyActiveJobs(){
                 activeJobs.length > 0 ? (
                     activeJobs.map((job) => (
                         <JobsListItem 
-                            job={job} 
+                            job={job}
                             key={job.jobUID}
-                                    
                         />
                     ))
                 ) : (
-                    <h1>U have no active jobs</h1>
+                    <h1>Fuck</h1>
                 )
             }
         </>

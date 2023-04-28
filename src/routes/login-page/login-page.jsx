@@ -9,9 +9,6 @@ import AlertBox from '../../components/alert-component/alert-box'
 // css
 import './login-page.css'
 
-// contexts
-import { UserContext } from '../../contexts/user.context'
-
 // firebase
 import { loginUser } from '../../firebase/firebase.login'
 import { auth } from '../../firebase/firebase.config'
@@ -25,12 +22,20 @@ import {
     PASSWORD_IS_INCORRECT,
     FIREBASE_NETWORK_FAILED,
     NETWORK_RESPONSE,
+    SUCCESSFULLY_LOGGED_IN,
 } from '../../utils/constants'
 
 export default function LoginPage(){ 
     const actionData = useActionData()
     const navigate = useNavigate()
     const navigation = useNavigation()  
+
+    useEffect(() => {
+        actionData && actionData.status === 1000 && actionData.msg === SUCCESSFULLY_LOGGED_IN && (
+            localStorage.setItem("userUID", actionData.user.uid),
+            navigate('/app')            
+        )        
+    }, [actionData])
 
     return (
         <>
@@ -112,9 +117,9 @@ export const LoginAction = async ({request}) => {
 
     // trying to sign in the user
     try{
-        await loginUser(email, password)
+        const {user} = await loginUser(email, password)
         
-        return redirect('/app')
+        return {msg: SUCCESSFULLY_LOGGED_IN, status: 1000, user: user}
     }
     catch(error){
         const msg = error.code

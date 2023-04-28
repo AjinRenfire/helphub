@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 
+// component
 import DetailComponent from "../../Components/detail-component/DetailComponent";
 
+// css
 import './dashboard.css'
 
 export default function DashboardPage(){
-
     const fakeValues = {
         Name:"Ramu",
         Hobbies:"Reading,More reading",

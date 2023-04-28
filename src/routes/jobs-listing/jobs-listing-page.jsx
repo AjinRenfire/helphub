@@ -1,17 +1,22 @@
 import { useEffect, useState } from "react"
-import { useNavigate, useLoaderData } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 // components
 import JobsListItem from "../../components/jobs-list-item/jobs-list-item";
 import FilterBar from "../../Components/filter-bar/FilterBar";
 
 // firebase
-import { auth } from "../../firebase/firebase.config"
+import { onSnapshot, collection } from "firebase/firestore";
+import { database } from "../../firebase/firebase.config";
 
+// css
 import "./job-listing.css";
 
+// constants
+import { FIREBASE_COLLECTION_JOB_LISTINGS } from "../../utils/constants";
+import { JOB_PUBLIC_STATUS } from "../posting-job/post-job-page";
+
 export default function JobsListingPage(){
-    const loaderData = useLoaderData()
     const [jobsPostedByOtherUsers, setJobsPostedByOtherUsers] = useState([])
     const navigate = useNavigate()
 
@@ -25,35 +30,31 @@ export default function JobsListingPage(){
     ]
 
     const [selectedCategory,setSelectedCategory] = useState("");
-    console.log(selectedCategory);
-
-
 
     useEffect(() => {
         let dummy = []
-        const currentUserUID = auth.currentUser.uid
+        const currentUserUID = localStorage.getItem("userUID")
 
-        // loaderData contains the snapshots all job documents
-        // 1. going through each document snapshot and getting the data
-        // 2. checking for some conditions
-        //    2.1 -> if currentUserUID is not the creatorUID of the job
-        //    2.2 -> status of the job is not ACCEPTED yet
-        //    2.3 -> currentUser has not requested for the job yet
-        //    2.4 -> deadline of the job is not over
-        // 3. pushing the job to the dummy array, only if the conditions are met
-        loaderData.forEach((snapshot) => {
-            let data = snapshot.data()
-
-            if((! (data.creatorUID === currentUserUID)) && 
-                (! (data.status === 'ACCEPTED')) && 
-                    (! (data.requestorsUID.indexOf(currentUserUID) > -1))) {
-                        console.log(data.deadline)
+        function check (data){
+            // Checking for some conditions
+            //  -> if currentUserUID is not the creatorUID of the job
+            //  -> status of the job is not ACCEPTED yet
+            //  -> currentUser has not requested for the job yet
+            //  -> deadline of the job is not over
+            if(! (data.creatorUID === currentUserUID)){
+                if(! (data.status === JOB_PUBLIC_STATUS.YOU_ACCEPTED_THE_JOB)){
+                    if(! (data.requestorsUID.indexOf(currentUserUID) > -1)){
                         dummy.push(data)
+                    }
+                }
             }
-        });
+        }
 
-        setJobsPostedByOtherUsers(dummy)
-    }, [loaderData])
+        onSnapshot(collection(database, FIREBASE_COLLECTION_JOB_LISTINGS), (snapshot) => {
+            snapshot.docs.forEach((doc) => check(doc.data()))
+            setJobsPostedByOtherUsers(dummy)
+        })
+    }, [])
 
     // function to handle the click of the job list item
     const handler = (job) => {
@@ -109,7 +110,6 @@ export default function JobsListingPage(){
                         )
                 })
             }
-               
             
         </div>
     )

@@ -17,26 +17,12 @@ import { JOB_PUBLIC_STATUS } from "../posting-job/post-job-page"
  * 
  */
 export default function MyJobsNoRequestsYetPage(){
-    const {loaderData} = useOutletContext()
+    const {data} = useOutletContext()
     const [noRequests, setNoRequests] = useState([])
 
     useEffect(() => {
-        let dummy = []
-        const currentUserUID = auth.currentUser.uid
-
-        // loaderData contains the snapshots for all the documents
-        // getting the data from all the snapshots
-        // filtering out the jobs, for which I posted and no requests have been made
-        loaderData.forEach((snapshot) => {
-            let data = snapshot.data()
-
-            if((currentUserUID === data.creatorUID) && (data.status === JOB_PUBLIC_STATUS.NO_REQUESTS_YET)){
-                dummy.push(data)
-            }
-        });
-
-        setNoRequests(dummy)
-    }, [loaderData])
+        setNoRequests(data)
+    }, [data])
 
     return (
         <>
@@ -50,7 +36,7 @@ export default function MyJobsNoRequestsYetPage(){
                         />
                     ))
                 ) : (
-                    <h1>U have no active jobs</h1>
+                    <h1>U have no requests</h1>
                 )
             }
         </>
