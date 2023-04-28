@@ -19,10 +19,14 @@ export default function HomePage(){
             </div>
 
             {/* about section */}
-            <div className=''>
-                <h1>How it all works?</h1>
+            <div className=' m-10 space-x-8'>
+                <h1 className=' text-6xl font-bold text-violet-600 text-center my-10'>How it all works?</h1>
+                <div className="flex justify-center items-center space-x-9" >
                 <img src={`${About}`} alt="img of team work" className=' w-80 h-60'/>
-                <p>Our platform helps people to come together and help eachother out for some small amount of value.We encourage service to others for not much in return .So Let's grow together</p>
+                <p className=' w-1/3'>Our platform helps people to come together and help eachother out for some small 
+                    amount of value.We encourage service to others for not much in return .So Let's grow together</p>
+                </div>
+                
             </div>
             
             
