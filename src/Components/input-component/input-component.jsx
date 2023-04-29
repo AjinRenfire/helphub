@@ -1,5 +1,5 @@
 // css
-import './input-style.css'
+
 
 export default function FormInput({label, inputOptions, min}){
     return (

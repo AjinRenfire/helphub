@@ -1,5 +1,4 @@
 // css
-import './button-style.css'
 
 export default function Button({buttonOptions, disabled}){
     return (        

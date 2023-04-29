@@ -1,6 +1,7 @@
 // components
 import Navbar from '../Components/Navbar'
 
+import { Link } from 'react-router-dom';
 // css
 // import '../App.css'
 
@@ -18,7 +19,7 @@ export default function HomePage(){
                 
                 <h1 className="bg-gradient-to-br from-purple-600 via-violet-600 to-red-400 text-transparent bg-clip-text text-7xl font-black">HelpHub</h1>
                 <p className="main-text">“Your Guide To Community Support”</p>
-                <button className="rounded-full bg-violet-600 text-white px-4 py-2">Join Us</button>
+                <button className="rounded-full bg-violet-600 text-white px-4 py-2"><Link to={"/signup"}>Join Us</Link></button>
             </div>
 
             {/* about section */}

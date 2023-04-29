@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 
 // component
 import DetailComponent from "../../Components/detail-component/DetailComponent";
@@ -14,11 +14,12 @@ export default function DashboardPage(){
         Location:"Chennai",
         Phone:"+91 78430 23785"
     }
-
+    const [isEditing , setIsEditing] = useState(false);
+    console.log(isEditing);
     return ( 
         <div className="view">
-            <div className="options">          
-                <span>edit</span>   
+            <div className="">          
+                <button onClick={()=>setIsEditing(!isEditing)}>edit</button>   
             </div>
             <section>
                 <div className="card details">
@@ -38,6 +39,7 @@ export default function DashboardPage(){
                     </p>
                 </div>
             </section>
+           
         </div> 
     );
 }

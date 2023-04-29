@@ -2,9 +2,9 @@ import { Form, Link, useNavigate, useNavigation, useActionData, redirect } from 
 import {React, useEffect, useContext } from 'react'
 
 // components
-import FormInput from '../../components/input-component/input-component'
-import Button from '../../components/button-component/button-component'
-import AlertBox from '../../components/alert-component/alert-box'
+import FormInput from '../../Components/input-component/input-component'
+import Button from '../../Components/button-component/button-component'
+import AlertBox from '../../Components/alert-component/alert-box'
 
 // css
 import './login-page.css'
