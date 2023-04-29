@@ -1,10 +1,14 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 // component
 import DetailComponent from "../../Components/detail-component/DetailComponent";
 
 // css
 import './dashboard.css'
+
+
+
+import {getUserDocument}  from "../../firebase/firebase.user.js";
 
 export default function DashboardPage(){
     const fakeValues = {
@@ -15,7 +19,20 @@ export default function DashboardPage(){
         Phone:"+91 78430 23785"
     }
     const [isEditing , setIsEditing] = useState(false);
+
+    
+    useEffect(()=>{
+        let value = {}
+        async function gett(){
+            const ref = await getUserDocument(localStorage.getItem("userUID"));
+            value = ref.data();
+        }
+        gett();
+        console.log(value);
+    },[])
+
     console.log(isEditing);
+   
     return ( 
         <div className="view">
             <div className="">          

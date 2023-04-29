@@ -24,3 +24,16 @@ export const ACCOUNT_CREATED_PLEASE_LOGIN = 'Account created! Please login'
 export const SUCCESSFULLY_LOGGED_IN = 'Successfully logged in!'
 
 export const PLEASE_WAIT = 'Please wait...'
+
+
+export function HasDeadlineOver(deadlineDate) {
+    const dateObj1 = new Date(deadlineDate);
+    const dateObj2 = new Date();
+
+    if(dateObj1.getTime() < dateObj2.getTime()){
+        return true;
+    }
+
+    return false;
+    
+}

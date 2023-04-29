@@ -42,7 +42,7 @@ export default function JobActivitiesPendingPage(){
             {
                 pendingRequests.length > 0 ? (
                     pendingRequests.map((job) => {
-                        <JobsListItem
+                        return <JobsListItem
                             key={job.jobUID}
                             job={job}
                         />
