@@ -6,6 +6,8 @@ import JobsListItem from "../../components/jobs-list-item/jobs-list-item"
 
 // firebase
 import { auth } from "../../firebase/firebase.config"
+import { JOB_PUBLIC_STATUS } from "../posting-job/post-job-page"
+import { JOB_PRIVATE_STATUS } from "../posting-job/post-job-page"
 
 /**
  * 
@@ -24,7 +26,25 @@ export default function MyActiveJobs(){
     const { data } = useOutletContext()
 
     useEffect(() => {
-        setActiveJobs(data)
+        // check for some conditions
+        // 1. creatorUID is equal to currentUserUID
+        // 2. status of the job is ACCEPTED
+        // 3. private status is WORK_STILL_IN_PROGRESS
+        let dummy = []
+        const currentUserUID = localStorage.getItem("userUID")
+
+        function check(d){
+            if(d.creatorUID === currentUserUID){
+                if(d.status === JOB_PUBLIC_STATUS.YOU_ACCEPTED_THE_JOB){
+                    if(d.privateJobStatus === JOB_PRIVATE_STATUS.WORK_STILL_IN_PROGRESS){
+                        dummy.push(d)
+                    }
+                }
+            }
+        }
+
+        data.map((d) => check(d))
+        setActiveJobs(dummy)
     }, [data])
 
     console.log("Active jobs ....", data)
@@ -40,7 +60,7 @@ export default function MyActiveJobs(){
                         />
                     ))
                 ) : (
-                    <h1>Fuck</h1>
+                    <h1>None of the jobs you posted, are active at the moment</h1>
                 )
             }
         </>

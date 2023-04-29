@@ -25,7 +25,25 @@ export default function MyJobsPendingRequestsPage (){
     const [pendingRequests, setPendingRequests] = useState([])
 
     useEffect(() => {
-        setPendingRequests(data)
+        // checking for some conditions
+        // 1. creatorUID is equal to currentUserUID
+        // 2. status of the job is REQUESTS_ARRIVED
+        // 3. requestorsUID should not be empty
+        let dummy = []
+        const currentUserUID = localStorage.getItem("userUID")
+
+        function check(d){
+            if(d.creatorUID === currentUserUID){
+                if(d.status === JOB_PUBLIC_STATUS.REQUESTS_ARRIVED){
+                    if(d.requestorsUID.length > 0){
+                        dummy.push(d)
+                    }
+                }
+            }
+        }
+
+        data.map((d) => check(d))
+        setPendingRequests(dummy)
     }, [data])
 
     return (
@@ -42,7 +60,7 @@ export default function MyJobsPendingRequestsPage (){
                         )
                     )
                 ) : (
-                    <h1>U have no pending jobs</h1>
+                    <h1>U have no pending Requests</h1>
                 )
             }
         </>

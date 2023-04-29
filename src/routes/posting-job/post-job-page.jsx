@@ -38,9 +38,14 @@ var VARIOUS_CATEGORIES = [
 
 export const JOB_PUBLIC_STATUS = {
     NO_REQUESTS_YET : 'No requests yet',
-    REQUESTS_ARRIVED: 'Requests arrived',
-    YOU_ACCEPTED_THE_JOB: 'Accepted',
-    JOB_COMPLETED: 'Job successfully completed!'
+    REQUESTS_ARRIVED : 'Requests arrived',
+    YOU_ACCEPTED_THE_JOB : 'Accepted',
+    JOB_COMPLETED : 'Job successfully completed!'
+}
+
+export const JOB_PRIVATE_STATUS = {
+    WORK_STILL_IN_PROGRESS : 'Work Still In Progress',
+    WORK_COMPLETED : 'Work Completed',
 }
 
 export default function PostJobPage() {

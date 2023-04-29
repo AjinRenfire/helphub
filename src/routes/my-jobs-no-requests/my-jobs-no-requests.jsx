@@ -21,7 +21,22 @@ export default function MyJobsNoRequestsYetPage(){
     const [noRequests, setNoRequests] = useState([])
 
     useEffect(() => {
-        setNoRequests(data)
+        // checking for some conditions
+        // 1. creatorUID is equal to currentUserUID
+        // 2. status of the job is NO_REQUESTS_YET
+        let dummy = []
+        const currentUserUID = localStorage.getItem("userUID")
+
+        function check(d){
+            if(d.creatorUID === currentUserUID){
+                if(d.status === JOB_PUBLIC_STATUS.NO_REQUESTS_YET){
+                    dummy.push(d)
+                }
+            }
+        }
+
+        data.map((d) => check(d))
+        setNoRequests(dummy)
     }, [data])
 
     return (
