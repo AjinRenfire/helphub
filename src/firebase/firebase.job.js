@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 // constants
 import { FIREBASE_COLLECTION_JOB_LISTINGS } from '../utils/constants'
-import { JOB_PUBLIC_STATUS } from '../routes/posting-job/post-job-page';
+import { JOB_PRIVATE_STATUS, JOB_PUBLIC_STATUS } from '../routes/posting-job/post-job-page';
 
 /**
  * 
@@ -89,8 +89,8 @@ export const requestToDoTheJob = async (job) => {
  * 
  * 
  */
-export const respondToAcceptReject = async (jobUID, requestorUID, descision) => {
-    if((! auth) || (! jobUID) || (! requestorUID) || (! descision)) return
+export const respondToAcceptReject = async (jobUID, requestorUID, decision) => {
+    if((! auth) || (! jobUID) || (! requestorUID) || (! decision)) return
 
     // getting the current user ID
     const currentUserUID = auth.currentUser.uid
@@ -105,8 +105,20 @@ export const respondToAcceptReject = async (jobUID, requestorUID, descision) => 
         // only the creator of the job has the right to accept/deny a request
         // so, a extra safety measure!
 
-        if(descision == "Accept"){
+        if(decision == "Accept"){
             // if the creator accepts the request of a requestor
+
+            // doing three things in job object
+            // 1. changing the status of the job to Accepted
+            // 2. changing the private status of the job to Work Still In Progress
+            // 3. changing the helperUID of the job to requesterUID
+            let data = {
+                status: JOB_PUBLIC_STATUS.YOU_ACCEPTED_THE_JOB,
+                privateJobStatus: JOB_PRIVATE_STATUS.WORK_STILL_IN_PROGRESS,
+                helperUID: requestorUID
+            }
+
+            return await updateDoc(currentJobReference, data)
         }
         else{
             // creator rejects the request

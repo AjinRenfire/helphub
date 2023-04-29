@@ -27,7 +27,7 @@ export default function SideNav(){
                                 return isActive ? "active-item":"non-active-item"
                             }
                         }>Jobs listing</NavLink>
-                        <NavLink to={'/app/jobactivities'} className={
+                        <NavLink to={'/app/job-activities/active'} className={
                             ({isActive})=>{
                                 return isActive ? "active-item":"non-active-item"
                             }
@@ -37,11 +37,6 @@ export default function SideNav(){
                                 return isActive ? "active-item":"non-active-item"
                             }
                         }>Shop</NavLink>
-
-                        {/* <li><h4>Job Activities</h4></li>
-                        <li><h4>Shop</h4></li>
-                        <li><h4>signOut</h4></li> */}
-                        
                     </ul>
                     <div className="user-profile">
                         <h3>USERNAME</h3>

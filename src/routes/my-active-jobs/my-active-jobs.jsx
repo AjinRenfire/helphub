@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useOutletContext } from "react-router-dom"
+import { useOutletContext, useNavigate } from "react-router-dom"
 
 // components
 import JobsListItem from "../../components/jobs-list-item/jobs-list-item"
@@ -24,19 +24,20 @@ import { JOB_PRIVATE_STATUS } from "../posting-job/post-job-page"
 export default function MyActiveJobs(){
     const [activeJobs, setActiveJobs] = useState([])
     const { data } = useOutletContext()
+    const navigate = useNavigate()
 
     useEffect(() => {
         // check for some conditions
-        // 1. creatorUID is equal to currentUserUID
+        // 1. creatorUID is equal to currentUserUID (already checked)
         // 2. status of the job is ACCEPTED
         // 3. private status is WORK_STILL_IN_PROGRESS
+        // 4. helperUID is not null
         let dummy = []
-        const currentUserUID = localStorage.getItem("userUID")
 
         function check(d){
-            if(d.creatorUID === currentUserUID){
-                if(d.status === JOB_PUBLIC_STATUS.YOU_ACCEPTED_THE_JOB){
-                    if(d.privateJobStatus === JOB_PRIVATE_STATUS.WORK_STILL_IN_PROGRESS){
+            if(d.status === JOB_PUBLIC_STATUS.YOU_ACCEPTED_THE_JOB){
+                if(d.privateJobStatus === JOB_PRIVATE_STATUS.WORK_STILL_IN_PROGRESS){
+                    if(d.helperUID != null){
                         dummy.push(d)
                     }
                 }
@@ -47,7 +48,11 @@ export default function MyActiveJobs(){
         setActiveJobs(dummy)
     }, [data])
 
-    console.log("Active jobs ....", data)
+    // function is triggered when the user click on a job
+    // navigating the user to the job details page
+    const handler = (job) => {
+        navigate('/app/job-details', {state: {job, from: '/app/my-jobs/active'}})
+    }
 
     return (
         <>
@@ -57,6 +62,7 @@ export default function MyActiveJobs(){
                         <JobsListItem 
                             job={job}
                             key={job.jobUID}
+                            click={() => handler(job)}
                         />
                     ))
                 ) : (

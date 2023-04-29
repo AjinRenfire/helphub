@@ -60,7 +60,7 @@ export default function JobsListingPage(){
     const handler = (job) => {
         console.log(job.title)
 
-        navigate('/app/job-details', {state: {job, link: '/app/job-details'}})
+        navigate('/app/job-details', {state: {job, from: '/app/job-listing'}})
     }
 
     return (
@@ -93,14 +93,10 @@ export default function JobsListingPage(){
             </div>
             {/* Filter bar component end */}
 
-
-
             {
-
                 jobsPostedByOtherUsers.filter(job =>{
                     return ((job.category===selectedCategory)|| (selectedCategory===""));
                 }).map((job) => {
-
                         return (
                             <JobsListItem 
                                 job={job} 
@@ -110,7 +106,6 @@ export default function JobsListingPage(){
                         )
                 })
             }
-            
         </div>
     )
 }

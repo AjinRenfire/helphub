@@ -15,16 +15,23 @@ import SideNav from './Components/side-nav-component/SideNav';
 import HomePage from './routes/home-page'
 import LoginPage, { LoginAction } from './routes/login-page/login-page'
 import SignupPage, { SignUpAction } from './routes/signup-page/signup-page'
+
 import DashboardPage from './routes/dashboard/DashboardPage';
 import PostJobPage, { PostJobAction } from './routes/posting-job/post-job-page';
-import MyJobsPage from './routes/my-jobs-page/my-jobs';
-import MyActiveJobs from './routes/my-active-jobs/my-active-jobs';
 import JobsListingPage from './routes/jobs-listing/jobs-listing-page';
 import JobsDetailsPage from './routes/job-details-page/job-details-page';
-import JobActivitesPage from './routes/jobactivities/JobActivitesPage';
 import ShopPage from './routes/shop/ShopPage';
+import ChatPage from './routes/chat-page/chat-page';
+
+import MyJobsPage from './routes/my-jobs-page/my-jobs';
+import MyActiveJobs from './routes/my-active-jobs/my-active-jobs';
 import MyJobsPendingRequestsPage from './routes/my-jobs-pending-requests/my-jobs-pending-requests';
 import MyJobsNoRequestsYetPage from './routes/my-jobs-no-requests/my-jobs-no-requests';
+
+import JobActivitesPage from './routes/job-activities/JobActivitesPage';
+import JobActivitiesActivePage from './routes/job-activities-active/job-activities-active';
+import JobActivitiesPendingPage from './routes/job-activities-pending/job-activities-pending';
+import JobActivitiesHistoryPage from './routes/job-activities-history/job-activities-history';
 
 // contexts
 import UserContextProvider from './contexts/user.context';
@@ -71,13 +78,13 @@ const router = createBrowserRouter(
           element={<MyJobsPage/>}
         >
           {/* Active Jobs */}
-        <Route path='/app/my-jobs/active' element={<MyActiveJobs/>} />
+          <Route path='/app/my-jobs/active' element={<MyActiveJobs/>} />
 
-        {/* Pending requests for my job */}
-        <Route path ='/app/my-jobs/pending-requests' element={<MyJobsPendingRequestsPage />} />
+          {/* Pending requests for my job */}
+          <Route path ='/app/my-jobs/pending-requests' element={<MyJobsPendingRequestsPage />} />
 
-        {/* No requests for my job */}
-        <Route path='/app/my-jobs/no-requests' element={<MyJobsNoRequestsYetPage />} />
+          {/* No requests for my job */}
+          <Route path='/app/my-jobs/no-requests' element={<MyJobsNoRequestsYetPage />} />
         </Route>
 
         {/* Jobs listing Page */}
@@ -85,6 +92,21 @@ const router = createBrowserRouter(
           path='/app/jobs-listing'
           element={<JobsListingPage/>} 
         />
+
+        {/** Job Activities Page */}
+        <Route
+          path='/app/job-activities' 
+          element={<JobActivitesPage/>} 
+        >
+          {/** Active Jobs */}
+          <Route path='/app/job-activities/active' element={<JobActivitiesActivePage/>} />
+
+          {/** Pending Jobs */}
+          <Route path='/app/job-activities/pending' element={<JobActivitiesPendingPage/>} />
+
+          {/** My activities history */}
+          <Route path='/app/job-activities/history' element={<JobActivitiesHistoryPage/>} />
+        </Route>
 
         {
         /* Jobs Details page - Multipurpose page*/
@@ -94,8 +116,11 @@ const router = createBrowserRouter(
           path='/app/job-details'
           element={<JobsDetailsPage />}
         />
+
         <Route path='shop' element={<ShopPage/>}/>
-        <Route path='jobactivities' element={<JobActivitesPage/>} />
+
+        {/** Chat Page */}
+        <Route path='/app/chat' element={<ChatPage/>} />
       </Route>
     </Route>   
   )

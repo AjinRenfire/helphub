@@ -26,18 +26,15 @@ export default function MyJobsPendingRequestsPage (){
 
     useEffect(() => {
         // checking for some conditions
-        // 1. creatorUID is equal to currentUserUID
+        // 1. creatorUID is equal to currentUserUID (already checked)
         // 2. status of the job is REQUESTS_ARRIVED
         // 3. requestorsUID should not be empty
         let dummy = []
-        const currentUserUID = localStorage.getItem("userUID")
 
         function check(d){
-            if(d.creatorUID === currentUserUID){
-                if(d.status === JOB_PUBLIC_STATUS.REQUESTS_ARRIVED){
-                    if(d.requestorsUID.length > 0){
-                        dummy.push(d)
-                    }
+            if(d.status === JOB_PUBLIC_STATUS.REQUESTS_ARRIVED){
+                if(d.requestorsUID.length > 0){
+                    dummy.push(d)
                 }
             }
         }

@@ -217,5 +217,5 @@ export const PostJobAction = async ({request}) => {
 
     await createJobDocument(job)
 
-    return redirect('/app/my-jobs/active')
+    return redirect('/app/my-jobs/no-requests')
 }

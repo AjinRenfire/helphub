@@ -1,4 +1,4 @@
-import {  redirect, useLocation } from "react-router-dom"
+import {  redirect, useLocation, useNavigate } from "react-router-dom"
 
 // components
 import BackButton from "../../components/back-button-component/back-button"
@@ -12,12 +12,12 @@ import { requestToDoTheJob } from "../../firebase/firebase.job"
 
 export default function JobsDetailsPage(){
     const location = useLocation()
-    const {job} = location.state
+    const {job, from} = location.state
+    const navigate = useNavigate()
 
     // function to navigate to the previous page
     const back = () => {
-        console.log('clicked')
-        return redirect(location.state.link)
+        navigate(-1)
     }
 
     // function is called when the request to do the job button is clicked
@@ -25,14 +25,17 @@ export default function JobsDetailsPage(){
         try{
             const response = await requestToDoTheJob(job)
             if(! response){
-                console.log('successfully updated...')
-
-                return redirect('/app/job-listing')
+                navigate('/app/job-activities/pending')
             }
         }
         catch(error) {
             console.log(error)
         }
+    }
+
+    // function is called when the user clicks the Chat button
+    function chat(){
+        navigate('/app/chat')
     }
     
     return (
@@ -59,14 +62,33 @@ export default function JobsDetailsPage(){
                     <h3>Deadline</h3>
                     <p>{job.deadline}</p>
                 </div>
+                
 
-                <Button
-                    buttonOptions={{
-                        className: 'login-button',
-                        value: 'Request to do the job...',
-                        onClick: request
-                    }}
-                />
+                {/** Should render if only opened from Job Listings Page */}
+                {
+                    from === '/app/job-listing' && (
+                        <Button
+                            buttonOptions={{
+                                className: 'login-button',
+                                value: 'Request to do the job...',
+                                onClick: request
+                            }}
+                        />
+                    )
+                }
+
+
+                {/** Should render if only opened from My Jobs/Active Jobs Page */}
+                {/** Here, the one who opens this page is the creator of the job */}
+                {
+                    from === '/app/my-jobs/active' && (
+                        <div style={{diplay: 'flex'}}>
+                            <button style={{marginRight: '10px'}}>Submit work</button>
+                            <button onClick={() => chat()} style={{marginRight: '10px'}}>Chat</button>
+                            <button>Report</button>
+                        </div>
+                    ) 
+                }
             </div>
         </div>
     )

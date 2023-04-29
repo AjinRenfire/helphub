@@ -9,21 +9,13 @@ import './job-list-pending-item.css'
 // firebase
 import { respondToAcceptReject } from '../../firebase/firebase.job'
 
-export default function JobListPendingItem({job, refresh}){
+export default function JobListPendingItem({job}){
     const {requestorsUID} = job
     const navigate = useNavigate()
 
     // gets triggered when the user clicks the Accept/Reject Button
     const decision = async ({decision, requestorUID}) => {
-        if(decision == 'Accept'){
-            
-        }   
-        else{
-            // deleting the requestorUID from the requestorsUID array of the job
-            await respondToAcceptReject(job.jobUID, requestorUID, decision)
-
-            refresh()
-        }     
+        await respondToAcceptReject(job.jobUID, requestorUID, decision)
     }
 
     return (
