@@ -19,19 +19,19 @@ export default function DashboardPage(){
         Phone:"+91 78430 23785"
     }
     const [isEditing , setIsEditing] = useState(false);
-
+    const [userData,setUserData] = useState({});
     
     useEffect(()=>{
-        let value = {}
+        
         async function gett(){
-            const ref = await getUserDocument(localStorage.getItem("userUID"));
-            value = ref.data();
+            let userDocSnapshot = await getUserDocument(localStorage.getItem("userUID"))
+            setUserData(userDocSnapshot.data())
         }
         gett();
-        console.log(value);
+        
     },[])
 
-    console.log(isEditing);
+    console.log(userData);
    
     return ( 
         <div className="view">

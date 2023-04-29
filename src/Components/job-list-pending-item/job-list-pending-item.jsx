@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 
 // components
-import JobPendingAccept from '../job-pending-accept/job-pending-accept'
+import JobPendingAccept from "src/Components/job-pending-accept/job-pending-accept.jsx";
 
 // css
 import './job-list-pending-item.css'
