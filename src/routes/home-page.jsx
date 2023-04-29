@@ -33,17 +33,17 @@ export default function HomePage(){
             </div>
             {/* about cards section */}
             <div className='flex justify-center items-center space-x-20'>
-                <div className="w-60 h-96 shadow-md py-4 rounded-md">
-                    <img src={HelpWanted} alt="" className=' w-60 h-60'/>
-                    <p className=' px-6'>You can ask for any kind of help to anyone and you can manage all of your jobs in our platform</p>
+                <div className="w-72 h-96 shadow-md py-4 rounded-md">
+                    <img src={HelpWanted} alt="" className=' w-60 h-60 block mx-auto'/>
+                    <p className=' px-6 text-center'>You can ask for any kind of help to anyone and you can manage all of your jobs in our platform</p>
                 </div>
-                <div className="w-60 h-96 shadow-md py-4 rounded-md">
-                    <img src={Helping} alt="" className=' w-60 h-60'/>
-                    <p className=' px-6'>You can also help anyone from anywhere and you can manage your jobs in our platform</p>
+                <div className="w-72 h-96 shadow-md py-4 rounded-md">
+                    <img src={Helping} alt="" className=' w-60 h-60 block mx-auto'/>
+                    <p className=' px-6 text-center'>You can also help anyone from anywhere and you can manage your jobs in our platform</p>
                 </div>
-                <div className="w-60 h-96 shadow-md  py-4 rounded-md">
-                    <img src={HandMoney} alt="" className=' w-60 h-60'/>
-                    <p className=' px-6'>You can give our in-app currency as a reward for the job.Your can trade the in-app currency to fiat currency at any time.</p>
+                <div className="w-72 h-96 shadow-md  py-4 rounded-md">
+                    <img src={HandMoney} alt="" className=' w-60 h-60 block mx-auto'/>
+                    <p className=' px-6 text-center'>You can give our in-app currency as a reward for the job.Your can trade the in-app currency to fiat currency at any time.</p>
                 </div>
             </div>
             {/* contact us section */}
