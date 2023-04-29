@@ -26,9 +26,9 @@ export default function Navbar(){
                     <Link to={'/'}><h2 className="text-violet-600 font-extrabold text-2xl">HelpHub</h2></Link>
                     
                         <ul className=" inline-flex items-center space-x-12">
-                            <li className="text-sm font-semibold leading-6 text-gray-900">How</li>
-                            <li className="text-sm font-semibold leading-6 text-gray-900">Contact Us</li>
-                            <li className="text-sm font-semibold leading-6 text-gray-900">Support</li>
+                            <li className="text-sm font-semibold leading-6 text-gray-900"> <a href="#how" className="hover:text-violet-700">How</a> </li>
+                            <li className="text-sm font-semibold leading-6 text-gray-900"> <a href="#contact" className="hover:text-violet-700">Contact Us</a> </li>
+                            <li className="text-sm font-semibold leading-6 text-gray-900"> <a href="#support" className="hover:text-violet-700">Support</a> </li>
                             
                         </ul>
                         {
