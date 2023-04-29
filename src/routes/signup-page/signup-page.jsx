@@ -41,10 +41,14 @@ export default function SignupPage(){
 
     return (
         <>
-            <div className='login-page-container'>
-                <h2 className="app-themed-heading">Sign up</h2>
-
-                <Form method='POST' action={'/signup'}>
+            <div className='flex flex-col justify-center items-center h-screen space-y-20'>
+                <div className=' space-y-6 text-center'>
+                    <h2 className=" text-4xl text-violet-600 font-extrabold">Sign up</h2>
+                    <p className=' text-sm text-gray-400'>Welcome to Helphub</p>
+                </div>
+                
+                
+                <Form method='POST' action={'/signup'} className=' space-y-6' >
                     {/* Email input */}
                     <FormInput 
                         label='Email'
@@ -86,7 +90,7 @@ export default function SignupPage(){
                         (
                             <Button
                                 buttonOptions={{
-                                    className:'login-button',
+                                    className:'bg-slate-200 px-6 rounded-full w-auto text-slate-600 py-2 mt-6',
                                     type:'button',
                                     value:'Please wait...',
                                     disabled: "disabled",
@@ -95,17 +99,17 @@ export default function SignupPage(){
                         ) : (
                             <Button
                                 buttonOptions={{
-                                    className:'login-button',
+                                    className:' bg-violet-500 px-6 rounded-full w-auto text-white py-2 hover:bg-violet-900 mt-6',
                                     type:'submit',
-                                    value:'Create Account',
+                                    value:'Sign up',
                                 }}
                             />
                         )
                     }
                 </Form>
 
-                <div className="input-container">
-                    <span>Already have an account? <Link to={'/login'}>Login</Link></span>
+                <div className="">
+                    <span className=' text-grey-700'>Already have an account? <Link to={'/login'} className=' text-violet-700 hover:underline hover:font-bold'>Login</Link></span>
                 </div>
             </div>
 

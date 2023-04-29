@@ -3,14 +3,14 @@ import './input-style.css'
 
 export default function FormInput({label, inputOptions, min}){
     return (
-        <div className="input-container"
-            style={{margin: inputOptions.className ? '15px 0' : '15px auto'}}    
+        <div className=" appearance-none space-y-1"
+                
         >
-            {label && <><span>{label}</span> <br/></> }
+            {label && <><span className=' text-gray-700 text-sm'>{label}</span> <br/></> }
             <input 
                 {...inputOptions}
                 min={min ? min : null}
-                style={min && {width: 'fit-content', textIndent: '0px'}}
+                className=' appearance-none border-b-2 focus:border-violet-600 focus:outline-none h-8'
             /> <br/>
         </div>
     )
