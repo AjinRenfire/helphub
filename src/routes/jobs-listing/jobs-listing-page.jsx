@@ -68,7 +68,7 @@ export default function JobsListingPage(){
     }
 
     return (
-        <div className="view">
+        <div className="mt-20 w-2/3 block mx-auto lg:ml-96">
 
             {/* Filter bar component start*/}
             <div className="filter-bar">

@@ -2,7 +2,7 @@ import { React, useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 
 // components
-import WhatsappTabs from "../../components/tab-component/tab-component"
+import WhatsappTabs from "../../Components/tab-component/tab-component"
 
 // css
 import "./jobactivities.css"
@@ -39,7 +39,7 @@ export default function JobActivitesPage(){
     console.log("Job Activities : ", data)
 
     return (
-        <div className="view">
+        <div className="w-2/3 block mx-auto lg:ml-96">
             <WhatsappTabs
                 firstText='Active Job'
                 firstLink='/app/job-activities/active'

@@ -37,7 +37,7 @@ export default function MyJobsPage(){
     }, [])
 
     return (
-        <div className="view">
+        <main className="w-2/3 block mx-auto lg:ml-96 ">
             <WhatsappTabs
                 firstText='Active Job'
                 firstLink='/app/my-jobs/active'
@@ -50,6 +50,6 @@ export default function MyJobsPage(){
             />
 
             <Outlet context={{data}} />
-        </div>
+        </main>
     )
 }

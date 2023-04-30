@@ -49,7 +49,7 @@ export default function DashboardPage(){
 
 
     return ( 
-        <div className="">
+        <main className="mt-20 w-2/3 block mx-auto lg:ml-96 ">
             <div className="">
                 <button onClick={()=>setIsEditing(!isEditing)}>edit</button>   
             </div>
@@ -88,6 +88,6 @@ export default function DashboardPage(){
                 </div>
             </section>
            
-        </div> 
+        </main> 
     );
 }

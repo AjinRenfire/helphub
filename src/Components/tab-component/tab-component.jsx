@@ -19,7 +19,7 @@ export default function WhatsappTabs(props){
     const {firstText, firstLink, secondText, secondLink, thirdText, thirdLink, fourthText, fourthLink} = props
     
     return (
-        <div className='relative mt-20 flex justify-evenly items-center mb-10'>
+        <div className='mt-20 flex justify-evenly items-center mb-10 sticky top-16 bg-white '>
             
             <NavLink className={({isActive})=>{
                 return isActive? " border-b-2 text-violet-600 text-lg border-black" : "text-lg text-gray-700"
