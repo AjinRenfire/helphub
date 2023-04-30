@@ -46,7 +46,7 @@ export default function MyJobsPage(){
                 thirdText='No requests yet'
                 thirdLink='/app/my-jobs/no-requests'
                 fourthText='Job History'
-                fourthLink=''
+                fourthLink='/app/my-jobs/history'
             />
 
             <Outlet context={{data}} />

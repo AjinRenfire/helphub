@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link ,NavLink} from 'react-router-dom'
 import React from 'react';
 
 // css
@@ -19,14 +19,22 @@ export default function WhatsappTabs(props){
     const {firstText, firstLink, secondText, secondLink, thirdText, thirdLink, fourthText, fourthLink} = props
     
     return (
-        <div className='relative mt-20 flex '>
+        <div className='relative mt-20 flex justify-evenly items-center mb-10'>
             
-            <Link className='' to={firstLink}>{firstText}</Link>
-            <Link className='' to={secondLink}>{secondText}</Link>
-            <Link className='' to={thirdLink}>{thirdText}</Link>
+            <NavLink className={({isActive})=>{
+                return isActive? " border-b-2 text-violet-600 text-lg border-black" : "text-lg text-gray-700"
+            }} to={firstLink}>{firstText}</NavLink>
+            <NavLink className={({isActive})=>{
+                return isActive? "border-b-2 text-violet-600 text-lg border-black" : "text-lg text-gray-700"
+            }} to={secondLink}>{secondText}</NavLink>
+            <NavLink className={({isActive})=>{
+                return isActive? "border-b-2 text-violet-600 text-lg border-black" : "text-lg text-gray-700"
+            }} to={thirdLink}>{thirdText}</NavLink>
             { fourthText && (
-                <Link className='' to={fourthLink}>{fourthText}</Link>
-            )}
+                <NavLink className={({isActive})=>{
+                    return isActive? "border-b-2 text-violet-600 text-lg border-black" : "text-lg text-gray-700"
+                }} to={fourthLink}>{fourthText}</NavLink>
+            )} 
         </div>
     )
 }
