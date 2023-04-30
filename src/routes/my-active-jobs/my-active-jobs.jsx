@@ -70,6 +70,7 @@ export default function MyActiveJobs(){
                     <h1>None of the jobs you posted, are active at the moment</h1>
                 )
             }
+            
         </>
     )
 }

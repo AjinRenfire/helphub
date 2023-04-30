@@ -19,12 +19,13 @@ export default function WhatsappTabs(props){
     const {firstText, firstLink, secondText, secondLink, thirdText, thirdLink, fourthText, fourthLink} = props
     
     return (
-        <div className='tab-container'>
-            <Link className='tab-links' to={firstLink}>{firstText}</Link>
-            <Link className='tab-links' to={secondLink}>{secondText}</Link>
-            <Link className='tab-links' to={thirdLink}>{thirdText}</Link>
+        <div className='relative mt-20 flex '>
+            
+            <Link className='' to={firstLink}>{firstText}</Link>
+            <Link className='' to={secondLink}>{secondText}</Link>
+            <Link className='' to={thirdLink}>{thirdText}</Link>
             { fourthText && (
-                <Link className='tab-links' to={fourthLink}>{fourthText}</Link>
+                <Link className='' to={fourthLink}>{fourthText}</Link>
             )}
         </div>
     )

@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom"
 import { useContext, useEffect, useState } from "react"
 
 // components
-import WhatsappTabs from "../../components/tab-component/tab-component"
+import WhatsappTabs from "../../Components/tab-component/tab-component"
 
 // css
 import './my-jobs.css'

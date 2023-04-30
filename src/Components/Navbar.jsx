@@ -35,7 +35,7 @@ export default function Navbar(){
                             // if current user is not null, showing log out button
                             // else, showing login button
                             currentUser ? (
-                                <button onClick={logoutHandler} className="rounded-full bg-violet-600 text-white px-4 py-2">Logout</button>
+                                <button onClick={logoutHandler} className="rounded-full bg-violet-600 text-white px-4 py-2 hover:bg-red-600">Logout</button>
                             ) : (
                                 <Link to={'/login'}>
                                     <button className="rounded-full bg-violet-600 text-white px-4 py-2">Log In</button>
