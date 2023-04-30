@@ -48,18 +48,24 @@ export default function JobsDetailsPage(){
         navigate('/app/chat', {state: {chat, openedAs: openedAs}})
     }
 
+    // this useEffect() or rather the function unsubscribe is executed, only when this page is opened from two routes
+    // 1. '/app/my-jobs/active'
+    //     -> If thie page is opened from the above link, then the creator of the job has opened the page
+    // 2. '/app/job-activities/active'
+    //     -> If thie page is opened from the above link, then the helper of the job has opened the page
     useEffect(() => {
         // listening to particular chat document in the Chats Collection
         // only if the the page is opened from '/app/my-jobs/active' or '/app/my-jobs/active'
         const unsubscribe = () => {
-            onSnapshot(doc(database, FIREBASE_COLLECTION_CHAT_ROOM, job.chatRoomUID), (doc) => {
+            const chatDocReference = doc(database, FIREBASE_COLLECTION_CHAT_ROOM, job.chatRoomUID)
+            onSnapshot(chatDocReference, (doc) => {
                 setChat(doc.data())
             })
         }
 
-        console.log("use effect runing")
-
-        if(from === '/app/my-jobs/active' || '/app/job-activities/active') unsubscribe()
+        if((from === '/app/my-jobs/active') || (from === '/app/job-activities/active')) {
+            unsubscribe()
+        }
     }, [job])
     
     return (

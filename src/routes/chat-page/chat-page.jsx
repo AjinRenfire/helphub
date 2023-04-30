@@ -8,8 +8,9 @@ import BackButton from "../../components/back-button-component/back-button"
 import './chat-page.css'
 
 // firebase
-import { onSnapshot, collection } from "firebase/firestore"
+import { onSnapshot, doc } from "firebase/firestore"
 import { database } from "../../firebase/firebase.config"
+import { updateMessage } from "../../firebase/firebase.chat"
 
 // constants
 import { FIREBASE_COLLECTION_CHAT_ROOM } from "../../utils/constants"
@@ -37,26 +38,33 @@ export default function ChatPage(){
 
     // function to send messages
     // also, update the same in the firestore
-    const sendMessage = async(event, message, senderUID) => {
+    const sendMessage = async(event, inputMessage, senderUID) => {
         event.preventDefault()
 
         // resetting the form input
         setMessage('')
         
         // adding the new message in the messages array of the chat document
-        console.log(message)
+        console.log(inputMessage)
 
         let message = {
-            msg: message,
+            msg: inputMessage,
             senderUID: senderUID
         }
 
         // updating the chat document with the new message
-        
+        await updateMessage(message, chat.chatRoomUID)
     }
 
     useEffect(() => {
-       
+       // listening to the messages in the chat document in the database
+       const unsubscribe = () => {
+            onSnapshot(doc(database, FIREBASE_COLLECTION_CHAT_ROOM, chat.chatRoomUID), (doc) => {
+                setMessages(doc.data().messages)
+            })
+       }
+
+       return unsubscribe()
     }, [chat])
 
     return (
@@ -75,7 +83,17 @@ export default function ChatPage(){
 
             <div className="chat-box">
                 <div className="messages">
+                    {
+                        messages.map((message) => {
+                            if(message.senderUID === localStorage.getItem("userUID")) {
+                                // message is sent
+                                return <h1 style={{color: 'white', fontSize: '30px'}}>{message.msg}</h1>
+                            }
 
+                            // message is received
+                            return <h1 style={{color: 'white', fontSize: '20px'}}>{message.msg}</h1>
+                        })
+                    }
                 </div>
                 
                 <Form 
