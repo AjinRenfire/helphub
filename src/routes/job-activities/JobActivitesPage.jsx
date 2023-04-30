@@ -20,16 +20,20 @@ export default function JobActivitesPage(){
     useEffect(() => {
         const currentUserUID = localStorage.getItem("userUID")
 
-        // listening to data changes in Job Listings Collection
-        onSnapshot(collection(database, FIREBASE_COLLECTION_JOB_LISTINGS), (snapshot) => {
-            let dummy = []
-            snapshot.docs.forEach((doc) => {
-                // adding only the jobs that are not created by the current user
-                doc.data().creatorUID != currentUserUID && dummy.push(doc.data())
-            })
+        const unsubscribe = () => {
+            // listening to data changes in Job Listings Collection
+            onSnapshot(collection(database, FIREBASE_COLLECTION_JOB_LISTINGS), (snapshot) => {
+                let dummy = []
+                snapshot.docs.forEach((doc) => {
+                    // adding only the jobs that are not created by the current user
+                    doc.data().creatorUID != currentUserUID && dummy.push(doc.data())
+                })
 
-            setData(dummy)
-        })
+                setData(dummy)
+            })
+        }
+
+        return unsubscribe
     }, [])
 
     console.log("Job Activities : ", data)

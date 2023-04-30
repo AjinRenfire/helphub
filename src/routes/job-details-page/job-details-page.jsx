@@ -83,7 +83,6 @@ export default function JobsDetailsPage(){
                 {
                     from === '/app/my-jobs/active' && (
                         <div style={{diplay: 'flex'}}>
-                            <button style={{marginRight: '10px'}}>Submit work</button>
                             <button onClick={() => chat()} style={{marginRight: '10px'}}>Chat</button>
                             <button>Report</button>
                         </div>

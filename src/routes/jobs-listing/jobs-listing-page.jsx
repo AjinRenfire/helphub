@@ -50,11 +50,15 @@ export default function JobsListingPage(){
             }
         }
 
-        onSnapshot(collection(database, FIREBASE_COLLECTION_JOB_LISTINGS), (snapshot) => {
-            snapshot.docs.forEach((doc) => check(doc.data()))
-            setJobsPostedByOtherUsers(dummy)
-        })
-    }, [])
+        const unsubscribe = () =>{
+            onSnapshot(collection(database, FIREBASE_COLLECTION_JOB_LISTINGS), (snapshot) => {
+                snapshot.docs.forEach((doc) => check(doc.data()))
+                setJobsPostedByOtherUsers(dummy)
+            })
+        } 
+
+        return unsubscribe()
+    }, [database])
 
     // function to handle the click of the job list item
     const handler = (job) => {

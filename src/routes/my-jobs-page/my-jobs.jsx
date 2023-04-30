@@ -21,15 +21,19 @@ export default function MyJobsPage(){
         const currentUserUID = localStorage.getItem("userUID")
 
         // listening to data changes in Job Listings Collection
-        onSnapshot(collection(database, FIREBASE_COLLECTION_JOB_LISTINGS), (snapshot) => {
-            let dummy = []
-            snapshot.docs.forEach((doc) => {
-                // adding only the jobs that are created by the current user to the dummy array
-                doc.data().creatorUID === currentUserUID && dummy.push(doc.data())
+        const unsubscribe = () => {
+            onSnapshot(collection(database, FIREBASE_COLLECTION_JOB_LISTINGS), (snapshot) => {
+                let dummy = []
+                snapshot.docs.forEach((doc) => {
+                    // adding only the jobs that are created by the current user to the dummy array
+                    doc.data().creatorUID === currentUserUID && dummy.push(doc.data())
+                })
+    
+                setData(dummy)
             })
+        }
 
-            setData(dummy)
-        })
+        return () => (unsubscribe())
     }, [])
 
     return (

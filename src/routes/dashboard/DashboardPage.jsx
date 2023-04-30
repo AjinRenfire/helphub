@@ -6,9 +6,8 @@ import DetailComponent from "../../Components/detail-component/DetailComponent";
 // css
 import './dashboard.css'
 
-
-
-import {getUserDocument}  from "../../firebase/firebase.user.js";
+// firebase
+import { getUserDocument }  from "../../firebase/firebase.user.js";
 
 export default function DashboardPage(){
     const fakeValues = {
@@ -22,20 +21,19 @@ export default function DashboardPage(){
     const [userData,setUserData] = useState({});
     
     useEffect(()=>{
-        
         async function gett(){
             let userDocSnapshot = await getUserDocument(localStorage.getItem("userUID"))
             setUserData(userDocSnapshot.data())
         }
-        gett();
         
+        gett();
     },[])
 
     console.log(userData);
    
     return ( 
         <div className="view">
-            <div className="">          
+            <div className="">
                 <button onClick={()=>setIsEditing(!isEditing)}>edit</button>   
             </div>
             <section>

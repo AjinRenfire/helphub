@@ -56,6 +56,7 @@ export default function MyActiveJobs(){
 
     return (
         <>
+            {activeJobs.length > 0 && <h1>The helpers are working on the job you have posted</h1>}
             {
                 activeJobs.length > 0 ? (
                     activeJobs.map((job) => (

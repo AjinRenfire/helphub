@@ -25,6 +25,7 @@ import '../login-page/login-page.css'
 import { createUserAccount, createUserDocument } from '../../firebase/firebase.signup'
 
 export const DEFAULT_USER = {
+    username: '',
     email: '',
     createdAt: '',
     UID: '',
@@ -49,6 +50,19 @@ export default function SignupPage(){
                 
                 
                 <Form method='POST' action={'/signup'} className=' space-y-6' >
+                    {/* Username input */}
+                    <FormInput 
+                        label='Username'
+                        inputOptions={{
+                            type:'name',
+                            name: 'username',
+                            placeholder:'Enter your Username',
+                            required:true,
+                            minLength: 6,
+                            maxLength: 12,
+                        }}
+                    />
+
                     {/* Email input */}
                     <FormInput 
                         label='Email'
@@ -131,6 +145,7 @@ export const SignUpAction = async ({request}) => {
     const formData = await request.formData()
 
     // getting the input data from formData
+    let username = formData.get('username')
     let email = formData.get('email')
     let password = formData.get('password')
     let confirmPassword= formData.get('confirmPassword')
@@ -145,9 +160,11 @@ export const SignUpAction = async ({request}) => {
         const { user } = await createUserAccount(email, password)
 
         // creating the user document for the new user
-        await createUserDocument(user)
+        await createUserDocument(user, username)
         
-        return redirect('/app')
+        // if you want the user to directly go to the dashboard after signing in
+        // -> don't forget to add the userUID in the localStorage
+        return redirect('/login')
     }
     catch(error){
         if(error.code === FIREBASE_EMAIL_ALREADY_EXISTS){

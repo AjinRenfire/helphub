@@ -53,6 +53,8 @@ export default function PostJobPage() {
     const navigate = useNavigate()
     const navigation = useNavigation()
 
+    console.log("current user id : ", localStorage.getItem("userUID"))
+
     // function to update the category, on radio button clicks
     const ClickHandler = (event) => {
         setCategory(event.target.value)

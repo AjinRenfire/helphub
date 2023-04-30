@@ -27,22 +27,22 @@ export const createUserAccount = async(email, password) => {
  * 
  * 
  */
-export const createUserDocument = async (user) => {
+export const createUserDocument = async (user, username) => {
   if(! user) return
 
   // getting the reference for the document 
   const userDocumentReference = doc(database, FIREBASE_COLLECTION_USERS, user.uid)
   
   // checking if the particular referenced document has any data?
-  const userDocumentSnapshot = (await getDoc(userDocumentReference)).exists()
+  const userDocumentSnapshot = await getDoc(userDocumentReference)
 
-  if(! userDocumentSnapshot){
+  if(! userDocumentSnapshot.exists()){
     // no data in the document
     // rather, no document at all!
     const {email, uid} = user
     const createdAt = new Date()
 
-    let newUser = {...DEFAULT_USER, email: email, createdAt: createdAt, UID: uid}
+    let newUser = {...DEFAULT_USER, email: email, createdAt: createdAt, UID: uid, username: username}
 
     try{
       await setDoc(userDocumentReference, newUser)
