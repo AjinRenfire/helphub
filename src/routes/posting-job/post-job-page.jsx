@@ -25,7 +25,8 @@ var DEFAULT_JOB = {
     requestorsUID: [],
     status: '',
     privateJobStatus: '',
-    helperUID: ''
+    helperUID: '',
+    chatRoomUID: ''
 }
 
 var VARIOUS_CATEGORIES = [

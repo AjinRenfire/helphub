@@ -33,7 +33,7 @@ export default function JobPendingAccept({requestorUID, decision}){
             requestor.email ? (
                 <div className="list-pending-item">
                     <div className="pending-name">
-                        <p className='margin-p'>{requestor.email}</p>
+                        <p className='margin-p'>{requestor.username}</p>
                         <p className='margin-p'>4</p>
                     </div>
                     <div className="pending-accept">

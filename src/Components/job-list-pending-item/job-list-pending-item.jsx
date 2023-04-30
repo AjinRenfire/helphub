@@ -15,7 +15,9 @@ export default function JobListPendingItem({job}){
 
     // gets triggered when the user clicks the Accept/Reject Button
     const decision = async ({decision, requestorUID}) => {
-        await respondToAcceptReject(job.jobUID, requestorUID, decision)
+        const res = await respondToAcceptReject(job.jobUID, requestorUID, decision)
+
+        console.log(res)
     }
 
     return (

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { useOutletContext } from "react-router-dom"
+import { useOutletContext, useNavigate } from "react-router-dom"
 
 // components
 import JobsListItem from "../../components/jobs-list-item/jobs-list-item"
@@ -17,6 +17,7 @@ import { JOB_PUBLIC_STATUS } from "../posting-job/post-job-page"
 export default function JobActivitiesActivePage(){
     const [activeJobs, setActiveJobs] = useState([])
     const {data} = useOutletContext()
+    const navigate = useNavigate()
 
     useEffect(() => {
         let dummy = []
@@ -38,6 +39,11 @@ export default function JobActivitiesActivePage(){
         setActiveJobs(dummy)
     }, [data])
 
+    // function is called when the job is clicked
+    function handle(job){
+        navigate('/app/job-details', {state: {job, from: '/app/job-activities/active'}})
+    }
+
     return (
         <>
             {activeJobs.length > 0 && <h1>You are working on these jobs currently!</h1>}
@@ -47,6 +53,7 @@ export default function JobActivitiesActivePage(){
                         <JobsListItem 
                             key={job.jobUID}
                             job={job}
+                            click={() => handle(job)}
                         />
                     ))
                 ) : (

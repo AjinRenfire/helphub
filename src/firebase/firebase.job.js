@@ -5,8 +5,11 @@ import { doc, getDoc, setDoc, getDocs, collection, updateDoc, onSnapshot, query,
 import { v4 as uuidv4 } from 'uuid';
 
 // constants
-import { FIREBASE_COLLECTION_JOB_LISTINGS } from '../utils/constants'
+import { FIREBASE_COLLECTION_CHAT_ROOM, FIREBASE_COLLECTION_JOB_LISTINGS, SUCCESSFULLY_LOGGED_IN } from '../utils/constants'
 import { JOB_PRIVATE_STATUS, JOB_PUBLIC_STATUS } from '../routes/posting-job/post-job-page';
+
+// firebase
+import { getUserDocument } from './firebase.user';
 
 /**
  * 
@@ -32,6 +35,35 @@ export const createJobDocument = async (job) => {
     
     // creating the document for the job at the current reference
     return await setDoc(currentJobReference, job)
+}
+
+/**
+ * 
+ * 
+ * Function to create a new Chat document
+ * 
+ * 
+ * 
+ */
+async function createNewChatDocument(chatRoomUID, jobUID, creatorUID, creatorUserName, helperUID, helperUserName) {
+    if((! auth) || (! creatorUID) || (! helperUID) || (! jobUID) || (! chatRoomUID)) return
+
+    // currentUserUID is the creatorUID 
+    // already checked
+    let chat = {
+        chatRoomUID: chatRoomUID,
+        jobUID: jobUID,
+        creatorUID: creatorUID,
+        creatorUserName: creatorUserName,
+        helperUID: helperUID,
+        helperUserName: helperUserName,
+        messages: []
+    }
+
+    const currentChatDocReference = doc(database, FIREBASE_COLLECTION_CHAT_ROOM, chatRoomUID)
+
+    // creating a new document for the chat at the current reference
+    return await setDoc(currentChatDocReference, chat)
 }
 
 
@@ -80,6 +112,7 @@ export const requestToDoTheJob = async (job) => {
     return false
 }
 
+
 /**
  * 
  * 
@@ -108,17 +141,42 @@ export const respondToAcceptReject = async (jobUID, requestorUID, decision) => {
         if(decision == "Accept"){
             // if the creator accepts the request of a requestor
 
-            // doing three things in job object
+            // doing four things in job object
             // 1. changing the status of the job to Accepted
             // 2. changing the private status of the job to Work Still In Progress
             // 3. changing the helperUID of the job to requesterUID
+            // 4. also, adding a chatRoomUID to the job
+            let chatRoomUID = uuidv4()
+
             let data = {
                 status: JOB_PUBLIC_STATUS.YOU_ACCEPTED_THE_JOB,
                 privateJobStatus: JOB_PRIVATE_STATUS.WORK_STILL_IN_PROGRESS,
-                helperUID: requestorUID
+                helperUID: requestorUID,
+                chatRoomUID: chatRoomUID
             }
 
-            return await updateDoc(currentJobReference, data)
+            // updating the job document
+            await updateDoc(currentJobReference, data)
+
+            // getting the username of the helper and creator
+            // unwanted, but hey let's get
+            const creatorDocSnapshot = await getUserDocument(currentUserUID)
+            const creatorUserName = creatorDocSnapshot.data().username
+
+            const helperDocSnapshot = await getUserDocument(requestorUID)
+            const helperUserName = helperDocSnapshot.data().username
+
+            // creating new chat document
+            await createNewChatDocument(
+                chatRoomUID, 
+                jobUID, 
+                currentUserUID,
+                creatorUserName,
+                requestorUID,
+                helperUserName,
+            )
+
+            return SUCCESSFULLY_LOGGED_IN
         }
         else{
             // creator rejects the request

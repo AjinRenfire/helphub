@@ -5,6 +5,7 @@ export const PASSWORDS_MIN_LENGTH_TEXT = 'Passwords must be at least 8 character
 // firestore collection names
 export const FIREBASE_COLLECTION_USERS = 'Users'
 export const FIREBASE_COLLECTION_JOB_LISTINGS = 'Job Listings'
+export const FIREBASE_COLLECTION_CHAT_ROOM = 'Chats'
 
 // firebase error codes
 export const FIREBASE_ERROR_CODE_WRONG_PWD = 'auth/wrong-password'
