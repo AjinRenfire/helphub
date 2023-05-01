@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState,useRef } from "react"
 import { useNavigate, Form, useLocation } from "react-router-dom"
 
 // components
 import BackButton from "../../components/back-button-component/back-button"
+
+import {FiArrowLeft , FiSend} from "react-icons/fi"
 
 // css
 import './chat-page.css'
@@ -25,6 +27,9 @@ export default function ChatPage(){
     
     // messages array - fetched from the firestore
     const [messages, setMessages] = useState([])
+
+
+    const scrollDown = useRef();
 
     // function to go back
     function back(){
@@ -54,6 +59,9 @@ export default function ChatPage(){
 
         // updating the chat document with the new message
         await updateMessage(message, chat.chatRoomUID)
+
+
+        scrollDown.current.scrollIntoView({behavior:'smooth'});
     }
 
     useEffect(() => {
@@ -68,58 +76,68 @@ export default function ChatPage(){
     }, [chat])
 
     return (
-        <div className="view">
-            <div className="chat-bar">
-                <BackButton 
-                    back={back}
-                />
+        <main className="mt-20 w-full block lg:ml-96 lg:w-2/3 h-screen">
+            <div className="flex items-center space-x-3 sticky top-16 bg-white">
+                    {/* <BackButton 
+                        back={back}
+                    /> */}
+                    <button onClick={back} > <FiArrowLeft className=" text-3xl"/> </button>
 
-                {
-                    // for creator, helper's user name should be shown
-                    // and vice-versa
-                    openedAs === 'Creator' ? (<h1>{chat.helperUserName}</h1>) : (<h1>{chat.creatorUserName}</h1>)
-                }
-            </div>
-
-            <div className="chat-box">
-                <div className="messages">
                     {
-                        messages.map((message) => {
-                            if(message.senderUID === localStorage.getItem("userUID")) {
-                                // message is sent
-                                return <h1 style={{color: 'white', fontSize: '30px'}}>{message.msg}</h1>
-                            }
-
-                            // message is received
-                            return <h1 style={{color: 'white', fontSize: '20px'}}>{message.msg}</h1>
-                        })
+                        // for creator, helper's user name should be shown
+                        // and vice-versa
+                        openedAs === 'Creator' ? (<h1 className=" text-2xl">{chat.helperUserName}</h1>) : (<h1 className=" text-2xl">{chat.creatorUserName}</h1>)
                     }
-                </div>
-                
-                <Form 
-                    className="chat-input"
-                    onSubmit={(event) => sendMessage(event, message, localStorage.getItem("userUID"))} 
-                >
-                    <div className="fuck">
-                        <input 
-                            name="chat-input" 
-                            className="chat" 
-                            value={message} 
-                            onChange={handleChange} 
-                            type="text" 
-                            placeholder="Enter your message" 
-                            required 
-                        />
-                    </div>
-                    <div className="fuck1">
-                        <input 
-                            className="send" 
-                            value="send" 
-                            type="submit"
-                        />
-                    </div>    
-                </Form> 
             </div>
-        </div>
+            <div className="w-2/3 mx-auto h-full ">
+                <div className="flex flex-col justify-between h-full ">
+                    <div className="w-full flex flex-col justify-center space-y-1">
+                        {
+                            messages.map((message) => {
+                                if(message.senderUID === localStorage.getItem("userUID")) {
+                                    // message is sent
+                                    return <p className=" bg-violet-400 text-black self-end rounded-full max-w-sm whitespace-normal break-normal px-6 py-2">{message.msg}</p>
+                                }
+
+                                // message is received
+                                return <p className=" bg-slate-300 text-black self-start rounded-full max-w-sm whitespace-normal break-normal px-6 py-2">{message.msg}</p>
+                            })
+                        }
+                        <div ref={scrollDown} className="mb-20 h-20"></div>
+                    </div>
+
+
+                    <div className="fixed bottom-0 right-0 left-0 mx-auto w-full ">
+                        <Form 
+                            className=" flex items-center px-4 py-2 space-x-2 justify-center "
+                            onSubmit={(event) => sendMessage(event, message, localStorage.getItem("userUID"))} 
+                        >
+                            <div className="w-2/5 lg:ml-48">
+                                <input 
+                                    name="chat-input" 
+                                    className="w-56 lg:w-full h-10 rounded px-4 bg-violet-200 shadow-lg" 
+                                    value={message} 
+                                    onChange={handleChange} 
+                                    type="text" 
+                                    placeholder="Enter your message" 
+                                    required 
+                                />
+                            </div>
+                            <div className="px-4 bg-white py-2 rounded shadow-lg">
+                                
+                                <button type="submit" value="send" className=""><FiSend className=" text-lg"/></button>
+                                {/* <input 
+                                    className="send" 
+                                    value="send" 
+                                    type="submit"
+                                /> */}
+                            </div>    
+                        </Form> 
+                    </div>
+                    
+                </div>
+            </div>
+            
+        </main>
     )
 }
