@@ -7,7 +7,7 @@ export default function FormInput({label, inputOptions, min}){
             <input 
                 {...inputOptions}
                 min={min ? min : null}
-                className=' appearance-none border-b-2 focus:border-violet-600 focus:outline-none h-8'
+                className=' appearance-none border-b-2 focus:border-violet-600 focus:outline-none h-8 autofill:bg-white'
             /> <br/>
         </div>
     )

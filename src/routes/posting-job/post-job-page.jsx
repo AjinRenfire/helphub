@@ -2,10 +2,10 @@ import { useState, useContext } from 'react'
 import { Form, redirect, useNavigate, useNavigation } from 'react-router-dom'
 
 // components
-import FormInput from '../../components/input-component/input-component'
+import FormInput from '../../Components/input-component/input-component'
 import TextArea from '../../components/text-area-component/TextArea'
 import InputRadio from '../../components/radio-component/radio-component'
-import Button from '../../components/button-component/button-component'
+import Button from '../../Components/button-component/button-component'
 
 // firebase
 import { createJobDocument } from '../../firebase/firebase.job'
@@ -81,16 +81,17 @@ export default function PostJobPage() {
    
 
     return (
-        <div className="view">
-            <h2>Post a job</h2>
-            <span>Fill in the particulars and let our community help you!</span>
+        <div className="mt-20 w-full block lg:ml-96 lg:w-2/3 ">
+            <div className='block mx-auto w-1/2 lg:w-2/3 '>
+            <h2 className=' text-lg mb-10'>Post a job</h2>
+            {/* <span>Fill in the particulars and let our community help you!</span> */}
             
-            <Form method='post' action='/app/post'>
+            <Form method='post' action='/app/post' className='flex flex-col space-y-5'>
                 {/* Title box */}
                 <FormInput
                     label='Title'
                     inputOptions={{
-                        className: 'modified',
+                        className: '',
                         type: 'text',
                         name: 'job-title',
                         placeholder: 'Enter a title',
@@ -104,26 +105,26 @@ export default function PostJobPage() {
                 <TextArea
                     label='Description'
                     inputOptions={{
-                        className: 'modified',
+                        className: ' appearance-none border-b-2 focus:border-violet-600 focus:outline-none ',
                         type: 'text',
                         name: 'job-description',
                         placeholder: 'Enter a description',
                         required: true,
-                        rows: 10,
-                        cols: 100,
+                        rows: 5,
+                        cols: 50,
                         minLength: 10,
                         maxLength: 1000,
 
                     }}
                 />
                 
-                <span>Category</span>
-                <div className="radio-box">
+                <span className=' text-gray-700 text-sm'>Category</span>
+                <div className="flex items-center space-x-3 ">
                     {
                         VARIOUS_CATEGORIES.map((category) => (
                             <InputRadio
                                 label={category}
-                                name='category'
+                                name={category}
                                 handler={ClickHandler}
                                 key={category}
                             />
@@ -137,7 +138,7 @@ export default function PostJobPage() {
                         <FormInput
                             label='Others'
                             inputOptions={{
-                                className: 'modified',
+                                className: '',
                                 type: 'text',
                                 name: 'others-title',
                                 placeholder: 'Custom category',
@@ -149,11 +150,12 @@ export default function PostJobPage() {
                     )
                 }
 
-                {/* Deadline date */}
+                <div className='flex items-center space-x-16 pt-6'>
+                    {/* Deadline date */}
                 <FormInput
                     label='Deadline'
                     inputOptions={{
-                        className: 'modified',
+                        className: '',
                         type: 'datetime-local',
                         name: 'job-deadline',
                         required: true,
@@ -166,18 +168,20 @@ export default function PostJobPage() {
                 <FormInput
                     label='Cost for helping me out'
                     inputOptions={{
-                        className: 'modified',
+                        className: '',
                         type: 'number',
                         name: 'job-cost',
                         required: true,
                     }}
                 />
+                </div>
+                
 
                 {
                     navigation.state === 'submitting' ? (
                         <Button 
                             buttonOptions={{
-                                className:'login-button modified',
+                                className:'bg-slate-200 px-6 rounded-full w-3/4 text-slate-600 py-2 mt-10 mb-10',
                                 type:'button',
                                 value:'Please Wait...',
                             }}
@@ -186,7 +190,7 @@ export default function PostJobPage() {
                     ) : (
                         <Button 
                             buttonOptions={{
-                                className:'login-button modified',
+                                className:' bg-violet-500 px-6 rounded-full w-3/4 text-white py-2 hover:bg-violet-900 mt-10 mb-10',
                                 type:'submit',
                                 value:'Post Job',
                             }}
@@ -194,6 +198,8 @@ export default function PostJobPage() {
                     )
                 }
             </Form>
+            </div>
+            
         </div>
     )
 }
@@ -207,7 +213,10 @@ export const PostJobAction = async ({request}) => {
     const description = formData.get('job-description')
     const category = formData.get('category')
     const othersDescription = formData.get('others-title')
-    const deadline = formData.get('job-deadline')
+    let deadline = formData.get('job-deadline').toString()
+    let date = deadline.substring(0,deadline.indexOf("T"));
+    let time = deadline.substring(deadline.indexOf("T")+1 );
+    deadline = date+" "+time;
     const cost = formData.get('job-cost')
 
     let job = {}

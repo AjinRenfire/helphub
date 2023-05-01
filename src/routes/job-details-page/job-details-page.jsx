@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 
 // components
 import BackButton from "../../components/back-button-component/back-button"
-import Button from "../../components/button-component/button-component"
+import Button from "../../Components/button-component/button-component"
 
 // css
 import './job-details-page.css'

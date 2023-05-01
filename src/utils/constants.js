@@ -28,7 +28,9 @@ export const PLEASE_WAIT = 'Please wait...'
 
 
 export function HasDeadlineOver(deadlineDate) {
-    const dateObj1 = new Date(deadlineDate);
+    let date = deadlineDate.substring(0,deadlineDate.indexOf(" "));
+    let time = deadlineDate.substring(deadlineDate.indexOf(" ")+1);
+    const dateObj1 = new Date(date+"T"+time);
     const dateObj2 = new Date();
 
     if(dateObj1.getTime() < dateObj2.getTime()){
