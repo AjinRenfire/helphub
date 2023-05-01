@@ -44,7 +44,8 @@ export default function MyJobsPendingRequestsPage (){
     }, [data])
 
     return (
-        <>
+        <>  
+        <main className="space-y-1">
             {
                 
                 pendingRequests.length > 0 ? (
@@ -60,6 +61,8 @@ export default function MyJobsPendingRequestsPage (){
                     <h1>U have no pending Requests</h1>
                 )
             }
+        </main>
+            
         </>
     )
 }

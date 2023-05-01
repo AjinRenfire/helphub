@@ -5,20 +5,24 @@ import { JOB_PUBLIC_STATUS } from '../../routes/posting-job/post-job-page'
 
 export default function JobsListItem({job, click}){
     return (
-        <div className=" w-3/4 mx-auto px-6 py-4 border border-black shadow-sm rounded-sm first:rounded-t-lg last:rounded-b-lg only:rounded-lg" onClick={click}>
-            <div className="job-list-general">
-                <div className='job-list-left'>
-                    <h3>{job.title}</h3>
-                    <span className='job-category-mini'>{job.category}</span>
-                    <p className='w-96 truncate'>{job.description}</p>
+        <div className=" w-3/4 mx-auto px-6 py-4 border border-black shadow-sm rounded-sm first:rounded-t-lg last:rounded-b-lg only:rounded-lg hover:shadow-lg" onClick={click}>
+            <div className=" flex justify-between items-center">
+                <div className=' space-y-3'>
+                    <div className='flex items-center space-x-2' >
+                        <h3 className=' text-2xl font-bold'>{job.title}</h3>
+                        <p className=' text-gray-300 '> • </p>
+                        <span className=' text-gray-900 text-xs font-medium border-violet-500 border rounded-full px-2 py-1'>{job.category}</span>
+                    </div>
+                    
+                    <p className='w-96 truncate text-gray-700'>{job.description}</p>
                 </div>
-                <div className='job-list-right'>
-                    <div className="job-cost">
-                        <h4>Cost: {job.cost}</h4>
+                <div className=' space-y-3'>
+                    <div className="">
+                        <h4 className=' text-lg font-semibold'> <span className=' text-gray-600 font-normal'> Cost: </span>{job.cost}</h4>
                     </div>
                     <div>
-                        <p>Deadline</p>
-                        <h4>{job.deadline}</h4>
+                        <p className=' text-sm text-gray-600'>Deadline</p>
+                        <h4 className=' font-medium'>{job.deadline}</h4>
                     </div>
                 </div>
             </div>
