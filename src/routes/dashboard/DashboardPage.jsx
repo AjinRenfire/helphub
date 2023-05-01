@@ -57,7 +57,7 @@ export default function DashboardPage(){
                 <div className="card">
 
                     {
-                        isEditing ? (<>
+                        !isEditing ? (<>
                             <DetailComponent objKey={"Name"} value={username}/>
                             <DetailComponent objKey={"Hobbies"} value={hobbies}/>
                             <DetailComponent objKey={"Email"} value={email}/>
