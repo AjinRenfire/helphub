@@ -96,7 +96,7 @@ export default function JobsListingPage(){
                 </div>
             </div>
             {/* Filter bar component end */}
-
+            <div className=" space-y-1">
             {
                 jobsPostedByOtherUsers.filter(job =>{
                     return ((job.category===selectedCategory)|| (selectedCategory===""));
@@ -110,6 +110,8 @@ export default function JobsListingPage(){
                         )
                 })
             }
+            </div>
+            
         </div>
     )
 }

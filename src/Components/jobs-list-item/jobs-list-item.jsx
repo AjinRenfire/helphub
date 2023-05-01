@@ -5,12 +5,12 @@ import { JOB_PUBLIC_STATUS } from '../../routes/posting-job/post-job-page'
 
 export default function JobsListItem({job, click}){
     return (
-        <div className="job-list-item" onClick={click}>
+        <div className=" w-3/4 mx-auto px-6 py-4 border border-black shadow-sm rounded-sm first:rounded-t-lg last:rounded-b-lg only:rounded-lg" onClick={click}>
             <div className="job-list-general">
                 <div className='job-list-left'>
                     <h3>{job.title}</h3>
                     <span className='job-category-mini'>{job.category}</span>
-                    <p>{job.description}</p>
+                    <p className='w-96 truncate'>{job.description}</p>
                 </div>
                 <div className='job-list-right'>
                     <div className="job-cost">

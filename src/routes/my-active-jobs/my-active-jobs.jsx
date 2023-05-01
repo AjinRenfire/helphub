@@ -57,7 +57,7 @@ export default function MyActiveJobs(){
     return (
         <>
         <main className="">
-            {activeJobs.length > 0 && <h1>The helpers are working on the job you have posted</h1>}
+            {/* {activeJobs.length > 0 && <h1>The helpers are working on the job you have posted</h1>} */}
             {
                 activeJobs.length > 0 ? (
                     activeJobs.map((job) => (
@@ -71,30 +71,7 @@ export default function MyActiveJobs(){
                     <h1>None of the jobs you posted, are active at the moment</h1>
                 )
             }
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate aliquam dolorem velit ab est, tempora numquam! Magni neque accusamus rem consectetur pariatur, dolores excepturi eligendi, quibusdam fugit eveniet nisi non.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate aliquam dolorem velit ab est, tempora numquam! Magni neque accusamus rem consectetur pariatur, dolores excepturi eligendi, quibusdam fugit eveniet nisi non.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate aliquam dolorem velit ab est, tempora numquam! Magni neque accusamus rem consectetur pariatur, dolores excepturi eligendi, quibusdam fugit eveniet nisi non.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate aliquam dolorem velit ab est, tempora numquam! Magni neque accusamus rem consectetur pariatur, dolores excepturi eligendi, quibusdam fugit eveniet nisi non.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate aliquam dolorem velit ab est, tempora numquam! Magni neque accusamus rem consectetur pariatur, dolores excepturi eligendi, quibusdam fugit eveniet nisi non.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate aliquam dolorem velit ab est, tempora numquam! Magni neque accusamus rem consectetur pariatur, dolores excepturi eligendi, quibusdam fugit eveniet nisi non.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate aliquam dolorem velit ab est, tempora numquam! Magni neque accusamus rem consectetur pariatur, dolores excepturi eligendi, quibusdam fugit eveniet nisi non.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate aliquam dolorem velit ab est, tempora numquam! Magni neque accusamus rem consectetur pariatur, dolores excepturi eligendi, quibusdam fugit eveniet nisi non.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate aliquam dolorem velit ab est, tempora numquam! Magni neque accusamus rem consectetur pariatur, dolores excepturi eligendi, quibusdam fugit eveniet nisi non.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate aliquam dolorem velit ab est, tempora numquam! Magni neque accusamus rem consectetur pariatur, dolores excepturi eligendi, quibusdam fugit eveniet nisi non.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate aliquam dolorem velit ab est, tempora numquam! Magni neque accusamus rem consectetur pariatur, dolores excepturi eligendi, quibusdam fugit eveniet nisi non.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate aliquam dolorem velit ab est, tempora numquam! Magni neque accusamus rem consectetur pariatur, dolores excepturi eligendi, quibusdam fugit eveniet nisi non.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate aliquam dolorem velit ab est, tempora numquam! Magni neque accusamus rem consectetur pariatur, dolores excepturi eligendi, quibusdam fugit eveniet nisi non.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate aliquam dolorem velit ab est, tempora numquam! Magni neque accusamus rem consectetur pariatur, dolores excepturi eligendi, quibusdam fugit eveniet nisi non.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate aliquam dolorem velit ab est, tempora numquam! Magni neque accusamus rem consectetur pariatur, dolores excepturi eligendi, quibusdam fugit eveniet nisi non.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate aliquam dolorem velit ab est, tempora numquam! Magni neque accusamus rem consectetur pariatur, dolores excepturi eligendi, quibusdam fugit eveniet nisi non.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate aliquam dolorem velit ab est, tempora numquam! Magni neque accusamus rem consectetur pariatur, dolores excepturi eligendi, quibusdam fugit eveniet nisi non.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate aliquam dolorem velit ab est, tempora numquam! Magni neque accusamus rem consectetur pariatur, dolores excepturi eligendi, quibusdam fugit eveniet nisi non.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate aliquam dolorem velit ab est, tempora numquam! Magni neque accusamus rem consectetur pariatur, dolores excepturi eligendi, quibusdam fugit eveniet nisi non.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate aliquam dolorem velit ab est, tempora numquam! Magni neque accusamus rem consectetur pariatur, dolores excepturi eligendi, quibusdam fugit eveniet nisi non.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate aliquam dolorem velit ab est, tempora numquam! Magni neque accusamus rem consectetur pariatur, dolores excepturi eligendi, quibusdam fugit eveniet nisi non.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate aliquam dolorem velit ab est, tempora numquam! Magni neque accusamus rem consectetur pariatur, dolores excepturi eligendi, quibusdam fugit eveniet nisi non.</p>
             
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate aliquam dolorem velit ab est, tempora numquam! Magni neque accusamus rem consectetur pariatur, dolores excepturi eligendi, quibusdam fugit eveniet nisi non.</p>
         </main>
         </>
     )

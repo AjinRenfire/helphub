@@ -37,8 +37,8 @@ export default function MyJobsNoRequestsYetPage(){
     }, [data])
 
     return (
-        <>
-            {noRequests.length > 0 && <h1>Helpers are yet to request to your job</h1>}
+        <>  
+            <main>
             {
                 noRequests.length > 0 ? (
                     noRequests.map((job) => (
@@ -51,6 +51,9 @@ export default function MyJobsNoRequestsYetPage(){
                     <h1>Helpers are yet to request to your job</h1>
                 )
             }
+            </main>
+            {/* {noRequests.length > 0 && <h1>Helpers are yet to request to your job</h1>} */}
+            
         </>
     )
 }
