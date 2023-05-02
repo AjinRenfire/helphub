@@ -46,20 +46,23 @@ export default function JobActivitiesActivePage(){
 
     return (
         <>
-            {activeJobs.length > 0 && <h1>You are working on these jobs currently!</h1>}
-            {
-                activeJobs.length > 0 ? (
-                    activeJobs.map((job) => (
-                        <JobsListItem 
-                            key={job.jobUID}
-                            job={job}
-                            click={() => handle(job)}
-                        />
-                    ))
-                ) : (
-                    <h1>You are not working on any jobs currently!</h1>
-                )
-            }
+            {/* {activeJobs.length > 0 && <h1>You are working on these jobs currently!</h1>} */}
+            <div>
+                {
+                    activeJobs.length > 0 ? (
+                        activeJobs.map((job) => (
+                            <JobsListItem 
+                                key={job.jobUID}
+                                job={job}
+                                click={() => handle(job)}
+                            />
+                        ))
+                    ) : (
+                        <h1>You are not working on any jobs currently!</h1>
+                    )
+                }
+            </div>
+            
         </>
     )
 }

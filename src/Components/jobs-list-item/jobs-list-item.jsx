@@ -5,7 +5,7 @@ import { JOB_PUBLIC_STATUS } from '../../routes/posting-job/post-job-page'
 
 export default function JobsListItem({job, click}){
     return (
-        <div className=" w-3/4 mx-auto px-6 py-4 border border-black shadow-sm rounded-sm first:rounded-t-lg last:rounded-b-lg only:rounded-lg hover:shadow-lg" onClick={click}>
+        <div className=" w-3/4 mx-auto px-6 py-4 border border-black shadow-sm rounded-sm first:rounded-t-lg last:rounded-b-lg only:rounded-lg hover:shadow-md hover:shadow-violet-300" onClick={click}>
             <div className=" flex justify-between items-center">
                 <div className=' space-y-3'>
                     <div className='flex items-center space-x-2' >

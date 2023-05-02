@@ -43,19 +43,22 @@ export default function JobActivitiesPendingPage(){
 
     return (
         <>
-            {pendingRequests.length > 0 && <h1>The creator of the job is yet to accept your requests</h1>}
-            {
-                pendingRequests.length > 0 ? (
-                    pendingRequests.map((job) => {
-                        return <JobsListItem
-                            key={job.jobUID}
-                            job={job}
-                        />
-                    })
-                ) : (
-                    <h1>You have not requested for any jobs</h1>
-                )
-            }
+            {/* {pendingRequests.length > 0 && <h1>The creator of the job is yet to accept your requests</h1>} */}
+            <div>
+                {
+                    pendingRequests.length > 0 ? (
+                        pendingRequests.map((job) => {
+                            return <JobsListItem
+                                key={job.jobUID}
+                                job={job}
+                            />
+                        })
+                    ) : (
+                        <h1>You have not requested for any jobs</h1>
+                    )
+                }
+            </div>
+            
         </>
     )
 }

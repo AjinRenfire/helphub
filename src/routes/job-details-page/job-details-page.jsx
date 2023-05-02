@@ -69,67 +69,71 @@ export default function JobsDetailsPage(){
     }, [job])
     
     return (
-        <div className="view">
+        <div className="mt-20 w-2/3 block mx-auto lg:ml-96 ">
             <BackButton 
                 back={back}
             />
-            <div className="job-detail">
-                <div className="job-primary-detail">
-                    <div className="job-primary-left">
-                        <h3>{job.title}</h3>
-                        <div className="job-category">{job.category}</div>
+            <div className="w-2/3 mx-auto space-y-16">
+                <div className="flex justify-between">
+                    <div className=" flex flex-col items-start space-y-6">
+                        <h3 className="text-3xl font-bold">{job.title}</h3>
+                        <p className="text-gray-900 text-s font-medium border-violet-500 border rounded-full px-4 py-1">{job.category}</p>
+                        <div className="">
+                            <h3 className="text-gray-700 font-bold text-lg">Job Description</h3>
+                            <p className="w-96 whitespace-normal break-normal text-gray-900">{job.description}</p>
+                        </div>
+                        <div className="" >
+                            <h3 className="text-gray-700 font-semibold">Deadline</h3>
+                            <p className=" text-red-500 font-bold text-lg">{job.deadline}</p>
+                        </div>
                     </div>
-                    <div className="job-primary-right">
-                        <p>Cost</p>
-                        <h4>{job.cost}</h4>
+                    
+                    <div className="">
+                            <p className="text-lg text-gray-700">Cost</p>
+                            <h4 className="text-gray-900 text-center text-xl font-bold">{job.cost}</h4>
                     </div>
-                </div>
-                <div className="job-secondary">
-                    <h3>Job Description</h3>
-                    <p>{job.description}</p>
-                </div>
-                <div className="job-secondary" style={{color: 'red'}}>
-                    <h3>Deadline</h3>
-                    <p>{job.deadline}</p>
+                    
                 </div>
                 
 
-                {/** Should render only if opened from Job Listings Page */}
-                {/** Here, the user has come to request for the job */}
-                {
-                    from === '/app/job-listing' && (
-                        <Button
-                            buttonOptions={{
-                                className: 'login-button',
-                                value: 'Request to do the job...',
-                                onClick: request
-                            }}
-                        />
-                    )
-                }
+                <div className=" space-x-4">
+                    {/** Should render only if opened from Job Listings Page */}
+                    {/** Here, the user has come to request for the job */}
+                    {
+                        from === '/app/job-listing' && (
+                            <Button
+                                buttonOptions={{
+                                    className: 'bg-violet-500 px-6 rounded-full w-auto text-white py-2 hover:bg-violet-900',
+                                    value: 'Request to do the job...',
+                                    onClick: request
+                                }}
+                            />
+                        )
+                    }
 
-                {/** Should render if only opened from My Jobs/Active Jobs Page */}
-                {/** Here, the one who opens this page is the creator of the job */}
-                {
-                    from === '/app/my-jobs/active' && (
-                        <div style={{diplay: 'flex'}}>
-                            <button onClick={() => goToChatPage()} style={{marginRight: '10px'}}>Chat</button>
-                            <button>Report</button>
-                        </div>
-                    ) 
-                }
+                    {/** Should render if only opened from My Jobs/Active Jobs Page */}
+                    {/** Here, the one who opens this page is the creator of the job */}
+                    {
+                        from === '/app/my-jobs/active' && (
+                            <div className="space-x-4 flex justify-center items-center">
+                                <button onClick={() => goToChatPage()} className="border-2 border-violet-600 px-6 rounded-full w-auto text-violet-600 py-2 hover:bg-violet-600 hover:text-white">Chat</button>
+                                <button className=" border-2 border-red-600 px-6 rounded-full w-auto text-red-700 py-2 hover:bg-red-600 hover:text-white">Report</button>
+                            </div>
+                        ) 
+                    }
 
-                {/** Should render if only opened from Job Activities/Active Jobs Page */}
-                {/** Here, the one who opens this page is the helper of the job */}
-                {
-                    from === '/app/job-activities/active' && (
-                        <div style={{diplay: 'flex'}}>
-                            <button style={{marginRight: '10px'}}>Submit Work</button>
-                            <button onClick={() => goToChatPage()} style={{marginRight: '10px'}}>Chat</button>
-                            <button>Report</button>
-                        </div>
-                    ) 
-                }
+                    {/** Should render if only opened from Job Activities/Active Jobs Page */}
+                    {/** Here, the one who opens this page is the helper of the job */}
+                    {
+                        from === '/app/job-activities/active' && (
+                            <div className="space-x-4 flex justify-center items-center">
+                                <button className="bg-violet-500 border-2 border-violet-500 px-6 rounded-full w-auto text-white py-2 hover:bg-violet-900 hover:border-violet-900">Submit Work</button>
+                                <button onClick={() => goToChatPage()} className="border-2 border-violet-600 px-6 rounded-full w-auto text-violet-600 py-2 hover:bg-violet-600 hover:text-white" >Chat</button>
+                                <button className=" border-2 border-red-600 px-6 rounded-full w-auto text-red-700 py-2 hover:bg-red-600 hover:text-white">Report</button>
+                            </div>
+                        ) 
+                    }
+                </div>
             </div>
         </div>
     )
