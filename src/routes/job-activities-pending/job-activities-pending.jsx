@@ -44,7 +44,7 @@ export default function JobActivitiesPendingPage(){
     return (
         <>
             {/* {pendingRequests.length > 0 && <h1>The creator of the job is yet to accept your requests</h1>} */}
-            <div>
+            <div className="space-y-4">
                 {
                     pendingRequests.length > 0 ? (
                         pendingRequests.map((job) => {

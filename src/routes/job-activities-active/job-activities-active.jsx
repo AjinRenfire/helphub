@@ -47,7 +47,7 @@ export default function JobActivitiesActivePage(){
     return (
         <>
             {/* {activeJobs.length > 0 && <h1>You are working on these jobs currently!</h1>} */}
-            <div>
+            <div className="space-y-4">
                 {
                     activeJobs.length > 0 ? (
                         activeJobs.map((job) => (

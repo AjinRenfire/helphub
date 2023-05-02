@@ -56,7 +56,7 @@ export default function MyActiveJobs(){
 
     return (
         <>
-        <main className="space-y-1">
+        <main className="space-y-4">
             {/* {activeJobs.length > 0 && <h1>The helpers are working on the job you have posted</h1>} */}
             {
                 activeJobs.length > 0 ? (
