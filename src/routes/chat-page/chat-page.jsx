@@ -77,7 +77,7 @@ export default function ChatPage(){
 
     return (
         <main className="mt-20 w-full block lg:ml-96 lg:w-2/3 h-screen">
-            <div className="flex items-center space-x-3 sticky top-16 bg-white">
+            <div className="flex items-center space-x-3 fixed top-16 bg-white">
                     {/* <BackButton 
                         back={back}
                     /> */}
