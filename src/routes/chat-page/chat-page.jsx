@@ -103,11 +103,11 @@ export default function ChatPage(){
                                 return <p className=" bg-slate-300 text-black self-start rounded-full max-w-sm whitespace-normal break-normal px-6 py-2">{message.msg}</p>
                             })
                         }
-                        <div ref={scrollDown} className="mb-20 h-20"></div>
+                        <div ref={scrollDown} className="mb-20 h-24"></div>
                     </div>
 
 
-                    <div className="fixed bottom-0 right-0 left-0 mx-auto w-full ">
+                    <div className="fixed bottom-5 right-0 left-0 mx-auto w-full ">
                         <Form 
                             className=" flex items-center px-4 py-2 space-x-2 justify-center "
                             onSubmit={(event) => sendMessage(event, message, localStorage.getItem("userUID"))} 
@@ -123,7 +123,7 @@ export default function ChatPage(){
                                     required 
                                 />
                             </div>
-                            <div className="px-4 bg-white py-2 rounded shadow-lg">
+                            <div className="px-4 bg-white py-2 rounded shadow-lg hover:bg-slate-200">
                                 
                                 <button type="submit" value="send" className=""><FiSend className=" text-lg"/></button>
                                 {/* <input 
