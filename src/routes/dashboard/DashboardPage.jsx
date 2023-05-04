@@ -28,6 +28,7 @@ export default function DashboardPage(){
             setUserData(userDocSnapshot.data());
             setEditingUserData(userDocSnapshot.data());
             localStorage.setItem("user",userDocSnapshot.data().username);
+            localStorage.setItem("balance",userDocSnapshot.data().balance);
         }
         
         gett();

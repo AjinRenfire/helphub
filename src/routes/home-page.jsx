@@ -13,7 +13,7 @@ import Helping from "../assets/imgs/helping-re.png";
 
 export default function HomePage(){
     return (
-        <>
+        <div className='scroll-smooth'>
             <Navbar />
             <div className="flex justify-center items-center flex-col h-screen space-y-4 bg-no-repeat bg-origin-border bg-bottom bg-[length:426px_266px]" style={{backgroundImage:`url(${HomeBGOne})`}}>
                 
@@ -81,6 +81,6 @@ export default function HomePage(){
 
             
             
-        </>
+        </div>
     )
 }

@@ -17,6 +17,7 @@ export default function SideNav(){
     
 
    const username = localStorage.getItem("user");
+   const balance = localStorage.getItem("balance");
 
 
     return ( 
@@ -81,10 +82,17 @@ export default function SideNav(){
                         </ul>
 
                         <Link to={"/app"} className='w-full'>
-                            <div className="flex justify-center items-center space-x-4 mb-10">
-                                <FiUser className=' text-xl'/>
-                                <h3 className='text-lg'>{username}</h3>
+                            <div className=" mb-10 flex flex-col items-center ">
+                                <div className=' space-y-1  px-6 py-8 rounded-lg'>
+                                    <div className='flex justify-center items-center space-x-4 '>
+                                        <FiUser className=' text-xl font-medium'/>
+                                        <h3 className='text-lg font-medium'>{username}</h3>
+                                    </div>
+                                    <p className=' shadow-inner px-4 py-2 rounded-full text-center shadow-purple-100'>{balance}</p>
+                                </div>
+                               
                             </div>
+                            
                         </Link>
                        
                     </div>

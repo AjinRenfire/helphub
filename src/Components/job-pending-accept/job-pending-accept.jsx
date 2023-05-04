@@ -31,14 +31,14 @@ export default function JobPendingAccept({requestorUID, decision}){
         <>
         {
             requestor.email ? (
-                <div className="list-pending-item">
-                    <div className="pending-name">
-                        <p className='margin-p'>{requestor.username}</p>
-                        <p className='margin-p'>4</p>
+                <div className="flex bg-violet-200 px-6 py-4 justify-between items-center border hover:shadow-lg hover:bg-violet-300 border-b-violet-400 first:rounded-t-lg first:border-b-violet-400 last:rounded-b-lg last:border-b-violet-200 only:rounded-lg only:border-b-violet-200 ">
+                    <div className="flex items-center space-x-8">
+                        <p className=' text-lg font-semibold'>{requestor.username}</p>
+                        <p className=' font-medium'>4</p>
                     </div>
-                    <div className="pending-accept">
-                        <button type='button' onClick={clickHandler} className='accept'value="Accept">Accept</button>
-                        <button type='button' onClick={clickHandler} className='reject'value="Reject">Reject</button>
+                    <div className=" space-x-2">
+                        <button type='button' onClick={clickHandler} className=' px-4 py-2 text-emerald-500 bg-white border  border-emerald-500 rounded-full hover:bg-emerald-500 hover:text-white' value="Accept">Accept</button>
+                        <button type='button' onClick={clickHandler} className=' px-4 py-2 text-red-500 border bg-white border-red-500 rounded-full hover:bg-red-500 hover:text-white' value="Reject">Reject</button>
                     </div>
                 </div>
             ) : <></>
