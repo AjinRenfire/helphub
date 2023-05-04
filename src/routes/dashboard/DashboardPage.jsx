@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 
 // component
 import DetailComponent from "../../Components/detail-component/DetailComponent";
-import FormInput from "../../components/input-component/input-component";
+import FormInput from "../../Components/input-component/input-component";
 
 // css
 import './dashboard.css'
