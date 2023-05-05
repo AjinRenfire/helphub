@@ -76,7 +76,7 @@ export default function SideNav(){
                             <NavLink to={'/app/post'} className={
                                 ({isActive})=>{
                                     return isActive ? "bg-violet-600 text-white text-xl px-6 rounded-full py-3 text-center":
-                                    " border-violet-600 text-violet-600 text-xl px-6 rounded-full py-3 border-2 text-center hover:bg-violet-200 hover:text-violet-800"
+                                    " border-violet-600 text-violet-600 text-xl px-6 rounded-full py-3 border-2 text-center hover:bg-violet-600 hover:text-white"
                                 }
                             }>Post a Job</NavLink>
                         </ul>

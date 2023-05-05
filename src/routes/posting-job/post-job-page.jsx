@@ -296,7 +296,7 @@ export const PostJobAction = async ({request}) => {
     let time = deadline.substring(deadline.indexOf("T")+1 );
     deadline = date+" "+time;
     const cost = formData.get('job-cost');
-    const location = formData.get('job-location');
+    let location = formData.get('job-location');
     
     if(location === "Your Area"){
         location="Any";

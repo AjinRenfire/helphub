@@ -86,6 +86,10 @@ export default function JobsDetailsPage(){
                             <h3 className="text-gray-700 font-semibold">Deadline</h3>
                             <p className=" text-red-500 font-bold text-lg">{job.deadline}</p>
                         </div>
+                        <div>
+                            <h3 className="text-gray-700 font-semibold">Location</h3>
+                            <p className=" text-gray-900 font-medium text-lg">{job.location}</p>
+                        </div>
                     </div>
                     
                     <div className="">
