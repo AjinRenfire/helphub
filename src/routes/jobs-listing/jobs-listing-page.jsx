@@ -12,6 +12,8 @@ import { database } from "../../firebase/firebase.config";
 // css
 import "./job-listing.css";
 
+import {FiMapPin} from 'react-icons/fi'
+
 // constants
 import { FIREBASE_COLLECTION_JOB_LISTINGS } from "../../utils/constants";
 import { JOB_PUBLIC_STATUS } from "../posting-job/post-job-page";
@@ -31,6 +33,39 @@ export default function JobsListingPage(){
 
     const [selectedCategory,setSelectedCategory] = useState("");
     const [searchLocation , setSearchLocation] = useState("");
+
+    const [currentLocation , setCurrentLocation] = useState("Your Area");
+    const [lat , setLat] = useState("");
+    const [long, setLong] = useState("");
+
+
+    useEffect(
+        ()=>{
+            navigator.geolocation.getCurrentPosition(
+                (position)=>{
+                    setLat(position.coords.latitude);
+                    setLong(position.coords.longitude);
+                }
+            )
+        },[]
+    )
+
+    async function HandleLocationClick (){
+
+        navigator.geolocation.getCurrentPosition(
+            (position)=>{
+                setLat(position.coords.latitude);
+                setLong(position.coords.longitude);
+            }
+        )
+
+        const locationResponse = await fetch(`https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${long}&appid=4921796711cdf71e1e0b21591032991c`);
+        const locationJson = await locationResponse.json();
+        setSearchLocation(locationJson[0].name)
+        
+        
+        
+    }
 
     function handleSearch(e){
         setSearchLocation(e.target.value);
@@ -80,29 +115,35 @@ export default function JobsListingPage(){
             <div className="  mt-2 fixed top-12 bg-white w-full pb-5 ">
                 <h4>Filter</h4>
                 <div className="flex py-4 items-center space-x-4">
-                    <input 
-                        type="search" 
-                        name="search" 
-                        id="" 
-                        value={searchLocation} 
-                        placeholder="Search location"
-                        onChange={handleSearch}
-                        className="w-1/3 h-10"
-                    />
+                    <div className=" w-fit relative" >
+                        <input 
+                            type="search" 
+                            name="search" 
+                            id="" 
+                            value={searchLocation} 
+                            placeholder="Search location"
+                            onChange={handleSearch}
+                            className="w-96 h-10 bg-violet-100 rounded-md px-4"
+                        />
+
+                        <FiMapPin onClick={HandleLocationClick} title="click to get from your current area" className="absolute bottom-2 left-80 bg-violet-300 px-1 py-1 rounded-full text-2xl"/>
+
+                    </div>
+                   
 
 
                     <div className="">
-                        <div className="">
+                        <div className="border-2 border-gray-300 px-4 py-2 rounded-md hover:border-violet-300">
                             <select 
                                 defaultValue="" 
                                 name="category" 
                                 id="category" 
                                 value={selectedCategory} 
                                 onChange={(e)=>setSelectedCategory(e.target.value)}
-                                className="filter-selection"
+                                className=""
                             >
-                                    <option value="" disabled selected hidden>category</option>
-                                    <option value="">All</option>
+                                    <option value="" disabled selected hidden className=" ">category</option>
+                                    <option value="" className=" ">All</option>
                                     <option value={VARIOUS_CATEGORIES[0]}>{VARIOUS_CATEGORIES[0]}</option>
                                     <option value={VARIOUS_CATEGORIES[1]}>{VARIOUS_CATEGORIES[1]}</option>
                                     <option value={VARIOUS_CATEGORIES[2]}>{VARIOUS_CATEGORIES[2]}</option>
