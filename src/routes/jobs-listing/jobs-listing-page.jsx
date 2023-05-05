@@ -30,6 +30,11 @@ export default function JobsListingPage(){
     ]
 
     const [selectedCategory,setSelectedCategory] = useState("");
+    const [searchLocation , setSearchLocation] = useState("");
+
+    function handleSearch(e){
+        setSearchLocation(e.target.value);
+    }
 
     useEffect(() => {
         let dummy = []
@@ -71,10 +76,21 @@ export default function JobsListingPage(){
         <div className="mt-20  w-2/3 block mx-auto lg:ml-96">
 
             {/* Filter bar component start*/}
-            <div className="filter-bar">
-                <h4>Filter</h4>
-                <div className="filters">
-                    <div className="filter">
+            <h4>Filter</h4>
+            <div className="">
+               
+                <input 
+                    type="search" 
+                    name="search" 
+                    id="" 
+                    value={searchLocation} 
+                    placeholder="Search location"
+                    onChange={handleSearch}
+                />
+
+
+                <div className="">
+                    <div className="">
                         <select 
                             defaultValue="" 
                             name="category" 
@@ -98,7 +114,14 @@ export default function JobsListingPage(){
             {/* Filter bar component end */}
             <div className=" space-y-4">
             {
-                jobsPostedByOtherUsers.filter(job =>{
+                jobsPostedByOtherUsers.filter(
+                    (job)=>{
+                        if(job.location===searchLocation|| searchLocation===""){
+                            return true;
+                        }
+                    }
+
+                ).filter(job =>{
                     return ((job.category===selectedCategory)|| (selectedCategory===""));
                 }).map((job) => {
                         return (
