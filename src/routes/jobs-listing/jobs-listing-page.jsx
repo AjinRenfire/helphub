@@ -116,7 +116,7 @@ export default function JobsListingPage(){
             {
                 jobsPostedByOtherUsers.filter(
                     (job)=>{
-                        if(job.location===searchLocation|| searchLocation===""){
+                        if(job.location.toLowerCase()===searchLocation.toLowerCase()|| searchLocation===""){
                             return true;
                         }
                     }
