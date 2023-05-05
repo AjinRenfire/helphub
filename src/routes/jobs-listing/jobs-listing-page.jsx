@@ -76,43 +76,50 @@ export default function JobsListingPage(){
         <div className="mt-20  w-2/3 block mx-auto lg:ml-96">
 
             {/* Filter bar component start*/}
-            <h4>Filter</h4>
-            <div className="">
-               
-                <input 
-                    type="search" 
-                    name="search" 
-                    id="" 
-                    value={searchLocation} 
-                    placeholder="Search location"
-                    onChange={handleSearch}
-                />
+           
+            <div className="  mt-2 fixed top-12 bg-white w-full pb-5 ">
+                <h4>Filter</h4>
+                <div className="flex py-4 items-center space-x-4">
+                    <input 
+                        type="search" 
+                        name="search" 
+                        id="" 
+                        value={searchLocation} 
+                        placeholder="Search location"
+                        onChange={handleSearch}
+                        className="w-1/3 h-10"
+                    />
 
 
-                <div className="">
                     <div className="">
-                        <select 
-                            defaultValue="" 
-                            name="category" 
-                            id="category" 
-                            value={selectedCategory} 
-                            onChange={(e)=>setSelectedCategory(e.target.value)}
-                            className="filter-selection"
-                        >
-                                <option value="" disabled selected hidden>category</option>
-                                <option value="">All</option>
-                                <option value={VARIOUS_CATEGORIES[0]}>{VARIOUS_CATEGORIES[0]}</option>
-                                <option value={VARIOUS_CATEGORIES[1]}>{VARIOUS_CATEGORIES[1]}</option>
-                                <option value={VARIOUS_CATEGORIES[2]}>{VARIOUS_CATEGORIES[2]}</option>
-                                <option value={VARIOUS_CATEGORIES[3]}>{VARIOUS_CATEGORIES[3]}</option>
-                                <option value={VARIOUS_CATEGORIES[4]}>{VARIOUS_CATEGORIES[4]}</option>
-                        </select>
-                        
+                        <div className="">
+                            <select 
+                                defaultValue="" 
+                                name="category" 
+                                id="category" 
+                                value={selectedCategory} 
+                                onChange={(e)=>setSelectedCategory(e.target.value)}
+                                className="filter-selection"
+                            >
+                                    <option value="" disabled selected hidden>category</option>
+                                    <option value="">All</option>
+                                    <option value={VARIOUS_CATEGORIES[0]}>{VARIOUS_CATEGORIES[0]}</option>
+                                    <option value={VARIOUS_CATEGORIES[1]}>{VARIOUS_CATEGORIES[1]}</option>
+                                    <option value={VARIOUS_CATEGORIES[2]}>{VARIOUS_CATEGORIES[2]}</option>
+                                    <option value={VARIOUS_CATEGORIES[3]}>{VARIOUS_CATEGORIES[3]}</option>
+                                    <option value={VARIOUS_CATEGORIES[4]}>{VARIOUS_CATEGORIES[4]}</option>
+                            </select>
+                            
+                        </div>
                     </div>
                 </div>
+                
+
+
+               
             </div>
             {/* Filter bar component end */}
-            <div className=" space-y-4">
+            <div className=" space-y-4 mt-44">
             {
                 jobsPostedByOtherUsers.filter(
                     (job)=>{
