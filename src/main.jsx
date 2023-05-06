@@ -120,14 +120,12 @@ const router = createBrowserRouter(
           element={<JobsDetailsPage />}
         />
 
-        <Route path='shop' element={<ShopPage/>}>
+        <Route path='/app/shop/' element={<ShopPage/>}>
           <Route
-            path='buy'
-            index
-            element={<ShopBuyPage />}
+            index element={<ShopBuyPage />}
           />
           <Route
-            path='sell'
+            path='/app/shop/sell'
             element={<ShopSellPage />}
           />
         </Route>

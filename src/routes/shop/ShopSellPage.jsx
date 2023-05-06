@@ -6,11 +6,11 @@ export default function ShopSellPage(){
     return (
         <div>
             <div className="grid grid-col-1 lg:grid-cols-3 md:grid-cols-2 place-content-center place-items-center gap-y-8">
-                <ShopTile curr="400" fiat="$99"/>
-                <ShopTile curr="400" fiat="$99"/>
-                <ShopTile curr="400" fiat="$99"/>
-                <ShopTile curr="400" fiat="$99"/>
-                <ShopTile curr="400" fiat="$99"/>
+                <ShopTile curr="$99" fiat="400"/>
+                <ShopTile curr="$99" fiat="400"/>
+                <ShopTile curr="$99" fiat="400"/>
+                <ShopTile curr="$99" fiat="400"/>
+                <ShopTile curr="$99" fiat="400"/>
             </div>
         </div>
     )

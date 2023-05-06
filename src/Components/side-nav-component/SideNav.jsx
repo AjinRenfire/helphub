@@ -61,7 +61,7 @@ export default function SideNav(){
                                 </div>
                                 
                             </NavLink>
-                            <NavLink to={'/app/shop'} className={
+                            <NavLink to={'/app/shop/'} className={
                                 ({isActive})=>{
                                     return isActive ? " font-bold text-xl px-6":"text-xl px-6  text-gray-800 hover:font-extrabold"
                                 }

@@ -14,7 +14,7 @@ export default function ShopPage(){
             <h1 >Shop</h1>
             <WhatsappTabs 
                 firstText='Buy'
-                firstLink='/app/shop/buy'
+                firstLink='/app/shop/'
                 secondText='Sell'
                 secondLink='/app/shop/sell'
             />
