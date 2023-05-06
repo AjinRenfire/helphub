@@ -1,4 +1,4 @@
-export default function FormInput({label, inputOptions, min}){
+export default function FormInput({label, inputOptions, min , handleChange}){
     return (
         <div className=" appearance-none space-y-1 "
                 
@@ -7,7 +7,7 @@ export default function FormInput({label, inputOptions, min}){
             <input 
                 {...inputOptions}
                 min={min ? min : null}
-                
+                onChange={handleChange}
             /> <br/>
         </div>
     )

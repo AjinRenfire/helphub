@@ -3,8 +3,9 @@ import React, { useContext, useEffect, useState } from "react";
 // component
 import DetailComponent from "../../Components/detail-component/DetailComponent";
 import FormInput from "../../Components/input-component/input-component";
+import TextArea from "../../components/text-area-component/TextArea";
 
-import {FiEdit3 , FiHeart ,FiMapPin,FiStar,FiHexagon} from "react-icons/fi"
+import {FiEdit3 , FiHeart ,FiMapPin,FiStar,FiHexagon,FiCheck} from "react-icons/fi"
 
 // css
 import './dashboard.css'
@@ -22,7 +23,10 @@ export default function DashboardPage(){
     // }
     const [isEditing , setIsEditing] = useState(false);
     const [userData,setUserData] = useState({});
-    const [editingUserData , setEditingUserData] = useState({});
+
+    const [editingUserData , setEditingUserData] = useState(userData); // currently edited user data is stored here 
+    const [lat , setLat] = useState("");
+    const [long, setLong] = useState("");
     
     useEffect(()=>{
         async function gett(){
@@ -36,16 +40,8 @@ export default function DashboardPage(){
         gett();
     },[])
     
-    // console.log(editingUserData)
+   
     const {username , phoneNumber , email , hobbies , about ,location , balance ,rating} = userData;
-    function handlechange(e){
-        setEditingUserData(
-            (prevValue)=>{
-                return {...prevValue , [e.target.name]:e.target.value}
-            }
-        )
-    }
-
     //dynamic gradient to rating card according to the grading
     let fromBgColor = "" ;
     let toBgColor = "";
@@ -67,19 +63,54 @@ export default function DashboardPage(){
     }
     /*** End to dynamic gradient color section ** */
     
+     // console.log(editingUserData)
+     
+     function handlechange(e){
+         setEditingUserData(
+             (prevValue)=>{
+                 return {...prevValue , [e.target.name]:e.target.value}
+             }
+         )
+     }
 
-    useEffect(()=>{
-        //update the firebase document 
-    },[editingUserData]);
+    // useEffect(()=>{
+    //     //update the firebase document 
+    // },[editingUserData]);
 
+    async function HandleLocationClick (){
+
+        navigator.geolocation.getCurrentPosition(
+            (position)=>{
+                setLat(position.coords.latitude);
+                setLong(position.coords.longitude);
+            }
+        )
+
+        const locationResponse = await fetch(`https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${long}&appid=4921796711cdf71e1e0b21591032991c`);
+        const locationJson = await locationResponse.json();
+        setEditingUserData(
+            (prevValue)=>{
+                return {...prevValue , location:locationJson[0].name}
+            }
+        )
+        
+        
+        
+    }
 
     return ( 
         <main className="mt-20 w-2/3 block mx-auto lg:ml-96 ">
             
             <section className="grid grid-rows-2 grid-cols-2 lg:w-3/4 mx-auto gap-4 " style={{ gridTemplateColumns: "320px 1fr",gridTemplateRows: "1fr 200px" }} >
-                <div className="p-4 bg-purple-50 row-start-1 row-end-2 col-start-1 col-end-3 rounded-lg ">
-                    <div className=" mr-auto ">
-                        <button onClick={()=>setIsEditing(!isEditing)} className="mr-auto"><FiEdit3 /></button>   
+                <div className={`p-4 ${isEditing?"bg-white":"bg-violet-50"} row-start-1 row-end-2 col-start-1 col-end-3 rounded-lg` }>
+                    <div className=" flex items-center justify-end w-full ">
+                        {
+                            isEditing?(<button onClick={()=>setIsEditing(!isEditing)} className=""><FiCheck className=" text-xl font-black stroke-black"/></button>):
+                            
+                            (<button onClick={()=>setIsEditing(!isEditing)} className=""><FiEdit3 className=" text-lg font-black "/></button>)
+                                
+                        }
+                           
                     </div>
                     <div className=" space-y-6 ">
                         {
@@ -119,10 +150,105 @@ export default function DashboardPage(){
                                 
                             ):(
                                 <>
-                                    <input type="text" value={editingUserData.username} name="username" onChange={handlechange} />
+                                    {/* <input type="text" value={editingUserData.username} name="username" onChange={handlechange} />
                                     <input type="text" value={editingUserData.hobbies} name="hobbies" onChange={handlechange} />
                                     <input type="email" value={editingUserData.email} name="email" onChange={handlechange} />
-                                    <input type="text" value={editingUserData.phoneNumber} name="phoneNumber" onChange={handlechange} />
+                                    <input type="text" value={editingUserData.phoneNumber} name="phoneNumber" onChange={handlechange} /> */}
+
+                                    <FormInput 
+                                        label='Username'
+                                        inputOptions={{
+                                            type:'name',
+                                            name: 'username',
+                                            placeholder:'Enter your Username',
+                                            required:true,
+                                            minLength: 6,
+                                            maxLength: 12,
+                                            className:"appearance-none border-b-2 focus:border-violet-600 focus:outline-none h-8 autofill:bg-white px-2 py-4 rounded",
+                                            value:editingUserData.username,
+                                            
+                                        }}
+                                        handleChange={handlechange}
+                                    />
+                                    <div className="flex items-center space-x-3">
+                                        <FormInput 
+                                            label='Hobbies'
+                                            inputOptions={{
+                                                type:'name',
+                                                name: 'hobbies',
+                                                placeholder:'Enter your Hobbies ',
+                                                required:true,
+                                                className:"appearance-none border-b-2 focus:border-violet-600 focus:outline-none h-8 autofill:bg-white px-2 py-4 rounded",
+                                                value:editingUserData.hobbies
+                                            }}
+                                            handleChange={handlechange}
+                                        />
+                                        <div className="flex relative">
+                                            <FormInput 
+                                                label='Location'
+                                                inputOptions={{
+                                                    type:'name',
+                                                    name: 'location',
+                                                    placeholder:'Enter your location',
+                                                    required:true,
+                                                    className:"appearance-none border-b-2 focus:border-violet-600 focus:outline-none h-8 autofill:bg-white px-2 py-4 rounded",
+                                                    value:editingUserData.location
+                                                }}
+                                                handleChange={handlechange}
+                                            />
+                                            <FiMapPin 
+                                                className="absolute top-8 left-48 bg-violet-300 px-1 py-1 rounded-full text-2xl cursor-pointer"
+                                                onClick={HandleLocationClick} title="click to get from your current area"
+                                            />
+                                        </div>
+                                        
+                                    </div>
+                                    <div className="flex items-center space-x-3">
+                                        <FormInput 
+                                            label='Email'
+                                            inputOptions={{
+                                                type:'email',
+                                                name: 'email',
+                                                placeholder:'Enter your Email',
+                                                required:true,
+                                                className:"appearance-none border-b-2 focus:border-violet-600 focus:outline-none h-8 autofill:bg-white px-2 py-4 rounded",
+                                                value:editingUserData.email
+                                            }}
+                                            handleChange={handlechange}
+                                        />
+                                         <FormInput 
+                                            label='Phone number'
+                                            inputOptions={{
+                                                type:'number',
+                                                name: 'phoneNumber',
+                                                placeholder:'Enter your mobile number',
+                                                required:true,
+                                                minLength: 10,
+                                                maxLength: 10,
+                                                className:"appearance-none border-b-2 focus:border-violet-600 focus:outline-none h-8 autofill:bg-white px-2 py-4 rounded",
+                                                value:editingUserData.phoneNumber,
+                                            }}
+                                            handleChange={handlechange}
+                                        />
+                                    </div>
+                                   
+                                    <TextArea
+                                        label='About you'
+                                        inputOptions={{
+                                            className: ' appearance-none border-b-2 focus:border-violet-600 focus:outline-none px-2 py-4 rounded',
+                                            type: 'text',
+                                            name: 'about',
+                                            placeholder: 'Say anything about you',
+                                            required: true,
+                                            rows: 5,
+                                            cols: 50,
+                                            minLength: 10,
+                                            maxLength: 1000,
+                                            value:editingUserData.about,
+
+                                        }}
+                                        handleChange={handlechange}
+                                    />
                                 </>
                             )
                         }

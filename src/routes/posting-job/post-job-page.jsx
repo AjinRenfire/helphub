@@ -132,7 +132,7 @@ export default function PostJobPage() {
                 <FormInput
                     label='Title'
                     inputOptions={{
-                        className:"appearance-none border-b-2 focus:border-violet-600 focus:outline-none h-8 autofill:bg-white w-2/3",
+                        className:"appearance-none border-b-2 focus:border-violet-600 focus:outline-none h-8 autofill:bg-white w-2/3 rounded",
                         type: 'text',
                         name: 'job-title',
                         placeholder: 'Enter a title',
@@ -146,7 +146,7 @@ export default function PostJobPage() {
                 <TextArea
                     label='Description'
                     inputOptions={{
-                        className: ' appearance-none border-b-2 focus:border-violet-600 focus:outline-none ',
+                        className: ' appearance-none border-b-2 focus:border-violet-600 focus:outline-none rounded',
                         type: 'text',
                         name: 'job-description',
                         placeholder: 'Enter a description',
@@ -179,7 +179,7 @@ export default function PostJobPage() {
                         <FormInput
                             label='Others'
                             inputOptions={{
-                                className: '',
+                                className: 'appearance-none border-b-2 focus:border-violet-600 focus:outline-none h-8 autofill:bg-white rounded',
                                 type: 'text',
                                 name: 'others-title',
                                 placeholder: 'Custom category',
@@ -196,7 +196,7 @@ export default function PostJobPage() {
                     <FormInput
                         label='Deadline'
                         inputOptions={{
-                            className:"appearance-none border-b-2 focus:border-violet-600 focus:outline-none h-8 autofill:bg-white",
+                            className:"appearance-none border-b-2 focus:border-violet-600 focus:outline-none h-8 autofill:bg-white rounded",
                             type: 'datetime-local',
                             name: 'job-deadline',
                             required: true,
@@ -209,7 +209,7 @@ export default function PostJobPage() {
                     <FormInput
                         label='Cost '
                         inputOptions={{
-                            className:"appearance-none border-b-2 focus:border-violet-600 focus:outline-none h-8 autofill:bg-white w-full",
+                            className:"appearance-none border-b-2 focus:border-violet-600 focus:outline-none h-8 autofill:bg-white w-full rounded",
                             type: 'number',
                             name: 'job-cost',
                             required: true,
