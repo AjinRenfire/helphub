@@ -126,7 +126,7 @@ export default function JobsListingPage(){
                             className="w-96 h-10 bg-violet-100 rounded-md px-4"
                         />
 
-                        <FiMapPin onClick={HandleLocationClick} title="click to get from your current area" className="absolute bottom-2 left-80 bg-violet-300 px-1 py-1 rounded-full text-2xl"/>
+                        <FiMapPin onClick={HandleLocationClick} title="click to get from your current area" className="absolute bottom-2 left-80 bg-violet-300 px-1 py-1 rounded-full text-2xl cursor-pointer"/>
 
                     </div>
                    

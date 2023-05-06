@@ -20,7 +20,6 @@ import DashboardPage from './routes/dashboard/DashboardPage';
 import PostJobPage, { PostJobAction } from './routes/posting-job/post-job-page';
 import JobsListingPage from './routes/jobs-listing/jobs-listing-page';
 import JobsDetailsPage from './routes/job-details-page/job-details-page';
-import ShopPage from './routes/shop/ShopPage';
 import ChatPage from './routes/chat-page/chat-page';
 
 import MyJobsPage from './routes/my-jobs-page/my-jobs';
@@ -32,6 +31,10 @@ import JobActivitesPage from './routes/job-activities/JobActivitesPage';
 import JobActivitiesActivePage from './routes/job-activities-active/job-activities-active';
 import JobActivitiesPendingPage from './routes/job-activities-pending/job-activities-pending';
 import JobActivitiesHistoryPage from './routes/job-activities-history/job-activities-history';
+
+import ShopPage from './routes/shop/ShopPage';
+import ShopBuyPage from './routes/shop/ShopBuyPage';
+import ShopSellPage from './routes/shop/ShopSellPage';
 
 // contexts
 import UserContextProvider from './contexts/user.context';
@@ -117,7 +120,17 @@ const router = createBrowserRouter(
           element={<JobsDetailsPage />}
         />
 
-        <Route path='shop' element={<ShopPage/>}/>
+        <Route path='shop' element={<ShopPage/>}>
+          <Route
+            path='buy'
+            index
+            element={<ShopBuyPage />}
+          />
+          <Route
+            path='sell'
+            element={<ShopSellPage />}
+          />
+        </Route>
 
         {/** Chat Page */}
         <Route path='/app/chat' element={<ChatPage/>} />

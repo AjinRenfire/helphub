@@ -77,9 +77,10 @@ export default function LoginPage(){
                         navigation.state === 'submitting' ? (
                             <Button
                                 buttonOptions={{
-                                    className:' bg-slate-200 px-6 rounded-full w-auto text-slate-600 py-2 mt-6',
+                                    className:' bg-slate-200 px-6 rounded-full w-auto text-slate-600 py-2 mt-6 cursor-wait',
                                     type:'submit',
                                     value:'Please wait...',
+                                    disabled:"disabled"
                                 }}
                             />
                         ) : (

@@ -1,6 +1,8 @@
 // css
 import './jobs-list-item.css'
 
+import {FiMapPin} from 'react-icons/fi'
+
 import { JOB_PUBLIC_STATUS } from '../../routes/posting-job/post-job-page'
 
 export default function JobsListItem({job, click}){
@@ -13,7 +15,7 @@ export default function JobsListItem({job, click}){
                         <p className=' text-gray-300 '> • </p>
                         <span className=' text-gray-900 text-xs font-medium border-violet-500 border rounded-full px-2 py-1'>{job.category}</span>
                     </div>
-                    
+                    <div className='flex items-center space-x-1 text-sm text-gray-400'> <FiMapPin/> <p>{job.location}</p> </div>
                     <p className='w-96 truncate text-gray-700'>{job.description}</p>
                 </div>
                 <div className=' space-y-3'>
