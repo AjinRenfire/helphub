@@ -1,5 +1,5 @@
 import {  redirect, useLocation, useNavigate } from "react-router-dom"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 // components
 import BackButton from "../../components/back-button-component/back-button"
@@ -21,6 +21,8 @@ export default function JobsDetailsPage(){
     const {job, from} = location.state
     const navigate = useNavigate()
     const [chat, setChat] = useState({})
+
+   
 
     // function to navigate to the previous page
     const back = () => {
@@ -48,6 +50,8 @@ export default function JobsDetailsPage(){
         navigate('/app/chat', {state: {chat, openedAs: openedAs}})
     }
 
+    
+
     // this useEffect() or rather the function unsubscribe is executed, only when this page is opened from two routes
     // 1. '/app/my-jobs/active'
     //     -> If thie page is opened from the above link, then the creator of the job has opened the page
@@ -67,6 +71,8 @@ export default function JobsDetailsPage(){
             unsubscribe()
         }
     }, [job])
+
+
     
     return (
         <div className="mt-20 w-2/3 block mx-auto lg:ml-96 ">
@@ -131,14 +137,17 @@ export default function JobsDetailsPage(){
                     {
                         from === '/app/job-activities/active' && (
                             <div className="space-x-4 flex justify-center items-center">
-                                <button className="bg-violet-500 border-2 border-violet-500 px-6 rounded-full w-auto text-white py-2 hover:bg-violet-900 hover:border-violet-900">Submit Work</button>
+                                <button className="bg-violet-500 border-2 border-violet-500 px-6 rounded-full w-auto text-white py-2 hover:bg-violet-900 hover:border-violet-900" >Submit Work</button>
                                 <button onClick={() => goToChatPage()} className="border-2 border-violet-600 px-6 rounded-full w-auto text-violet-600 py-2 hover:bg-violet-600 hover:text-white" >Chat</button>
                                 <button className=" border-2 border-red-600 px-6 rounded-full w-auto text-red-700 py-2 hover:bg-red-600 hover:text-white">Report</button>
                             </div>
                         ) 
                     }
+
+                    
                 </div>
             </div>
+            
         </div>
     )
 }

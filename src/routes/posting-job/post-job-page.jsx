@@ -64,6 +64,7 @@ export default function PostJobPage() {
     const [version, setVersion] = useState(0);
 
     function handleReset() {
+        setCurrentLocation("Your Area")
         setVersion(version + 1);
       }
     
@@ -126,12 +127,12 @@ export default function PostJobPage() {
             <h2 className=' text-lg mb-10'>Post a job</h2>
             {/* <span>Fill in the particulars and let our community help you!</span> */}
             
-            <Form method='post' action='/app/post' className='flex flex-col space-y-5'>
+            <Form method='post' action='/app/post' className='flex flex-col space-y-5 '>
                 {/* Title box */}
                 <FormInput
                     label='Title'
                     inputOptions={{
-                        className: 'w-80',
+                        className:"appearance-none border-b-2 focus:border-violet-600 focus:outline-none h-8 autofill:bg-white w-2/3",
                         type: 'text',
                         name: 'job-title',
                         placeholder: 'Enter a title',
@@ -190,12 +191,12 @@ export default function PostJobPage() {
                     )
                 }
 
-                <div className='flex items-center space-x-16 pt-6'>
+                <div className='flex items-center space-x-16 pt-6  justify-between'>
                         {/* Deadline date */}
                     <FormInput
                         label='Deadline'
                         inputOptions={{
-                            className: '',
+                            className:"appearance-none border-b-2 focus:border-violet-600 focus:outline-none h-8 autofill:bg-white",
                             type: 'datetime-local',
                             name: 'job-deadline',
                             required: true,
@@ -208,31 +209,33 @@ export default function PostJobPage() {
                     <FormInput
                         label='Cost '
                         inputOptions={{
-                            className: 'w-4',
+                            className:"appearance-none border-b-2 focus:border-violet-600 focus:outline-none h-8 autofill:bg-white w-full",
                             type: 'number',
                             name: 'job-cost',
                             required: true,
                         }}
                     />
 
-                    
-                    
-                </div>
-
-                   {/* location */}
-                   <div className='px-6  py-2  flex items-center space-x-2 mx-auto' onClick={HandleLocationClick}>
+                     {/* location */}
+                   <div className='px-6  py-2  flex  items-center justify-start space-x-2 mx-auto w-64 hover:text-violet-600 cursor-pointer' onClick={HandleLocationClick}>
                         
                         <Button 
                             buttonOptions={{
                                 name:"jo-location",
                                 type:'button',
                                 value:currentLocation,
+                                className:""
                             }}
                             
                         />
-                        <input type="hidden" name="job-location" value={currentLocation} />
+                        
                         <FiMapPin />
+                        <input type="hidden" name="job-location" value={currentLocation} />
                     </div>
+                    
+                </div>
+
+                  
                 
 
                 {/* buttons */ }

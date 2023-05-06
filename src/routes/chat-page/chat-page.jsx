@@ -7,7 +7,7 @@ import BackButton from "../../components/back-button-component/back-button"
 import {FiArrowLeft , FiSend} from "react-icons/fi"
 
 // css
-import './chat-page.css'
+// import './chat-page.css'
 
 // firebase
 import { onSnapshot, doc } from "firebase/firestore"

@@ -55,6 +55,7 @@ export default function LoginPage(){
                             name: 'email',
                             placeholder:'Enter your Email',
                             required:true,
+                            className:"appearance-none border-b-2 focus:border-violet-600 focus:outline-none h-8 autofill:bg-white"
                         }}
                     />
 
@@ -67,6 +68,7 @@ export default function LoginPage(){
                             placeholder:'Enter your Password',
                             required:true,
                             minLength: PASSWORD_MIN_LENGTH,
+                            className:"appearance-none border-b-2 focus:border-violet-600 focus:outline-none h-8 autofill:bg-white"
                         }}
                     />
 
