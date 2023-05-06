@@ -7,6 +7,8 @@ import ConfigIcon from "../ConfigIconContext";
 import {FiBell,FiGithub,FiUser,FiUserCheck,FiTarget,FiShoppingBag,FiList} from "react-icons/fi"
 
 
+import { FiHexagon } from "react-icons/fi"
+
 // firebase
 import { getUserDocument }  from "../../firebase/firebase.user.js";
 
@@ -88,7 +90,13 @@ export default function SideNav(){
                                         <FiUser className=' text-xl font-medium'/>
                                         <h3 className='text-lg font-medium'>{username}</h3>
                                     </div>
-                                    <p className=' shadow-inner px-4 py-2 rounded-full text-center shadow-purple-100'>{balance}</p>
+
+
+                                    <div className=' shadow-inner px-4 py-2 rounded-full text-center shadow-purple-100 flex items-center justify-center space-x-1'>
+                                        <FiHexagon  />
+                                        <p >{balance}</p>
+                                    </div>
+                                    
                                 </div>
                                
                             </div>

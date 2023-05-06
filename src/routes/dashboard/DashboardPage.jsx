@@ -4,6 +4,8 @@ import React, { useContext, useEffect, useState } from "react";
 import DetailComponent from "../../Components/detail-component/DetailComponent";
 import FormInput from "../../Components/input-component/input-component";
 
+import {FiEdit3} from "react-icons/fi"
+
 // css
 import './dashboard.css'
 
@@ -51,12 +53,12 @@ export default function DashboardPage(){
 
     return ( 
         <main className="mt-20 w-2/3 block mx-auto lg:ml-96 ">
-            <div className="">
-                <button onClick={()=>setIsEditing(!isEditing)}>edit</button>   
-            </div>
-            <section>
-                <div className="card">
-
+            
+            <section className="grid grid-rows-2 grid-cols-2 lg:w-3/4 mx-auto">
+                <div className="bg-gray-200 p-4">
+                    <div className="">
+                        <button onClick={()=>setIsEditing(!isEditing)}><FiEdit3 /></button>   
+                    </div>
                     {
                         !isEditing ? (<>
                             <DetailComponent objKey={"Name"} value={username}/>
@@ -78,10 +80,10 @@ export default function DashboardPage(){
                     
                     
                 </div>
-                <div className="card">
+                <div className="bg-gray-600 p-4">
                     <h3>stats</h3>
                 </div>
-                <div className="card">
+                <div className="bg-gray-400 p-4 row-span-1 col-span-2">
                     <h3>About me</h3>
                     <p>
                        {about}
