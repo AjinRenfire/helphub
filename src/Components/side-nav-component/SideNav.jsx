@@ -113,7 +113,7 @@ export default function SideNav(){
                     <div className='flex items-center space-x-5'>
                         <ConfigIcon>
                             <FiBell />
-                            <FiGithub/>
+                            <a href='https://github.com/AjinRenfire/helphub' target='_blank'><FiGithub className=''/></a>
                         </ConfigIcon>
                         
                         <button className="rounded-full bg-red-200 text-red-500 hover:bg-red-500 hover:text-white px-4 py-2">Log Out</button>
