@@ -33,7 +33,9 @@ export const DEFAULT_USER = {
     userName: '',
     phoneNumber: '',
     hobbies: '',
-    about: ''
+    about: '',
+    location:'',
+    rating:'0'
 }
 
 export default function SignupPage(){

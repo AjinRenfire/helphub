@@ -145,11 +145,11 @@ export default function DashboardPage(){
 
                                 <div className="flex items-center space-x-2 text-gray-500 ">
                                     <div className="flex items-center space-x-1">
-                                        <FiHeart className=" text-sm"/> <p>{hobbies}</p>
+                                        <FiHeart className=" text-sm"/> <p>{(hobbies !== "")?hobbies:"add your hobbies here"}</p>
                                     </div>
                                     <p>•</p>
                                     <div className="flex items-center space-x-1">
-                                        <FiMapPin className=" text-sm"/><p>  {location}</p>
+                                        <FiMapPin className=" text-sm"/><p>  {(location !== "")?location:"add your location here"}</p>
                                     </div>
                                     
                                     
@@ -158,13 +158,13 @@ export default function DashboardPage(){
                                 <div className="  text-gray-900">
                                     {/* <h3>About me</h3> */}
                                     <p className="leading-relaxed">
-                                        {about}
+                                        {(about !=="")?about:"Add something about yourself here"}
                                     </p>
                                 </div>
 
                                 <div className="flex items-center ">
                                     
-                                    <p className=" text-gray-600 font-bold text-sm">{email} , {phoneNumber}</p>
+                                    <p className=" text-gray-600 font-bold text-sm">{email} , {(phoneNumber !=="")?phoneNumber:"add your phone number"}</p>
                                     
                                 </div>
                             </>
