@@ -1,4 +1,4 @@
-export default function TextArea({label, inputOptions}){
+export default function TextArea({label, inputOptions,handleChange}){
     return (
         <div className="appearance-none space-y-1"
             style={{margin: inputOptions.className ? '15px 0' : '15px auto'}}    
@@ -6,6 +6,7 @@ export default function TextArea({label, inputOptions}){
             {label && <><span className=' text-gray-700 text-sm'>{label}</span> <br/></> }
             <textarea
                 {...inputOptions}
+                onChange={handleChange}
             /> <br/>
         </div>
     )

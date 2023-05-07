@@ -5,7 +5,7 @@ import DetailComponent from "../../Components/detail-component/DetailComponent";
 import FormInput from "../../Components/input-component/input-component";
 import TextArea from "../../components/text-area-component/TextArea";
 
-import {FiEdit3 , FiHeart ,FiMapPin,FiStar,FiHexagon,FiCheck} from "react-icons/fi"
+import {FiEdit3 , FiHeart ,FiMapPin,FiStar,FiHexagon,FiCheck,FiGift} from "react-icons/fi"
 
 // css
 import './dashboard.css'
@@ -71,8 +71,14 @@ export default function DashboardPage(){
                  return {...prevValue , [e.target.name]:e.target.value}
              }
          )
-     }
 
+        //  console.log(userData , "cloud data");
+        //  console.log(editingUserData ,"local")
+         
+     }
+    let joinedDate = new Date(editingUserData.createdAt.seconds*1000).toDateString();
+    joinedDate = joinedDate.substring(joinedDate.indexOf(" "))
+    
     // useEffect(()=>{
     //     //update the firebase document 
     // },[editingUserData]);
@@ -266,11 +272,11 @@ export default function DashboardPage(){
                     </div>
                 </div>
                 <div className="  row-start-2 row-end-3 col-start-2 col-end-3 bg-blue-50 rounded-lg p-4 ">
-                    <h3 className=" font-medium">Balance</h3>
+                    <h3 className=" font-medium">Started at</h3>
 
-                    <div className=" flex items-center justify-center h-full space-x-1 ">
-                        <FiHexagon className="mb-10 text-6xl font-extrabold" /> 
-                        <p className="mb-10 text-6xl font-extrabold"> {balance} </p>
+                    <div className=" flex items-center justify-center h-full space-x-1">
+                        <FiGift className="mb-10 text-5xl font-extrabold" /> 
+                        <p className="mb-10 text-5xl font-extrabold"> {joinedDate} </p>
                     </div>
                     
                 </div>
