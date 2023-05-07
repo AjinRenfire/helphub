@@ -23,7 +23,7 @@ export default function Navbar(){
         <>
             <header className="bg-white top-0 w-full fixed ">
                 <nav className="mx-auto flex max-w-7xl items-center justify-between p-4 lg:px-8 ">
-                    <Link to={'/'}><h2 className="text-violet-600 font-extrabold text-2xl">HelpHub</h2></Link>
+                    <Link to={'/'}><h2 className="text-violet-600 font-extrabold text-2xl"> HelpHub </h2></Link>
                     
                         <ul className=" inline-flex items-center space-x-12">
                             <li className="text-sm font-semibold leading-6 text-gray-900"> <a href="#how" className="hover:text-violet-700">How</a> </li>

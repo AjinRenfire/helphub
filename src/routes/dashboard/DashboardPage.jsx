@@ -27,6 +27,9 @@ export default function DashboardPage(){
     const [editingUserData , setEditingUserData] = useState(userData); // currently edited user data is stored here 
     const [lat , setLat] = useState("");
     const [long, setLong] = useState("");
+    const [joinedDate , setJoinedDate] = useState("");
+  
+    
     
     useEffect(()=>{
         async function gett(){
@@ -35,13 +38,23 @@ export default function DashboardPage(){
             setEditingUserData(userDocSnapshot.data());
             localStorage.setItem("user",userDocSnapshot.data().username);
             localStorage.setItem("balance",userDocSnapshot.data().balance);
+
+           setJoinedDate(new Date(userDocSnapshot.data().createdAt.seconds*1000).toDateString());
+            
+
+            
         }
         
         gett();
+        
     },[])
     
    
-    const {username , phoneNumber , email , hobbies , about ,location , balance ,rating} = userData;
+    const {username , phoneNumber , email , hobbies , about ,location , balance ,rating , createdAt} = userData;
+   
+
+
+
     //dynamic gradient to rating card according to the grading
     let fromBgColor = "" ;
     let toBgColor = "";
@@ -72,12 +85,14 @@ export default function DashboardPage(){
              }
          )
 
-        //  console.log(userData , "cloud data");
-        //  console.log(editingUserData ,"local")
+        
          
      }
-    let joinedDate = new Date(editingUserData.createdAt.seconds*1000).toDateString();
-    joinedDate = joinedDate.substring(joinedDate.indexOf(" "))
+    
+        
+    
+    
+    
     
     // useEffect(()=>{
     //     //update the firebase document 
@@ -276,7 +291,7 @@ export default function DashboardPage(){
 
                     <div className=" flex items-center justify-center h-full space-x-1">
                         <FiGift className="mb-10 text-5xl font-extrabold" /> 
-                        <p className="mb-10 text-5xl font-extrabold"> {joinedDate} </p>
+                        <p className="mb-10 text-5xl font-extrabold"> {joinedDate.substring(joinedDate.indexOf(" "))} </p>
                     </div>
                     
                 </div>
