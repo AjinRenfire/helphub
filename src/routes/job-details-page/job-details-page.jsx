@@ -4,9 +4,12 @@ import { useEffect, useRef, useState } from "react"
 // components
 import BackButton from "../../components/back-button-component/back-button"
 import Button from "../../Components/button-component/button-component"
+import RatingModal from "../../Components/RatingModal"
 
 // css
 import './job-details-page.css'
+
+import { FiStar,FiX } from "react-icons/fi"
 
 // firebase
 import { requestToDoTheJob } from "../../firebase/firebase.job"
@@ -21,6 +24,9 @@ export default function JobsDetailsPage(){
     const {job, from} = location.state
     const navigate = useNavigate()
     const [chat, setChat] = useState({})
+
+    const ratingDialogRef = useRef(null);
+    
 
    
 
@@ -72,6 +78,15 @@ export default function JobsDetailsPage(){
         }
     }, [job])
 
+    /* this open is used for testin the rating modal*/
+    // const [open , setOpen] = useState(false);
+    function HandleSubmit(){
+        // setOpen(true)
+    }
+
+   
+
+   
 
     
     return (
@@ -137,16 +152,20 @@ export default function JobsDetailsPage(){
                     {
                         from === '/app/job-activities/active' && (
                             <div className="space-x-4 flex justify-center items-center">
-                                <button className="bg-violet-500 border-2 border-violet-500 px-6 rounded-full w-auto text-white py-2 hover:bg-violet-900 hover:border-violet-900" >Submit Work</button>
+                                <button 
+                                    className="bg-violet-500 border-2 border-violet-500 px-6 rounded-full w-auto text-white py-2 hover:bg-violet-900 hover:border-violet-900" 
+                                    onClick={HandleSubmit}
+                                >Submit Work</button>
                                 <button onClick={() => goToChatPage()} className="border-2 border-violet-600 px-6 rounded-full w-auto text-violet-600 py-2 hover:bg-violet-600 hover:text-white" >Chat</button>
                                 <button className=" border-2 border-red-600 px-6 rounded-full w-auto text-red-700 py-2 hover:bg-red-600 hover:text-white">Report</button>
                             </div>
                         ) 
                     }
-
+                    
                     
                 </div>
             </div>
+            {/* <RatingModal  open={open}/> */}
             
         </div>
     )
