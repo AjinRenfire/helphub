@@ -64,6 +64,7 @@ export default function PostJobPage() {
     const [version, setVersion] = useState(0);
 
     function handleReset() {
+        setCategory(null)
         setCurrentLocation("Your Area")
         setVersion(version + 1);
       }
