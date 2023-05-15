@@ -69,7 +69,7 @@ export default function SideNav(){
                                 }
                             }>
                                 <div className="flex items-center space-x-4">
-                                    <FiShoppingBag FiShoppingBag/>
+                                    <FiShoppingBag />
                                     <p>Shop</p> 
                                 </div>
                                

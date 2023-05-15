@@ -105,7 +105,7 @@ export default function HomePage(){
                     
                 </div>
                 <p className='text-center '>Made with 💜 by helphub team</p>
-                <p className=' text-gray-500 text-center '>Copyright © 2023 Helphub</p>
+                <p className=' text-gray-500 text-center  pb-8'>Copyright © 2023 Helphub</p>
             </div>
 
             
