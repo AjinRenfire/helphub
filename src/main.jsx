@@ -36,6 +36,8 @@ import ShopPage from './routes/shop/ShopPage';
 import ShopBuyPage from './routes/shop/ShopBuyPage';
 import ShopSellPage from './routes/shop/ShopSellPage';
 
+import NotFound from './routes/NotFound';
+
 // contexts
 import UserContextProvider from './contexts/user.context';
 
@@ -133,7 +135,9 @@ const router = createBrowserRouter(
         {/** Chat Page */}
         <Route path='/app/chat' element={<ChatPage/>} />
       </Route>
-    </Route>   
+      <Route path="*" element={<NotFound />} />
+    </Route>
+    
   )
 )
 

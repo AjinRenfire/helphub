@@ -5,6 +5,9 @@ import { useEffect, useState } from "react"
 import { JOB_PUBLIC_STATUS } from "../posting-job/post-job-page"
 import JobsListItem from "../../components/jobs-list-item/jobs-list-item"
 
+import ListMsg from "../../Components/ListMsg";
+
+import SharkImg from "../../assets/imgs/list-imgs/shark-sleep.png"
 /**
  * 
  * Job Activities Pending
@@ -54,7 +57,7 @@ export default function JobActivitiesPendingPage(){
                             />
                         })
                     ) : (
-                        <h1>You have not requested for any jobs</h1>
+                        <ListMsg image={SharkImg} message={"So empty, come back later"}/>
                     )
                 }
             </div>

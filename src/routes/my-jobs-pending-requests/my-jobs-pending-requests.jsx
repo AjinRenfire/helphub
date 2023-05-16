@@ -7,6 +7,9 @@ import { JOB_PUBLIC_STATUS } from "../posting-job/post-job-page"
 
 // components
 import JobListPendingItem from "../../components/job-list-pending-item/job-list-pending-item"
+import ListMsg from "../../Components/ListMsg";
+
+import SharkImg from "../../assets/imgs/list-imgs/shark-sleep.png"
 
 /**
  * 
@@ -58,7 +61,7 @@ export default function MyJobsPendingRequestsPage (){
                         )
                     )
                 ) : (
-                    <h1>U have no pending Requests</h1>
+                    <ListMsg image={SharkImg} message={"So empty, come back later"}/>
                 )
             }
         </main>

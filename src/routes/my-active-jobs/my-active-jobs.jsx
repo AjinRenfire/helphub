@@ -3,6 +3,10 @@ import { useOutletContext, useNavigate } from "react-router-dom"
 
 // components
 import JobsListItem from "../../components/jobs-list-item/jobs-list-item"
+import ListMsg from "../../Components/ListMsg"
+
+
+import SharkImg from "../../assets/imgs/list-imgs/shark.png"
 
 // firebase
 import { auth } from "../../firebase/firebase.config"
@@ -68,7 +72,7 @@ export default function MyActiveJobs(){
                         />
                     ))
                 ) : (
-                    <h1>None of the jobs you posted, are active at the moment</h1>
+                    <ListMsg image={SharkImg} message={"All caught up!!"}/>
                 )
             }
             

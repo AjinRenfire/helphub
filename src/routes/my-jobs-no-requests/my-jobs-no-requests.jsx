@@ -3,6 +3,9 @@ import { useOutletContext } from "react-router-dom"
 
 // components
 import JobsListItem from "../../components/jobs-list-item/jobs-list-item"
+import ListMsg from "../../Components/ListMsg";
+
+import SharkImg from "../../assets/imgs/list-imgs/shark-coffee.png"
 
 // firebase
 import { auth } from "../../firebase/firebase.config"
@@ -48,7 +51,8 @@ export default function MyJobsNoRequestsYetPage(){
                         />
                     ))
                 ) : (
-                    <h1>Helpers are yet to request to your job</h1>
+                    <ListMsg image={SharkImg} message={"Nothing to do ,huh?!"}/>
+                    
                 )
             }
             </main>

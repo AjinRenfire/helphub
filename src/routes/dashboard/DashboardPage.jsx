@@ -116,13 +116,12 @@ export default function DashboardPage(){
 
         const locationResponse = await fetch(`https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${long}&appid=4921796711cdf71e1e0b21591032991c`);
         const locationJson = await locationResponse.json(); 
-        console.log(locationJson,"🪄")
+        
         setEditingUserData(
             (prevValue)=>{
                 return {...prevValue , location:locationJson[0].name}
             }
         )
-        console.log(editingUserData.location)
     }
 
     return ( 

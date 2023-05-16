@@ -113,8 +113,8 @@ export default function JobsListingPage(){
             {/* Filter bar component start*/}
            
             <div className="  mt-2 fixed top-12 bg-white w-full pb-5 ">
-                <h4>Filter</h4>
-                <div className="flex py-4 items-center space-x-4">
+                <h4 className="px-56 font-semibold">Filter</h4>
+                <div className="flex py-4 items-center space-x-4  px-56">
                     <div className=" w-fit relative" >
                         <input 
                             type="search" 

@@ -3,6 +3,10 @@ import { useOutletContext, useNavigate } from "react-router-dom"
 
 // components
 import JobsListItem from "../../components/jobs-list-item/jobs-list-item"
+import ListMsg from "../../Components/ListMsg"
+
+
+import SharkImg from "../../assets/imgs/list-imgs/shark.png"
 
 import { JOB_PUBLIC_STATUS } from "../posting-job/post-job-page"
 
@@ -58,7 +62,7 @@ export default function JobActivitiesActivePage(){
                             />
                         ))
                     ) : (
-                        <h1>You are not working on any jobs currently!</h1>
+                        <ListMsg image={SharkImg} message={"All caught up!!"}/>
                     )
                 }
             </div>
