@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { useLoaderData, useNavigate } from 'react-router-dom'
 
 // component
 import DetailComponent from "../../Components/detail-component/DetailComponent";
@@ -11,50 +12,45 @@ import {FiEdit3 , FiHeart ,FiMapPin,FiStar,FiHexagon,FiCheck,FiGift} from "react
 import './dashboard.css'
 
 // firebase
-import { getUserDocument }  from "../../firebase/firebase.user.js";
+import { database } from "../../firebase/firebase.config";
+import { onSnapshot, query, collection, where, QuerySnapshot, doc } from "firebase/firestore"
+import { getUserDocument, updateUserDocument }  from "../../firebase/firebase.user.js";
+
+// constants
+import { FIREBASE_COLLECTION_USERS } from '../../utils/constants'
 
 export default function DashboardPage(){
-    // const fakeValues = {
-    //     Name:"Ramu",
-    //     Hobbies:"Reading,More reading",
-    //     Email:"homelander@vought.com",
-    //     Location:"Chennai",
-    //     Phone:"+91 78430 23785"
-    // }
-    const [isEditing , setIsEditing] = useState(false);
+    const [isEditing, setIsEditing] = useState(false);
     const [userData,setUserData] = useState({});
-
-    const [editingUserData , setEditingUserData] = useState(userData); // currently edited user data is stored here 
-    const [lat , setLat] = useState("");
+    const [editingUserData, setEditingUserData] = useState(userData); // currently edited user data is stored here 
+    const {username, phoneNumber, email, hobbies, about, location, balance, rating, createdAt, UID} = userData;
+    
+    const [lat, setLat] = useState("");
     const [long, setLong] = useState("");
-    const [joinedDate , setJoinedDate] = useState("");
-  
-    
-    
+    const [joinedDate, setJoinedDate] = useState("");
+
+    // state for reloading the useEffect()
+    const [reload, setReload] = useState(false)
+      
     useEffect(()=>{
-        async function gett(){
-            let userDocSnapshot = await getUserDocument(localStorage.getItem("userUID"))
-            setUserData(userDocSnapshot.data());
-            setEditingUserData(userDocSnapshot.data());
-            localStorage.setItem("user",userDocSnapshot.data().username);
-            localStorage.setItem("balance",userDocSnapshot.data().balance);
-
-           setJoinedDate(new Date(userDocSnapshot.data().createdAt.seconds*1000).toDateString());
-            
-
-            
+        const unsubscribe = () => {
+            onSnapshot(collection(database, FIREBASE_COLLECTION_USERS), (snapshot) => {
+                snapshot.docs.forEach((doc) => {
+                    doc.data().UID === localStorage.getItem("userUID") && (
+                        setUserData(doc.data()),
+                        setEditingUserData(doc.data()),
+                        localStorage.setItem("user",doc.data().username),
+                        localStorage.setItem("balance",doc.data().balance),
+                
+                        setJoinedDate(new Date(doc.data().createdAt.seconds*1000).toDateString())
+                    )
+                })
+            })
         }
-        
-        gett();
-        
-    },[])
-    
+
+        return unsubscribe
+    }, [reload])
    
-    const {username , phoneNumber , email , hobbies , about ,location , balance ,rating , createdAt} = userData;
-   
-
-
-
     //dynamic gradient to rating card according to the grading
     let fromBgColor = "" ;
     let toBgColor = "";
@@ -76,28 +72,30 @@ export default function DashboardPage(){
     }
     /*** End to dynamic gradient color section ** */
     
-     // console.log(editingUserData)
-     
-     function handlechange(e){
-         setEditingUserData(
+    // function to handle the changes in inputs while the user is editing the data
+    function handlechange(e){
+        setEditingUserData(
              (prevValue)=>{
-                 return {...prevValue , [e.target.name]:e.target.value}
+                 return {...prevValue, [e.target.name]: e.target.value}
              }
          )
+    }    
 
-        
-         
-     }
-    
-        
-    
-    
-    
-    
-    // useEffect(()=>{
-    //     //update the firebase document 
-    // },[editingUserData]);
+    // function to update the user document in the firebase
+    const editUserDocument = async() => {
+        setIsEditing(! isEditing)
 
+        try{
+            await updateUserDocument(UID, editingUserData)
+
+            // setting this edited to ! edited so that the useEffect() can run once again
+            setReload(! reload)
+        }
+        catch(error) {
+            console.log("User document not updated...", error)
+        }
+    }    
+  
     async function HandleLocationClick (){
 
         navigator.geolocation.getCurrentPosition(
@@ -114,9 +112,6 @@ export default function DashboardPage(){
                 return {...prevValue , location:locationJson[0].name}
             }
         )
-        
-        
-        
     }
 
     return ( 
@@ -126,56 +121,45 @@ export default function DashboardPage(){
                 <div className={`p-4 ${isEditing?"bg-white":"bg-violet-50"} row-start-1 row-end-2 col-start-1 col-end-3 rounded-lg` }>
                     <div className=" flex items-center justify-end w-full ">
                         {
-                            isEditing?(<button onClick={()=>setIsEditing(!isEditing)} className=""><FiCheck className=" text-xl font-black stroke-black"/></button>):
-                            
-                            (<button onClick={()=>setIsEditing(!isEditing)} className=""><FiEdit3 className=" text-lg font-black "/></button>)
-                                
+                            isEditing ? (
+                                <button onClick={() => editUserDocument()} className=""><FiCheck className=" text-xl font-black stroke-black"/></button>
+                            ) : (
+                                <button onClick={()=>setIsEditing(!isEditing)} className=""><FiEdit3 className=" text-lg font-black "/></button>
+                            )
                         }
-                           
                     </div>
                     <div className=" space-y-6 ">
                         {
-                            !isEditing ? (<>
-                                {/* <DetailComponent objKey={"Name"} value={username}/>
-                                <DetailComponent objKey={"Hobbies"} value={hobbies}/>
-                                <DetailComponent objKey={"Email"} value={email}/>
-                                <DetailComponent objKey={"Phone Number"} value={phoneNumber}/>
-                                <DetailComponent objKey={"location"} value={location}/> */}
-                                <h3 className=" text-4xl font-bold">{username}</h3>
+                            !isEditing ? (
+                                <>
+                                    {/** User is not editing anything, so just displaying all the info */}
+                                    <h3 className=" text-4xl font-bold">{userData.username}</h3>
 
-                                <div className="flex items-center space-x-2 text-gray-500 ">
-                                    <div className="flex items-center space-x-1">
-                                        <FiHeart className=" text-sm"/> <p>{(hobbies !== "")?hobbies:"add your hobbies here"}</p>
-                                    </div>
-                                    <p>•</p>
-                                    <div className="flex items-center space-x-1">
-                                        <FiMapPin className=" text-sm"/><p>  {(location !== "")?location:"add your location here"}</p>
+                                    <div className="flex items-center space-x-2 text-gray-500 ">
+                                        <div className="flex items-center space-x-1">
+                                            <FiHeart className=" text-sm"/> <p>{(hobbies !== "")?hobbies:"add your hobbies here"}</p>
+                                        </div>
+                                        <p>•</p>
+                                        <div className="flex items-center space-x-1">
+                                            <FiMapPin className=" text-sm"/><p>  {(location !== "")?location:"add your location here"}</p>
+                                        </div>
                                     </div>
                                     
-                                    
-                                </div>
-                                
-                                <div className="  text-gray-900">
-                                    {/* <h3>About me</h3> */}
-                                    <p className="leading-relaxed">
-                                        {(about !=="")?about:"Add something about yourself here"}
-                                    </p>
-                                </div>
+                                    <div className="  text-gray-900">
+                                        {/* <h3>About me</h3> */}
+                                        <p className="leading-relaxed">
+                                            {(about !=="")?about:"Add something about yourself here"}
+                                        </p>
+                                    </div>
 
-                                <div className="flex items-center ">
-                                    
-                                    <p className=" text-gray-600 font-bold text-sm">{email} , {(phoneNumber !=="")?phoneNumber:"add your phone number"}</p>
-                                    
-                                </div>
-                            </>
-                                
+                                    <div className="flex items-center ">
+                                        <p className=" text-gray-600 font-bold text-sm">{email} , {(phoneNumber !=="")?phoneNumber:"add your phone number"}</p>
+                                    </div>
+                                </>
                             ):(
                                 <>
-                                    {/* <input type="text" value={editingUserData.username} name="username" onChange={handlechange} />
-                                    <input type="text" value={editingUserData.hobbies} name="hobbies" onChange={handlechange} />
-                                    <input type="email" value={editingUserData.email} name="email" onChange={handlechange} />
-                                    <input type="text" value={editingUserData.phoneNumber} name="phoneNumber" onChange={handlechange} /> */}
-
+                                    {/** User clicked the edit option */}
+                                    {/** Changing all the headings and para into inputs */}
                                     <FormInput 
                                         label='Username'
                                         inputOptions={{

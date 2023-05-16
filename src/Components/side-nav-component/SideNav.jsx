@@ -126,7 +126,5 @@ export default function SideNav(){
             
             <Outlet/>
         </>
-       
-        
     );
 }

@@ -63,13 +63,13 @@ export default function PostJobPage() {
 
     const [version, setVersion] = useState(0);
 
+    // function to handle the form reset
     function handleReset() {
         setCategory(null)
         setCurrentLocation("Your Area")
         setVersion(version + 1);
-      }
+    }
     
-
     // function to update the category, on radio button clicks
     const ClickHandler = (event) => {
         setCategory(event.target.value)
@@ -110,17 +110,10 @@ export default function PostJobPage() {
         const d = dateObj.getDate() < 10? "0"+(dateObj.getDate()).toString():(dateObj.getDate());
 
         const date = `${dateObj.getFullYear()}-${month.toString()}-${dateObj.getDate()}`
-
-       
         const time = `T00:00`;
 
-
-        // console.log(date.toString()+time.toString());
-        
         return date.toString()+time.toString();
     }
-
-   
 
     return (
         <div className="mt-20 w-full block lg:ml-96 lg:w-2/3 ">
@@ -233,11 +226,7 @@ export default function PostJobPage() {
                         <FiMapPin />
                         <input type="hidden" name="job-location" value={currentLocation} />
                     </div>
-                    
                 </div>
-
-                  
-                
 
                 {/* buttons */ }
                 <div className=' flex items-center space-x-4'> 
@@ -269,7 +258,7 @@ export default function PostJobPage() {
                         </button>
                     )
                 }
-                    
+                    {/** Reset button */}
                     <button 
                         type="reset" 
                         className='border border-violet-500 px-6 rounded-full w-3/4 text-violet-500 py-2 hover:bg-violet-500 hover:text-white mt-10 mb-10'

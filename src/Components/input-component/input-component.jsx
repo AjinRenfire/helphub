@@ -1,4 +1,4 @@
-export default function FormInput({label, inputOptions, min , handleChange}){
+export default function FormInput({label, inputOptions, min, handleChange}){
     return (
         <div className=" appearance-none space-y-1 "
                 

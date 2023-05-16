@@ -1,13 +1,6 @@
 import { useEffect, useState,useRef } from "react"
 import { useNavigate, Form, useLocation } from "react-router-dom"
-
-// components
-import BackButton from "../../components/back-button-component/back-button"
-
 import {FiArrowLeft , FiSend} from "react-icons/fi"
-
-// css
-// import './chat-page.css'
 
 // firebase
 import { onSnapshot, doc } from "firebase/firestore"
@@ -86,7 +79,11 @@ export default function ChatPage(){
                     {
                         // for creator, helper's user name should be shown
                         // and vice-versa
-                        openedAs === 'Creator' ? (<h1 className=" text-2xl">{chat.helperUserName}</h1>) : (<h1 className=" text-2xl">{chat.creatorUserName}</h1>)
+                        openedAs === 'Creator' ? (
+                            <h1 className=" text-2xl">{chat.helperUserName}</h1>
+                        ) : (
+                            <h1 className=" text-2xl">{chat.creatorUserName}</h1>
+                        )
                     }
             </div>
             <div className="w-2/3 mx-auto h-full ">

@@ -1,5 +1,5 @@
 import { auth, database } from "./firebase.config";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 
 // constants
 import { FIREBASE_COLLECTION_USERS } from "../utils/constants";
@@ -18,4 +18,24 @@ export const getUserDocument = async (userUID) => {
     const usersDocumentReference = doc(database, FIREBASE_COLLECTION_USERS, userUID)
 
     return await getDoc(usersDocumentReference)
+}
+
+/**
+ * 
+ * 
+ * Function to update the user document in the firebase
+ * 
+ * 
+ */
+export const updateUserDocument = async (userUID, updatedDetails) => {
+    if((! auth) || (! userUID) || (! updatedDetails)) return
+    
+    // getting the reference for the user document
+    const userDocumentReference = doc(database, FIREBASE_COLLECTION_USERS, userUID)
+
+    let data = {
+        ...updatedDetails
+    }
+
+    return await updateDoc(userDocumentReference, data)
 }

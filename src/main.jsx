@@ -66,7 +66,7 @@ const router = createBrowserRouter(
       {/* Pages after the user logged in */}
       <Route path='/app' element={<SideNav/>}>
         {/* Dashboard page */}
-        <Route index element={<DashboardPage/>} />
+        <Route index element={<DashboardPage/>}  />
 
         {/* Posting job Page */}
         <Route 
