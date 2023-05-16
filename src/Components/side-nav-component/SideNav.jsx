@@ -113,7 +113,7 @@ export default function SideNav(){
                     <h2 className="text-violet-600 font-extrabold text-2xl">HelpHub</h2>
                     <div className='flex items-center space-x-5'>
                         <ConfigIcon>
-                            <FiBell />
+                            {/* <FiBell /> */}
                             <a href='https://github.com/AjinRenfire/helphub' target='_blank'><FiGithub className=''/></a>
                         </ConfigIcon>
                         
