@@ -10,6 +10,9 @@ import About from "../assets/imgs/grow-re.png";
 import HandMoney from "../assets/imgs/Hands-money-re.png"
 import HelpWanted from "../assets/imgs/help-wanted-re.png";
 import Helping from "../assets/imgs/helping-re.png";
+import SharkMoney from "../assets/imgs/shark-money.png";
+import SharkBuy from "../assets/imgs/shark-buy.png";
+import SharkCry from "../assets/imgs/shark-cry.png";
 
 export default function HomePage(){
     return (
@@ -35,15 +38,15 @@ export default function HomePage(){
             {/* about cards section */}
             <div className='flex flex-col items-center space-y-6  lg:flex-row lg:justify-center lg:items-center lg:space-x-20'>
                 <div className="w-80 h-96 shadow-md py-4 rounded-md">
-                    <img src={HelpWanted} alt="" className=' w-60 h-60 block mx-auto'/>
+                    <img src={SharkCry} alt="" className=' w-60 h-60 block mx-auto'/>
                     <p className=' px-6 text-center'>You can ask for any kind of help to anyone and you can manage all of your jobs in our platform</p>
                 </div>
                 <div className="w-80 h-96 shadow-md py-4 rounded-md">
-                    <img src={Helping} alt="" className=' w-60 h-60 block mx-auto'/>
+                    <img src={SharkBuy} alt="" className=' w-60 h-60 block mx-auto'/>
                     <p className=' px-6 text-center'>You can also help anyone from anywhere and you can manage your jobs in our platform</p>
                 </div>
                 <div className="w-80 h-96 shadow-md  py-4 rounded-md">
-                    <img src={HandMoney} alt="" className=' w-60 h-60 block mx-auto'/>
+                    <img src={SharkMoney} alt="" className=' w-60 h-60 block mx-auto'/>
                     <p className=' px-6 text-center'>You can give our in-app currency as a reward for the job.Your can trade the in-app currency to fiat currency at any time.</p>
                 </div>
             </div>
