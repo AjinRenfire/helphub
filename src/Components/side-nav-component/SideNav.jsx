@@ -1,26 +1,27 @@
 import React,{useEffect} from 'react';
-
-import { Outlet, Link,NavLink } from 'react-router-dom';
+import { Outlet, Link, NavLink, useNavigate } from 'react-router-dom';
 
 //icons
 import ConfigIcon from "../ConfigIconContext";
 import {FiBell,FiGithub,FiUser,FiUserCheck,FiTarget,FiShoppingBag,FiList} from "react-icons/fi"
 
-
 import { FiHexagon } from "react-icons/fi"
 
 // firebase
-import { getUserDocument }  from "../../firebase/firebase.user.js";
-
-// css
-// import './side-nav.css';
+import { signoutUser } from '../../firebase/firebase.login';
 
 export default function SideNav(){
-    
-
    const username = localStorage.getItem("user");
    const balance = localStorage.getItem("balance");
+   const navigate = useNavigate()
 
+    const signOutHandler = async (event) => {
+        event.preventDefault()
+        await signoutUser()
+
+        // also navigating the user to the home page after signing the user out
+        navigate('/')
+    }
 
     return ( 
         <>
@@ -116,7 +117,7 @@ export default function SideNav(){
                             <a href='https://github.com/AjinRenfire/helphub' target='_blank'><FiGithub className=''/></a>
                         </ConfigIcon>
                         
-                        <button className="rounded-full bg-red-200 text-red-500 hover:bg-red-500 hover:text-white px-4 py-2">Log Out</button>
+                        <button type='button' onClick={(event) => signOutHandler(event)} className="rounded-full bg-red-200 text-red-500 hover:bg-red-500 hover:text-white px-4 py-2">Log Out</button>
                     </div>
                     
                 </nav>

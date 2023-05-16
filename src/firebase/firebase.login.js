@@ -19,7 +19,11 @@ export const loginUser = async (email, password) => {
  * 
  */
 export const signoutUser = async() => {
-    // also setting the cuser context to null while signing out
+    // also deleting all the entries in the localStorage
+    localStorage.removeItem("userUID")
+    localStorage.removeItem("user")
+    localStorage.removeItem("balance")
+
     return await signOut(auth)
 }
 

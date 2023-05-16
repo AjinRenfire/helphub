@@ -31,18 +31,9 @@ export default function Navbar(){
                             <li className="text-sm font-semibold leading-6 text-gray-900"> <a href="#support" className="hover:text-violet-700">Support</a> </li>
                             
                         </ul>
-                        {
-                            // if current user is not null, showing log out button
-                            // else, showing login button
-                            currentUser ? (
-                                <button onClick={logoutHandler} className="rounded-full bg-violet-600 text-white px-4 py-2 hover:bg-red-600">Logout</button>
-                            ) : (
-                                <Link to={'/login'}>
-                                    <button className="rounded-full bg-violet-600 text-white px-4 py-2">Log In</button>
-                                </Link>
-                            )
-                        }
-                   
+                        <Link to={'/login'}>
+                            <button className="rounded-full bg-violet-600 text-white px-4 py-2">Log In</button>
+                        </Link>
                 </nav>
             </header>
 
