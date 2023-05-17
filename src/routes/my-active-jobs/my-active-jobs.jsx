@@ -62,19 +62,22 @@ export default function MyActiveJobs(){
         <>
         <main className="space-y-4">
             {activeJobs.length > 0 && <h1 className="text-center">The helpers are working on the job you have posted</h1>}
-            {
-                activeJobs.length > 0 ? (
-                    activeJobs.map((job) => (
-                        <JobsListItem 
-                            job={job}
-                            key={job.jobUID}
-                            click={() => handler(job)}
-                        />
-                    ))
-                ) : (
-                    <ListMsg image={SharkImg} message={"All caught up!!"}/>
-                )
-            }
+            <div className="space-y-4">
+                {
+                    activeJobs.length > 0 ? (
+                        activeJobs.map((job) => (
+                            <JobsListItem 
+                                job={job}
+                                key={job.jobUID}
+                                click={() => handler(job)}
+                            />
+                        ))
+                    ) : (
+                        <ListMsg image={SharkImg} message={"All caught up!!"}/>
+                    )
+                }
+            </div>
+            
             
         </main>
         </>
