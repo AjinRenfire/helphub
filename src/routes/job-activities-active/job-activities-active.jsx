@@ -45,7 +45,7 @@ export default function JobActivitiesActivePage(){
 
     // function is called when the job is clicked
     function handle(job){
-        navigate('/app/job-details', {state: {job, from: '/app/job-activities/active'}})
+        navigate('/app/job-details', {state: {jobUID: job.jobUID, from: '/app/job-activities/active'}})
     }
 
     return (

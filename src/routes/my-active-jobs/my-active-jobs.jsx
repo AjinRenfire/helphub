@@ -34,16 +34,13 @@ export default function MyActiveJobs(){
         // check for some conditions
         // 1. creatorUID is equal to currentUserUID (already checked)
         // 2. status of the job is ACCEPTED
-        // 3. private status is WORK_STILL_IN_PROGRESS
-        // 4. helperUID is not null
+        // 3. helperUID is not null
         let dummy = []
 
         function check(d){
             if(d.status === JOB_PUBLIC_STATUS.YOU_ACCEPTED_THE_JOB){
-                if(d.privateJobStatus === JOB_PRIVATE_STATUS.WORK_STILL_IN_PROGRESS){
-                    if(d.helperUID != null){
-                        dummy.push(d)
-                    }
+                if(d.helperUID != null){
+                    dummy.push(d)
                 }
             }
         }
@@ -55,7 +52,7 @@ export default function MyActiveJobs(){
     // function is triggered when the user click on a job
     // navigating the user to the job details page
     const handler = (job) => {
-        navigate('/app/job-details', {state: {job, from: '/app/my-jobs/active'}})
+        navigate('/app/job-details', {state: {jobUID: job.jobUID, from: '/app/my-jobs/active'}})
     }
 
     return (

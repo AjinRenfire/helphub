@@ -202,3 +202,50 @@ export const respondToAcceptReject = async (jobUID, requestorUID, decision) => {
         }
     }
 }
+
+/**
+ * 
+ * 
+ * 
+ * Function to update the private status of the job to WORK_SUBMITTED
+ * 
+ * 
+ * 
+ */
+export const updatePrivateStatusOfTheJob = async (jobUID, privateStatus) => {
+    if((! auth) || (! jobUID)) return
+
+    // getting the reference for the current job document
+    const currentJobReference = doc(database, FIREBASE_COLLECTION_JOB_LISTINGS, jobUID)
+
+    // updating the private status of the job
+    let data = {
+        privateJobStatus: privateStatus
+    }
+
+    return await updateDoc(currentJobReference, data)
+}
+
+/**
+ * 
+ * 
+ * 
+ * Function to update the rating of the job
+ * 
+ * 
+ * 
+ */
+export const updateRating = async (jobUID, rating) => {
+    if((! auth) || (! jobUID)) return
+
+    // getting the reference for the current job document
+    const currentJobReference = doc(database, FIREBASE_COLLECTION_JOB_LISTINGS, jobUID)
+
+    // updating the private status of the job
+    let data = {
+        rating: rating
+    }
+
+    return await updateDoc(currentJobReference, data)
+}
+

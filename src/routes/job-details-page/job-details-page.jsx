@@ -1,4 +1,4 @@
-import {  redirect, useLocation, useNavigate } from "react-router-dom"
+import {  Form, redirect, useLocation, useNavigate } from "react-router-dom"
 import { useEffect, useRef, useState } from "react"
 
 // components
@@ -12,23 +12,22 @@ import './job-details-page.css'
 import { FiStar,FiX } from "react-icons/fi"
 
 // firebase
-import { requestToDoTheJob } from "../../firebase/firebase.job"
+import { requestToDoTheJob, updatePrivateStatusOfTheJob, updateRating } from "../../firebase/firebase.job"
 import { onSnapshot, doc } from "firebase/firestore"
 import { database } from "../../firebase/firebase.config"
 
 // constants
-import { FIREBASE_COLLECTION_CHAT_ROOM } from "../../utils/constants"
+import { FIREBASE_COLLECTION_CHAT_ROOM, FIREBASE_COLLECTION_JOB_LISTINGS } from "../../utils/constants"
+import { JOB_PRIVATE_STATUS } from "../posting-job/post-job-page"
 
 export default function JobsDetailsPage(){
     const location = useLocation()
-    const {job, from} = location.state
+    const {jobUID, from} = location.state
     const navigate = useNavigate()
-    const [chat, setChat] = useState({})
-
-    const ratingDialogRef = useRef(null);
     
-
-   
+    const [chat, setChat] = useState({})
+    const [job, setJob] = useState({})
+    const [rating, setRating] = useState(0)
 
     // function to navigate to the previous page
     const back = () => {
@@ -56,7 +55,17 @@ export default function JobsDetailsPage(){
         navigate('/app/chat', {state: {chat, openedAs: openedAs}})
     }
 
-    
+    // this useEffect() is listening to changes in the job document
+    useEffect(() => {
+        const unsubscribe = () => {
+            const jobDocReference = doc(database, FIREBASE_COLLECTION_JOB_LISTINGS, jobUID)
+            onSnapshot(jobDocReference, (doc) => {
+                setJob(doc.data())
+            })
+        }
+
+        return unsubscribe
+    }, [jobUID])
 
     // this useEffect() or rather the function unsubscribe is executed, only when this page is opened from two routes
     // 1. '/app/my-jobs/active'
@@ -64,31 +73,57 @@ export default function JobsDetailsPage(){
     // 2. '/app/job-activities/active'
     //     -> If thie page is opened from the above link, then the helper of the job has opened the page
     useEffect(() => {
-        // listening to particular chat document in the Chats Collection
-        // only if the the page is opened from '/app/my-jobs/active' or '/app/my-jobs/active'
-        const unsubscribe = () => {
-            const chatDocReference = doc(database, FIREBASE_COLLECTION_CHAT_ROOM, job.chatRoomUID)
-            onSnapshot(chatDocReference, (doc) => {
-                setChat(doc.data())
-            })
-        }
+        if('jobUID' in job){
+            // listening to particular chat document in the Chats Collection
+            // only if the the page is opened from '/app/my-jobs/active' or '/app/my-jobs/active'
+            const unsubscribe = () => {
+                const chatDocReference = doc(database, FIREBASE_COLLECTION_CHAT_ROOM, job.chatRoomUID)
+                onSnapshot(chatDocReference, (doc) => {
+                    setChat(doc.data())
+                })
+            }
 
-        if((from === '/app/my-jobs/active') || (from === '/app/job-activities/active')) {
-            unsubscribe()
+            if((from === '/app/my-jobs/active') || (from === '/app/job-activities/active')) {
+                unsubscribe()
+            }
         }
     }, [job])
 
-    /* this open is used for testin the rating modal*/
-    // const [open , setOpen] = useState(false);
-    function HandleSubmit(){
-        // setOpen(true)
+    /**
+     * 
+     * 
+     * Function to handle when the helper submits the work
+     * 
+     * changing the private status of the job to Work Submitted
+     * 
+     * 
+     * 
+     */
+    async function HandleSubmit(){
+        // setting the private status of the job to WORK_SUBMITTED
+        console.log("clieked")
+        try{
+            await updatePrivateStatusOfTheJob(job.jobUID, JOB_PRIVATE_STATUS.WORK_SUBMITTED)
+        }
+        catch(error){
+            console.log('error')
+        }
     }
 
-   
+    // function to handle the rating change
+    const RatingSubmit = async (event) => {
+        event.preventDefault()
 
-   
+        console.log(event.target.rating.value)
 
-    
+        try{
+            await updateRating(job.jobUID, event.target.rating.value)
+        }
+        catch(error){
+            console.log(error)
+        }
+    }
+
     return (
         <div className="mt-20 w-2/3 block mx-auto lg:ml-96 ">
             <BackButton 
@@ -143,6 +178,50 @@ export default function JobsDetailsPage(){
                             <div className="space-x-4 flex justify-center items-center">
                                 <button onClick={() => goToChatPage()} className="border-2 border-violet-600 px-6 rounded-full w-auto text-violet-600 py-2 hover:bg-violet-600 hover:text-white">Chat</button>
                                 <button className=" border-2 border-red-600 px-6 rounded-full w-auto text-red-700 py-2 hover:bg-red-600 hover:text-white">Report</button>
+                                
+                                {
+                                    // if the helper submitted the work.....
+                                    // Ajin style paniru...
+                                    ((job.privateJobStatus === JOB_PRIVATE_STATUS.WORK_SUBMITTED) || (job.privateJobStatus === JOB_PRIVATE_STATUS.WORK_ACCEPTED)) && (
+                                        <div>
+                                           {
+                                            // if job private status is Work Submitted
+                                            // showing the button to accept the work
+                                                job.privateJobStatus === JOB_PRIVATE_STATUS.WORK_SUBMITTED ? (
+                                                    <div>
+                                                        <p>The user has submitted the work</p>  
+                                                        <button 
+                                                            type="button" 
+                                                            onClick={() => updatePrivateStatusOfTheJob(job.jobUID, JOB_PRIVATE_STATUS.WORK_ACCEPTED)} 
+                                                        >Accept the work</button>
+                                                    </div>
+                                                ) : (
+                                                    // private status must be Work Accepted
+                                                    <div>
+                                                        {
+                                                            // ipothaiku suma Form potruken
+                                                            // but i have an idea other than stars
+                                                            // oru row la, 1 2 3 4 5 display panalam
+                                                            // let the poster, choose anything
+
+                                                            // also unakula RatingMoal enaku implement pana therla.. ne aproma atha paniko
+                                                            (! 'rating' in job) && (
+                                                                <div>
+                                                                    <p>Rate the work</p>
+                                                                   
+                                                                    <Form onSubmit={(event) => RatingSubmit(event)}>
+                                                                        <input name="rating" type="number" required min='0' max='5' />
+                                                                        <button type="submit">Submit your rating</button>
+                                                                    </Form>
+                                                                </div>
+                                                            )
+                                                        }
+                                                    </div>
+                                                )
+                                            }
+                                        </div>
+                                    )
+                                }
                             </div>
                         ) 
                     }
@@ -152,12 +231,21 @@ export default function JobsDetailsPage(){
                     {
                         from === '/app/job-activities/active' && (
                             <div className="space-x-4 flex justify-center items-center">
-                                <button 
-                                    className="bg-violet-500 border-2 border-violet-500 px-6 rounded-full w-auto text-white py-2 hover:bg-violet-900 hover:border-violet-900" 
-                                    onClick={HandleSubmit}
-                                >Submit Work</button>
+                                {
+                                    // not showing the submit work button, if the private status of the job is Work Submitted
+                                    job.privateJobStatus === JOB_PRIVATE_STATUS.WORK_STILL_IN_PROGRESS && (
+                                        <button 
+                                            className="bg-violet-500 border-2 border-violet-500 px-6 rounded-full w-auto text-white py-2 hover:bg-violet-900 hover:border-violet-900" 
+                                            onClick={HandleSubmit}
+                                        >Submit Work</button>
+                                    )
+                                }
                                 <button onClick={() => goToChatPage()} className="border-2 border-violet-600 px-6 rounded-full w-auto text-violet-600 py-2 hover:bg-violet-600 hover:text-white" >Chat</button>
                                 <button className=" border-2 border-red-600 px-6 rounded-full w-auto text-red-700 py-2 hover:bg-red-600 hover:text-white">Report</button>
+                            
+                                <div>
+                                    {job.privateJobStatus === JOB_PRIVATE_STATUS.WORK_SUBMITTED && <p>You have submitted the work</p>}
+                                </div>
                             </div>
                         ) 
                     }

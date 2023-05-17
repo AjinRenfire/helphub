@@ -49,7 +49,8 @@ export const JOB_PUBLIC_STATUS = {
 
 export const JOB_PRIVATE_STATUS = {
     WORK_STILL_IN_PROGRESS : 'Work Still In Progress',
-    WORK_COMPLETED : 'Work Completed',
+    WORK_SUBMITTED: 'Work Submitted',
+    WORK_ACCEPTED: 'Work Accepted'
 }
 
 export default function PostJobPage() {

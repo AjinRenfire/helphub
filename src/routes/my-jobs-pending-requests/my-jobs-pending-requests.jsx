@@ -48,28 +48,27 @@ export default function MyJobsPendingRequestsPage (){
 
     return (
         <>  
-        <main className="space-y-4">
-            {pendingRequests.length > 0 && <h1 className="text-center">Looks like helpers want to help you</h1>}
-            <div className="space-y-4">
-            {
-                
-                pendingRequests.length > 0 ? (
-                    pendingRequests.map((job) => 
-                        (
-                            <JobListPendingItem 
-                                job={job} 
-                                key={job.jobUID}
-                            />
+            <main className="space-y-4">
+                {pendingRequests.length > 0 && <h1 className="text-center">Looks like helpers want to help you</h1>}
+                <div className="space-y-4">
+                {
+                    
+                    pendingRequests.length > 0 ? (
+                        pendingRequests.map((job) => 
+                            (
+                                <JobListPendingItem 
+                                    job={job} 
+                                    key={job.jobUID}
+                                />
+                            )
                         )
+                    ) : (
+                        <ListMsg image={SharkImg} message={"No requests from the requestors"}/>
                     )
-                ) : (
-                    <ListMsg image={SharkImg} message={"So empty, come back later"}/>
-                )
-            }
-            </div>
-            
-        </main>
-            
+                }
+                </div>
+                
+            </main>
         </>
     )
 }
