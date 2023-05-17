@@ -49,8 +49,8 @@ export default function JobActivitiesActivePage(){
     }
 
     return (
-        <>
-            {/* {activeJobs.length > 0 && <h1>You are working on these jobs currently!</h1>} */}
+        <main className="space-y-6">
+            {activeJobs.length > 0 && <h1 className="text-center" >You are working on these jobs currently!</h1>}
             <div className="space-y-4">
                 {
                     activeJobs.length > 0 ? (
@@ -67,6 +67,6 @@ export default function JobActivitiesActivePage(){
                 }
             </div>
             
-        </>
+        </main>
     )
 }

@@ -10,7 +10,7 @@ export default function JobPendingAccept({requestorUID, decision}){
         async function fetchUserData(){
             let userDocSnapshot = await getUserDocument(requestorUID)
             let user = userDocSnapshot.data()
-
+           
             setRequestor(user)
         }
 
@@ -26,15 +26,16 @@ export default function JobPendingAccept({requestorUID, decision}){
 
         decision(x)
     }
+    
 
     return (
         <>
         {
             requestor.email ? (
-                <div className="flex bg-violet-200 px-6 py-4 justify-between items-center border hover:shadow-lg hover:bg-violet-300 border-b-violet-400 first:rounded-t-lg first:border-b-violet-400 last:rounded-b-lg last:border-b-violet-200 only:rounded-lg only:border-b-violet-200 ">
+                <div className="flex bg-purple-100 px-6 py-4 justify-between items-center border hover:shadow-lg hover:bg-violet-300 border-b-violet-400 first:rounded-t-lg first:border-b-violet-400 last:rounded-b-lg last:border-b-violet-200 only:rounded-lg only:border-b-violet-200 ">
                     <div className="flex items-center space-x-8">
                         <p className=' text-lg font-semibold'>{requestor.username}</p>
-                        <p className=' font-medium'>4</p>
+                        <p className=' font-medium'>{requestor.rating}</p>
                     </div>
                     <div className=" space-x-2">
                         <button type='button' onClick={clickHandler} className=' px-4 py-2 text-emerald-500 bg-white border  border-emerald-500 rounded-full hover:bg-emerald-500 hover:text-white' value="Accept">Accept</button>

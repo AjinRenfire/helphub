@@ -143,7 +143,7 @@ export default function DashboardPage(){
                             !isEditing ? (
                                 <>
                                     {/** User is not editing anything, so just displaying all the info */}
-                                    <h3 className=" text-4xl font-bold">{userData.username}</h3>
+                                    {/* <h3 className=" text-4xl font-bold">{userData.username}</h3>
 
                                     <div className="flex items-center space-x-2 text-gray-500 ">
                                         <div className="flex items-center space-x-1">
@@ -156,7 +156,7 @@ export default function DashboardPage(){
                                     </div>
                                     
                                     <div className="  text-gray-900">
-                                        {/* <h3>About me</h3> */}
+                                        <h3>About me</h3>
                                         <p className="leading-relaxed">
                                             {(about !=="")?about:"Add something about yourself here"}
                                         </p>
@@ -164,7 +164,43 @@ export default function DashboardPage(){
 
                                     <div className="flex items-center ">
                                         <p className=" text-gray-600 font-bold text-sm">{email} , {(phoneNumber !=="")?phoneNumber:"add your phone number"}</p>
+                                    </div> */}
+
+                                    <div>
+                                        <p className="text-gray-700 text-sm">Username</p>
+                                        <p className=" font-medium">{userData.username}</p>
                                     </div>
+
+                                    <div className="flex items-center space-x-10" >
+                                        <div>
+                                            <p className="text-gray-700 text-sm">Hobbies</p>
+                                            <p className=" font-medium">{userData.hobbies}</p>
+                                        </div>
+                                        <div>
+                                            <p className="text-gray-700 text-sm">Location</p>
+                                            <p className=" font-medium">{userData.location}</p>
+                                        </div>
+                                    </div>
+                                    
+
+                                    <div className="flex items-center space-x-10" >
+                                        <div>
+                                            <p className="text-gray-700 text-sm">Email</p>
+                                            <p className=" font-medium">{userData.email}</p>
+                                        </div>
+                                        <div>
+                                            <p className="text-gray-700 text-sm">Phone number</p>
+                                            <p className=" font-medium">{userData.phoneNumber}</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div>
+                                        <p className="text-gray-700 text-sm">About you
+                                        </p>
+                                        <p className=" font-medium">{userData.about}</p>
+                                    </div>
+
+
                                 </>
                             ):(
                                 <>

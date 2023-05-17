@@ -49,6 +49,7 @@ export default function MyJobsPendingRequestsPage (){
     return (
         <>  
         <main className="space-y-4">
+            {pendingRequests.length > 0 && <h1 className="text-center">Looks like helpers want to help you</h1>}
             {
                 
                 pendingRequests.length > 0 ? (

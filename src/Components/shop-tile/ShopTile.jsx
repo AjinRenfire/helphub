@@ -11,7 +11,7 @@ export default function ShopTile (props) {
 
             
             <div className="">
-                <img src={HexImage} alt="" height="" className=" w-48"/>
+                <img src={HexImage} alt="" height="" className=" w-40"/>
             </div>
             
            

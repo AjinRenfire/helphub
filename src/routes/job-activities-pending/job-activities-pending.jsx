@@ -45,8 +45,8 @@ export default function JobActivitiesPendingPage(){
     console.log("Pending Requests : ", pendingRequests)
 
     return (
-        <>
-            {/* {pendingRequests.length > 0 && <h1>The creator of the job is yet to accept your requests</h1>} */}
+        <main className="space-y-6">
+            {pendingRequests.length > 0 && <h1 className="text-center" >The creator of the job is yet to accept your requests</h1>}
             <div className="space-y-4">
                 {
                     pendingRequests.length > 0 ? (
@@ -62,6 +62,6 @@ export default function JobActivitiesPendingPage(){
                 }
             </div>
             
-        </>
+        </main>
     )
 }

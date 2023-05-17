@@ -42,6 +42,7 @@ export default function MyJobsNoRequestsYetPage(){
     return (
         <>  
             <main className="space-y-4">
+            {noRequests.length > 0 && <h1 className="text-center">No requests for these helps</h1>}
             {
                 noRequests.length > 0 ? (
                     noRequests.map((job) => (
