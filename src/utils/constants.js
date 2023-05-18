@@ -27,10 +27,11 @@ export const SUCCESSFULLY_LOGGED_IN = 'Successfully logged in!'
 export const PLEASE_WAIT = 'Please wait...'
 
 
-export function HasDeadlineOver(deadlineDate) {
-    let date = deadlineDate.substring(0,deadlineDate.indexOf(" "));
-    let time = deadlineDate.substring(deadlineDate.indexOf(" ")+1);
-    const dateObj1 = new Date(date+"T"+time);
+export function HasDeadlineOver(val) {
+
+    let date = val[3]+val[4] +" "+ val[0]+val[1]+" "+val[6]+val[7]+val[8]+val[9]+" "+val.substring(11);
+
+    const dateObj1 = new Date(date);
     const dateObj2 = new Date();
 
     if(dateObj1.getTime() < dateObj2.getTime()){

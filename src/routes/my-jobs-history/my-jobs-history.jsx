@@ -8,7 +8,7 @@ import { UpdateBalance } from "../../firebase/firebase.job"
 import ListMsg from "../../Components/ListMsg"
 import JobsListItem from "../../components/jobs-list-item/jobs-list-item"
 
-import SharkImg from "../../assets/imgs/list-imgs/shark.png"
+import SharkImg from "../../assets/imgs/list-imgs/shark-lazy.png"
 
 // constants
 import { JOB_PRIVATE_STATUS, JOB_PUBLIC_STATUS } from "../posting-job/post-job-page"

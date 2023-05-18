@@ -286,9 +286,41 @@ export const PostJobAction = async ({request}) => {
     const category = formData.get('category')
     const othersDescription = formData.get('others-title')
     let deadline = formData.get('job-deadline').toString()
-    let date = deadline.substring(0,deadline.indexOf("T"));
-    let time = deadline.substring(deadline.indexOf("T")+1 );
+
+
+    // let date = deadline.substring(0,deadline.indexOf("T"));
+    // let time = deadline.substring(deadline.indexOf("T")+1 );
+
+
+    // //format the date before updating
+    // let dateArr = date.split("");
+
+    // let newDate = dateArr[8]+dateArr[9]+"-"+dateArr[5]+dateArr[6]+"-"+dateArr[0]+dateArr[1]+dateArr[2]+dateArr[3];
+    // date = newDate;
+
+    // //format the time before updating
+    // let hrs = parseInt( time.substring(0,time.indexOf(":")));
+    // let mins = parseInt(time.substring(time.indexOf(":")+1)) ;
+    // let meridian = "";
+    // if(hrs > 12) {
+    //     hrs = ((hrs+ 11) % 12 + 1);
+    //     meridian = "PM"
+    // }else{
+    //     meridian = "AM"
+    // }
+
+    // if(hrs < 10) {
+    //     time = "0"+hrs+":"+mins+" "+meridian;
+    // }
+    // else{
+    //     time = hrs+":"+mins+" "+meridian;
+    // }
+    
+
+   let time = new Date(deadline).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }).toLowerCase();
+    let date = new Date(deadline).toLocaleDateString("en-GB");
     deadline = date+" "+time;
+
     const cost = formData.get('job-cost');
     let location = formData.get('job-location');
     
