@@ -13,6 +13,7 @@ import { onSnapshot, query, collection, where, QuerySnapshot } from "firebase/fi
 
 // constants
 import { FIREBASE_COLLECTION_JOB_LISTINGS } from "../../utils/constants"
+import { PayFunction } from "../../firebase/firebase.job"
 
 export default function MyJobsPage(){
     const [data, setData] = useState([])

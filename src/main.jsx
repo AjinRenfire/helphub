@@ -25,6 +25,7 @@ import MyJobsPage from './routes/my-jobs-page/my-jobs';
 import MyActiveJobs from './routes/my-active-jobs/my-active-jobs';
 import MyJobsPendingRequestsPage from './routes/my-jobs-pending-requests/my-jobs-pending-requests';
 import MyJobsNoRequestsYetPage from './routes/my-jobs-no-requests/my-jobs-no-requests';
+import MyJobsHistory from './routes/my-jobs-history/my-jobs-history';
 
 import JobActivitesPage from './routes/job-activities/JobActivitesPage';
 import JobActivitiesActivePage from './routes/job-activities-active/job-activities-active';
@@ -99,6 +100,9 @@ const router = createBrowserRouter(
 
           {/* No requests for my job */}
           <Route path='/app/my-jobs/no-requests' element={<MyJobsNoRequestsYetPage />} />
+
+          {/* My jobs history */}
+          <Route path='/app/my-jobs/history' element={<MyJobsHistory />} />
         </Route>
 
         {/* Jobs listing Page */}

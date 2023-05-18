@@ -40,7 +40,9 @@ export default function MyActiveJobs(){
         function check(d){
             if(d.status === JOB_PUBLIC_STATUS.YOU_ACCEPTED_THE_JOB){
                 if(d.helperUID != null){
-                    dummy.push(d)
+                    if((d.privateJobStatus === JOB_PRIVATE_STATUS.WORK_STILL_IN_PROGRESS) || (d.privateJobStatus === JOB_PRIVATE_STATUS.WORK_SUBMITTED)){
+                        dummy.push(d)
+                    }
                 }
             }
         }

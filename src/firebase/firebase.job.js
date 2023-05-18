@@ -5,7 +5,7 @@ import { doc, getDoc, setDoc, getDocs, collection, updateDoc, onSnapshot, query,
 import { v4 as uuidv4 } from 'uuid';
 
 // constants
-import { FIREBASE_COLLECTION_CHAT_ROOM, FIREBASE_COLLECTION_JOB_LISTINGS, SUCCESSFULLY_LOGGED_IN } from '../utils/constants'
+import { FIREBASE_COLLECTION_CHAT_ROOM, FIREBASE_COLLECTION_JOB_LISTINGS, FIREBASE_COLLECTION_USERS, SUCCESSFULLY_LOGGED_IN } from '../utils/constants'
 import { JOB_PRIVATE_STATUS, JOB_PUBLIC_STATUS } from '../routes/posting-job/post-job-page';
 
 // firebase
@@ -249,3 +249,81 @@ export const updateRating = async (jobUID, rating) => {
     return await updateDoc(currentJobReference, data)
 }
 
+/**
+ * 
+ * 
+ * 
+ * Function to handle the pay function
+ * 
+ * 1. First updating the private status of the job to Work Accepted
+ * 2. Updating the rating of the job
+ *
+ * 
+ * 
+ * Other steps are done in the function right below
+ * 
+ */
+export const PayFunction = async (job, rating) => {
+    if((! auth) || (! job) || (! rating)) return
+
+    // getting the current reference of the job document
+    const currentJobReference = doc(database, FIREBASE_COLLECTION_JOB_LISTINGS, job.jobUID)
+
+    // 1 and 2
+    let data = {
+        privateJobStatus: JOB_PRIVATE_STATUS.WORK_ACCEPTED,
+        rating: rating
+    }
+
+    // updating the job document
+    return await updateDoc(currentJobReference, data)
+}
+
+/**
+ * 
+ * 
+ * function to update the rating, balance of the poster and helper
+ * 
+ * 
+ * 
+ */
+export const UpdateBalance = async (job, rating) => {
+    if((! auth) || (! job) || (! rating)) return
+
+    // getting the UIDs of both helper and poster from the job
+    const helperUID = job.helperUID
+    const posterUID = job.creatorUID
+
+    // For poster of the job....
+    // 1. deduct the cost of the job from the balance
+
+    // getting the reference of the poster's user document
+    const posterUserDocReference = doc(database, FIREBASE_COLLECTION_USERS, posterUID)
+
+    // getting the current balance of the poster
+    let response = await getUserDocument(posterUID)
+    let PosterBalance = parseInt(response.data().balance) - parseInt(job.cost)
+
+    // updating the poster doc with the updated balance
+    let data = {
+        balance: PosterBalance
+    }
+    await updateDoc(posterUserDocReference, data)
+
+    // For the helper of the job...
+    // Creding the job cost to the helper's balance
+
+    // getting the reference of the helper's user document
+    const helperUserDocReference = doc(database, FIREBASE_COLLECTION_USERS, helperUID)
+
+    // getting the current balance of the helper
+    response = await getUserDocument(helperUID)
+    let HelperBalance = parseInt(response.data().balance) + parseInt(job.cost)
+
+    // updating the helper doc with the updated balance
+    data = {
+        balance: HelperBalance
+    }
+
+    return await updateDoc(helperUserDocReference, data)
+}

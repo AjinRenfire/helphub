@@ -12,7 +12,7 @@ import './job-details-page.css'
 import { FiStar,FiX } from "react-icons/fi"
 
 // firebase
-import { requestToDoTheJob, updatePrivateStatusOfTheJob, updateRating } from "../../firebase/firebase.job"
+import { requestToDoTheJob, updatePrivateStatusOfTheJob, updateRating, PayFunction } from "../../firebase/firebase.job"
 import { onSnapshot, doc } from "firebase/firestore"
 import { database } from "../../firebase/firebase.config"
 
@@ -72,7 +72,7 @@ export default function JobsDetailsPage(){
             })
         }
 
-        return unsubscribe
+        return unsubscribe()
     }, [jobUID])
 
     // this useEffect() or rather the function unsubscribe is executed, only when this page is opened from two routes
@@ -92,7 +92,7 @@ export default function JobsDetailsPage(){
             }
 
             if((from === '/app/my-jobs/active') || (from === '/app/job-activities/active')) {
-                unsubscribe()
+                return unsubscribe()
             }
         }
     }, [job])
@@ -109,7 +109,6 @@ export default function JobsDetailsPage(){
      */
     async function HandleSubmit(){
         // setting the private status of the job to WORK_SUBMITTED
-        console.log("clieked")
         try{
             await updatePrivateStatusOfTheJob(job.jobUID, JOB_PRIVATE_STATUS.WORK_SUBMITTED)
         }
@@ -118,21 +117,8 @@ export default function JobsDetailsPage(){
         }
     }
 
-    // function to handle the rating change
-    const RatingSubmit = async (val) => {
-        // event.preventDefault()
-        try{
-            await updateRating(job.jobUID, val)
-        }
-        catch(error){
-            console.log(error)
-        }
-    }
-
-
     function HandleAccept(){
         setIsModalOpen(true)
-        // updatePrivateStatusOfTheJob(job.jobUID, JOB_PRIVATE_STATUS.WORK_ACCEPTED)
     }
 
     function HandleModalClose() {
@@ -140,14 +126,17 @@ export default function JobsDetailsPage(){
     }
 
     function HandlesetRating(rat){
-        
         setRating(rat)
         console.log(rat)
     }
 
+    // function to execute when the poster clicks the Pay Button in the Rating Modal
     async function HandlePay(){
-        updatePrivateStatusOfTheJob(job.jobUID, JOB_PRIVATE_STATUS.WORK_ACCEPTED);
-        await RatingSubmit(rating);
+        // only editing the rating and updating the status of the job
+        await PayFunction(job, rating)
+
+        // doing the rest in the my job/job history route
+        navigate('/app/my-jobs/history', {state: {rating: rating, job: job}})
     }
 
     return (
