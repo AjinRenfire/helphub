@@ -27,23 +27,8 @@ import { JOB_PRIVATE_STATUS, JOB_PUBLIC_STATUS } from "../posting-job/post-job-p
  * 
  */
 export default function MyJobsHistory(){
-    const location = useLocation()
     const { data } = useOutletContext()
     const [historyJobs, setHistoryJobs] = useState([])
-
-    useEffect(()=> {
-       const summa = async () => {
-            if(location.state != null){
-                if('rating' in location.state){
-                    const {job, rating} = location.state
-    
-                    await UpdateBalance(job, rating)
-                }
-            }
-       }
-
-       summa()
-    })
 
     useEffect(() => {
         // check for some conditions

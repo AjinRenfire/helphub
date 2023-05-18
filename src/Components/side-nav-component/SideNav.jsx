@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React,{useEffect, useContext} from 'react';
 import { Outlet, Link, NavLink, useNavigate } from 'react-router-dom';
 
 //icons
@@ -10,18 +10,27 @@ import { FiHexagon } from "react-icons/fi"
 // firebase
 import { signoutUser } from '../../firebase/firebase.login';
 
+// context
+import { UserContext } from '../../contexts/user.context';
+
 export default function SideNav(){
-   const username = localStorage.getItem("user");
-   const balance = localStorage.getItem("balance");
    const navigate = useNavigate()
+   const { currentUser, setCurrentUser, currentUserUID, setCurrentUserUID } = useContext(UserContext)
 
     const signOutHandler = async (event) => {
         event.preventDefault()
         await signoutUser()
 
+        // resetting the user context
+        setCurrentUser(null)
+        setCurrentUserUID(null)
+
         // also navigating the user to the home page after signing the user out
         navigate('/')
     }
+
+    console.log("Current User : ", currentUser)
+
 
     return ( 
         <>
@@ -89,13 +98,13 @@ export default function SideNav(){
                                 <div className=' space-y-1  px-6 py-8 rounded-lg'>
                                     <div className='flex justify-center items-center space-x-4 '>
                                         <FiUser className=' text-xl font-medium'/>
-                                        <h3 className='text-lg font-medium'>{username}</h3>
+                                        <h3 className='text-lg font-medium'>{currentUser && currentUser.username}</h3>
                                     </div>
 
 
                                     <div className=' shadow-inner px-4 py-2 rounded-full text-center shadow-purple-100 flex items-center justify-center space-x-1'>
                                         <FiHexagon  />
-                                        <p >{balance}</p>
+                                        <p >{currentUser && currentUser.balance}</p>
                                     </div>
                                     
                                 </div>
@@ -123,8 +132,7 @@ export default function SideNav(){
                 </nav>
                
             </header>
-            
-            
+
             <Outlet/>
         </>
     );

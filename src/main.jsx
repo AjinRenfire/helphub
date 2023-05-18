@@ -47,13 +47,6 @@ import { auth } from './firebase/firebase.config';
 // css
 import './index.css'
 
-// loader function for /app route
-const AppLoader = () => {
-  console.log(auth)
-
-  return null
-}
-
 // creating a router
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -76,7 +69,7 @@ const router = createBrowserRouter(
       />
 
       {/* Pages after the user logged in */}
-      <Route path='/app' element={<SideNav/>} loader={AppLoader}>
+      <Route path='/app' element={<SideNav/>} >
         {/* Dashboard page */}
         <Route index element={<DashboardPage/>}  />
 

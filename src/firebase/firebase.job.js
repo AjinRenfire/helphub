@@ -266,6 +266,8 @@ export const updateRating = async (jobUID, rating) => {
 export const PayFunction = async (job, rating) => {
     if((! auth) || (! job) || (! rating)) return
 
+    console.log("Updating the job....")
+
     // getting the current reference of the job document
     const currentJobReference = doc(database, FIREBASE_COLLECTION_JOB_LISTINGS, job.jobUID)
 
@@ -290,6 +292,8 @@ export const PayFunction = async (job, rating) => {
 export const UpdateBalance = async (job, rating) => {
     if((! auth) || (! job) || (! rating)) return
 
+    console.log("Updating the balance")
+
     // getting the UIDs of both helper and poster from the job
     const helperUID = job.helperUID
     const posterUID = job.creatorUID
@@ -304,26 +308,28 @@ export const UpdateBalance = async (job, rating) => {
     let response = await getUserDocument(posterUID)
     let PosterBalance = parseInt(response.data().balance) - parseInt(job.cost)
 
+    console.log(response.data().balance, job.cost, PosterBalance)
+
     // updating the poster doc with the updated balance
     let data = {
         balance: PosterBalance
     }
-    await updateDoc(posterUserDocReference, data)
+    return await updateDoc(posterUserDocReference, data)
 
-    // For the helper of the job...
-    // Creding the job cost to the helper's balance
+    // // For the helper of the job...
+    // // Creding the job cost to the helper's balance
 
-    // getting the reference of the helper's user document
-    const helperUserDocReference = doc(database, FIREBASE_COLLECTION_USERS, helperUID)
+    // // getting the reference of the helper's user document
+    // const helperUserDocReference = doc(database, FIREBASE_COLLECTION_USERS, helperUID)
 
-    // getting the current balance of the helper
-    response = await getUserDocument(helperUID)
-    let HelperBalance = parseInt(response.data().balance) + parseInt(job.cost)
+    // // getting the current balance of the helper
+    // response = await getUserDocument(helperUID)
+    // let HelperBalance = parseInt(response.data().balance) + parseInt(job.cost)
 
-    // updating the helper doc with the updated balance
-    data = {
-        balance: HelperBalance
-    }
+    // // updating the helper doc with the updated balance
+    // data = {
+    //     balance: HelperBalance
+    // }
 
-    return await updateDoc(helperUserDocReference, data)
+    // return await updateDoc(helperUserDocReference, data)
 }

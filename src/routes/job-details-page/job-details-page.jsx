@@ -12,7 +12,7 @@ import './job-details-page.css'
 import { FiStar,FiX } from "react-icons/fi"
 
 // firebase
-import { requestToDoTheJob, updatePrivateStatusOfTheJob, updateRating, PayFunction } from "../../firebase/firebase.job"
+import { requestToDoTheJob, updatePrivateStatusOfTheJob, updateRating, PayFunction, UpdateBalance } from "../../firebase/firebase.job"
 import { onSnapshot, doc } from "firebase/firestore"
 import { database } from "../../firebase/firebase.config"
 
@@ -135,8 +135,10 @@ export default function JobsDetailsPage(){
         // only editing the rating and updating the status of the job
         await PayFunction(job, rating)
 
+        await UpdateBalance(job, updateRating)
+
         // doing the rest in the my job/job history route
-        navigate('/app/my-jobs/history', {state: {rating: rating, job: job}})
+        navigate('/app/my-jobs/history')
     }
 
     return (

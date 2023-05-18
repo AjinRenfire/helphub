@@ -11,7 +11,9 @@ import './login-page.css'
 
 // firebase
 import { loginUser } from '../../firebase/firebase.login'
-import { auth } from '../../firebase/firebase.config'
+
+// contexts
+import { UserContext } from '../../contexts/user.context'
 
 // constants
 import { 
@@ -28,11 +30,14 @@ import {
 export default function LoginPage(){ 
     const actionData = useActionData()
     const navigate = useNavigate()
-    const navigation = useNavigation()  
+    const navigation = useNavigation() 
+    const { currentUserUID, setCurrentUserUID, setCurrentUser } = useContext(UserContext) 
+
 
     useEffect(() => {
         actionData && actionData.status === 1000 && actionData.msg === SUCCESSFULLY_LOGGED_IN && (
             localStorage.setItem("userUID", actionData.user.uid),
+            setCurrentUserUID(actionData.user.uid),
             navigate('/app')            
         )        
     }, [actionData])
