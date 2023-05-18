@@ -278,7 +278,7 @@ export default function JobsDetailsPage(){
                 </div>
             </div>
             {/* <RatingModal  open={open}/> */}
-            <RatingModal isOpen={isModalOpen} handleModalClose={HandleModalClose} rating={rating} setRating={HandlesetRating} handlePay={HandlePay} />
+            <RatingModal isOpen={isModalOpen} handleModalClose={HandleModalClose} rating={rating} setRating={HandlesetRating} handlePay={HandlePay} cost={job.cost} />
             
         </div>
     )

@@ -2,7 +2,7 @@ import React,{useEffect, useRef , useState} from "react";
 
 import { FiStar,FiX } from "react-icons/fi"
 
-export default function RatingModal({isOpen , handleModalClose ,rating ,setRating ,handlePay}){ /* Only written as props (not destructured ) because to avoid errors in testing */
+export default function RatingModal({isOpen , handleModalClose ,rating ,setRating ,handlePay,cost}){ /* Only written as props (not destructured ) because to avoid errors in testing */
 
     /* usefull props can be passed is,
         open-> for boolean value representing modal display state
@@ -140,7 +140,7 @@ export default function RatingModal({isOpen , handleModalClose ,rating ,setRatin
 
 
     return (
-        <dialog ref={ratingDialogRef} className=" bottom-1/2 px-6 py-4 w-80 space-y-14 bg-amber-100 rounded-xl backdrop:bg-slate-500 backdrop:opacity-40" > 
+        <dialog ref={ratingDialogRef} className=" bottom-1/3 px-6 py-4 w-96 h-96 space-y-24 bg-amber-100 rounded-xl backdrop:bg-slate-500 backdrop:opacity-40" > 
                 <FiX className=" ml-auto text-xl rounded-full bg-rose-200 p-1 hover:bg-red-500 hover:text-white" onClick={HandleDialogClose}/>
                 <div className="space-y-2">
                     <p className="font-medium text-center">Rate the work</p>
@@ -168,10 +168,10 @@ export default function RatingModal({isOpen , handleModalClose ,rating ,setRatin
 
 
                 <button 
-                    className="block px-6 py-4 mx-auto rounded-full bg-emerald-200 text-emerald-800 font-medium cursor-pointer hover:text-white hover:bg-emerald-600 disabled:bg-slate-300 disabled:text-slate-600 disabled:cursor-not-allowed"
+                    className="block px-6 py-4 mx-auto mb-6 rounded-full bg-emerald-200 text-emerald-800 font-medium cursor-pointer hover:text-white hover:bg-emerald-600 disabled:bg-slate-300 disabled:text-slate-600 disabled:cursor-not-allowed"
                     onClick={HandleRatingSubmit}
                     disabled={(rating===0)?true:false}
-                >Pay</button>
+                >Pay {cost}</button>
         </dialog>
     )
 

@@ -174,11 +174,11 @@ export default function DashboardPage(){
                                     <div className="flex items-center space-x-10" >
                                         <div>
                                             <p className="text-gray-700 text-sm">Hobbies</p>
-                                            <p className=" font-medium">{userData.hobbies}</p>
+                                            <p className=" font-medium">{(userData.hobbies==="")?"Add your hobbies":userData.hobbies}</p>
                                         </div>
                                         <div>
                                             <p className="text-gray-700 text-sm">Location</p>
-                                            <p className=" font-medium">{userData.location}</p>
+                                            <p className=" font-medium">{(userData.location==="")?"Add your location":userData.location}</p>
                                         </div>
                                     </div>
                                     
@@ -186,18 +186,18 @@ export default function DashboardPage(){
                                     <div className="flex items-center space-x-10" >
                                         <div>
                                             <p className="text-gray-700 text-sm">Email</p>
-                                            <p className=" font-medium">{userData.email}</p>
+                                            <p className=" font-medium">{(userData.email==="")?"Add your email":userData.email}</p>
                                         </div>
                                         <div>
                                             <p className="text-gray-700 text-sm">Phone number</p>
-                                            <p className=" font-medium">{userData.phoneNumber}</p>
+                                            <p className=" font-medium">{(userData.phoneNumber==="")?"Add your phone number":userData.phoneNumber}</p>
                                         </div>
                                     </div>
                                     
                                     <div>
                                         <p className="text-gray-700 text-sm">About you
                                         </p>
-                                        <p className=" font-medium">{userData.about}</p>
+                                        <p className=" font-medium">{(userData.about==="")?"We are not mind readers... tell everyone about yourself":userData.about}</p>
                                     </div>
 
 
