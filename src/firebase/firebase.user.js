@@ -39,3 +39,32 @@ export const updateUserDocument = async (userUID, updatedDetails) => {
 
     return await updateDoc(userDocumentReference, data)
 }
+
+/**
+ * 
+ * 
+ * Updating the balance of the user document in the firebase
+ * 
+ * 
+ * 
+ */
+export const updateUserBalance = async (userUID, amount, type) => {
+    if((! auth) || (! userUID) || (! amount)) return
+
+    // getting the current balance of the user
+    let response = await getUserDocument(userUID)
+    let balance = response.data().balance
+
+    if(type == "Credit"){
+        balance = balance + amount
+    }
+    else{
+        balance = balance - amount
+    }
+
+    let data = {
+        balance: balance
+    }
+
+    return await updateUserDocument(userUID, data)
+}

@@ -314,22 +314,22 @@ export const UpdateBalance = async (job, rating) => {
     let data = {
         balance: PosterBalance
     }
-    return await updateDoc(posterUserDocReference, data)
+    await updateDoc(posterUserDocReference, data)
 
-    // // For the helper of the job...
-    // // Creding the job cost to the helper's balance
+    // For the helper of the job...
+    // Creding the job cost to the helper's balance
 
-    // // getting the reference of the helper's user document
-    // const helperUserDocReference = doc(database, FIREBASE_COLLECTION_USERS, helperUID)
+    // getting the reference of the helper's user document
+    const helperUserDocReference = doc(database, FIREBASE_COLLECTION_USERS, helperUID)
 
-    // // getting the current balance of the helper
-    // response = await getUserDocument(helperUID)
-    // let HelperBalance = parseInt(response.data().balance) + parseInt(job.cost)
+    // getting the current balance of the helper
+    response = await getUserDocument(helperUID)
+    let HelperBalance = parseInt(response.data().balance) + parseInt(job.cost)
 
-    // // updating the helper doc with the updated balance
-    // data = {
-    //     balance: HelperBalance
-    // }
+    // updating the helper doc with the updated balance
+    data = {
+        balance: HelperBalance
+    }
 
-    // return await updateDoc(helperUserDocReference, data)
+    return await updateDoc(helperUserDocReference, data)
 }
