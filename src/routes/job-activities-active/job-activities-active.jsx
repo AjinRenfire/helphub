@@ -8,7 +8,7 @@ import ListMsg from "../../Components/ListMsg"
 
 import SharkImg from "../../assets/imgs/list-imgs/shark.png"
 
-import { JOB_PUBLIC_STATUS } from "../posting-job/post-job-page"
+import { JOB_PUBLIC_STATUS, JOB_PRIVATE_STATUS } from "../posting-job/post-job-page"
 
 
 
@@ -33,10 +33,13 @@ export default function JobActivitiesActivePage(){
         // 1. creatorUID is not equal to current user UID (already checked)
         // 2. status of the job is ACCEPTED
         // 3. helperUID of the job is the currentUserUID
+        // 4. private status of the job should not be equal to Work Completed
         function check (d){
             if(d.status === JOB_PUBLIC_STATUS.YOU_ACCEPTED_THE_JOB){
                 if(d.helperUID === currentUserUID){
-                    dummy.push(d)
+                    if(d.privateJobStatus == JOB_PRIVATE_STATUS.WORK_STILL_IN_PROGRESS || d.privateJobStatus == JOB_PRIVATE_STATUS.WORK_SUBMITTED){
+                        dummy.push(d)
+                    }
                 }
             }
         }
