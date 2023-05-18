@@ -37,6 +37,8 @@ export function HasDeadlineOver(deadlineDate) {
         return true;
     }
 
+
+    //returns false if deadline is not over
     return false;
     
 }

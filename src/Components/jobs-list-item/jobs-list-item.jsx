@@ -4,10 +4,13 @@ import './jobs-list-item.css'
 import {FiMapPin} from 'react-icons/fi'
 
 import { JOB_PUBLIC_STATUS } from '../../routes/posting-job/post-job-page'
+// constants
+import { FIREBASE_COLLECTION_CHAT_ROOM, FIREBASE_COLLECTION_JOB_LISTINGS } from "../../utils/constants"
+import { JOB_PRIVATE_STATUS } from "../../routes/posting-job/post-job-page"
 
 export default function JobsListItem({job, click}){
     return (
-        <div className=" w-3/4 mx-auto px-6 py-4 border border-black shadow-sm rounded-sm first:rounded-t-lg last:rounded-b-lg only:rounded-lg hover:shadow-md hover:shadow-violet-300" onClick={click}>
+        <div className={`w-3/4 mx-auto px-6 py-4 border ${(job.privateJobStatus === JOB_PRIVATE_STATUS.WORK_SUBMITTED)?"border-emerald-600":"border-black "} ${(job.privateJobStatus === JOB_PRIVATE_STATUS.WORK_SUBMITTED)?"bg-emerald-50":""} shadow-sm rounded-sm first:rounded-t-lg last:rounded-b-lg only:rounded-lg hover:shadow-md ${(job.privateJobStatus === JOB_PRIVATE_STATUS.WORK_SUBMITTED)?"hover:shadow-emerald-200":"hover:shadow-violet-300 "}`} onClick={click}>
             <div className=" flex justify-between items-center">
                 <div className=' space-y-3'>
                     <div className='flex items-center space-x-2' >

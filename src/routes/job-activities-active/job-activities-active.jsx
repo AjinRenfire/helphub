@@ -10,6 +10,8 @@ import SharkImg from "../../assets/imgs/list-imgs/shark.png"
 
 import { JOB_PUBLIC_STATUS } from "../posting-job/post-job-page"
 
+
+
 /**
  * 
  * Job Activities Page
