@@ -224,26 +224,24 @@ export default function JobsDetailsPage(){
                                                     <div className="">
                                                         
                                                     </div>
-  
                                                 )
                                             }
                                         </div>
                                     ):(
+                                        // the user has not submitted the work yet
+                                        // so, disabling the Accept the work button
                                         <div className="">
                                             <button 
                                                 disabled
                                                 type="button" 
-                                                title="The user have not submitted the work"
+                                                title="The user has not submitted the work"
                                                 className="border-2 border-slate-300 px-6 rounded-full w-auto bg-slate-300 text-slate-600 py-2 hover:cursor-not-allowed"
                                             >Accept the work</button>         
-                                        </div>
-                                                    
+                                        </div>    
                                     )
                                 }
                                 <button onClick={() => goToChatPage()} className="border-2 border-violet-600 px-6 rounded-full w-auto text-violet-600 py-2 hover:bg-violet-600 hover:text-white">Chat</button>
                                 <button className=" border-2 border-red-600 px-6 rounded-full w-auto text-red-700 py-2 hover:bg-red-600 hover:text-white">Report</button>
-                                
-                                
                             </div>
                         ) 
                     }
@@ -267,8 +265,6 @@ export default function JobsDetailsPage(){
                                     }
                                     <button onClick={() => goToChatPage()} className="border-2 border-violet-600 px-6 rounded-full w-auto text-violet-600 py-2 hover:bg-violet-600 hover:text-white" >Chat</button>
                                     <button className=" border-2 border-red-600 px-6 rounded-full w-auto text-red-700 py-2 hover:bg-red-600 hover:text-white">Report</button>
-                                
-                                    
                                 </div>
                                 <div className=" px-6 py-4 ">
                                         {job.privateJobStatus === JOB_PRIVATE_STATUS.WORK_SUBMITTED && <p className="text-center px-6 py-4 bg-emerald-200 rounded-lg">You have submitted the work,wait for acceptance</p>}
