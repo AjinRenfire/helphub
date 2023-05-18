@@ -205,16 +205,14 @@ export default function JobsDetailsPage(){
                                                             // let the poster, choose anything
 
                                                             // also unakula RatingMoal enaku implement pana therla.. ne aproma atha paniko
-                                                            (! 'rating' in job) && (
-                                                                <div>
-                                                                    <p>Rate the work</p>
+                                                            <div>
+                                                                <p>Rate the work</p>
                                                                    
-                                                                    <Form onSubmit={(event) => RatingSubmit(event)}>
-                                                                        <input name="rating" type="number" required min='0' max='5' />
-                                                                        <button type="submit">Submit your rating</button>
-                                                                    </Form>
-                                                                </div>
-                                                            )
+                                                                <Form onSubmit={(event) => RatingSubmit(event)}>
+                                                                    <input name="rating" type="number" required min='0' max='5' />
+                                                                    <button type="submit">Submit your rating</button>
+                                                                </Form>
+                                                            </div>
                                                         }
                                                     </div>
                                                 )

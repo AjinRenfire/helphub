@@ -104,7 +104,7 @@ export default function JobsListingPage(){
     const handler = (job) => {
         console.log(job.title)
 
-        navigate('/app/job-details', {state: {job, from: '/app/job-listing'}})
+        navigate('/app/job-details', {state: {jobUID: job.jobUID, from: '/app/job-listing'}})
     }
 
     return (
