@@ -2,7 +2,7 @@ import React,{useEffect, useRef , useState} from "react";
 
 import { FiStar,FiX } from "react-icons/fi"
 
-export default function RatingModal(props){ /* Only written as props (not destructured ) because to avoid errors in testing */
+export default function RatingModal({isOpen , handleModalClose ,rating ,setRating ,handlePay}){ /* Only written as props (not destructured ) because to avoid errors in testing */
 
     /* usefull props can be passed is,
         open-> for boolean value representing modal display state
@@ -15,17 +15,18 @@ export default function RatingModal(props){ /* Only written as props (not destru
 
     useEffect(
         ()=>{
-            if(props.open) {
+            if(isOpen) {
                 const dialog = ratingDialogRef.current;
                 dialog.showModal()
             }else {
                 const dialog = ratingDialogRef.current;
-                dialog.showModal()
+                //dialog.showModal()
+                dialog.close()
             }
-        },[props.open]
+        },[isOpen]
     )
 
-    const [rating, setRating] = useState(0);
+    //const [rating, setRating] = useState(0);
     const ratingNotActiveColor = "fill-slate-500";
     const ratingActiveColor = "fill-orange-500";
     const [starsFillColorArray,setStarsFillColorArray] = useState([ratingNotActiveColor , ratingNotActiveColor ,ratingNotActiveColor , ratingNotActiveColor ,ratingNotActiveColor ])
@@ -90,7 +91,7 @@ export default function RatingModal(props){ /* Only written as props (not destru
     function HandleDialogMouseClicked(e) {
         
         setRating(e.currentTarget.value)
-        
+        // setRating(rating)
         setCanRatingChange(false);
 
         const value = e.currentTarget.value;
@@ -118,7 +119,8 @@ export default function RatingModal(props){ /* Only written as props (not destru
     function HandleRatingSubmit(){
         const dialogNode = ratingDialogRef.current;
         dialogNode.close()
-        console.log(rating);
+        console.log(rating,"🎯");
+        handlePay();
          //TODO:send submit signal to the job giver
          // * the state setter can be passed as a prop and should be called here
     }
@@ -131,6 +133,7 @@ export default function RatingModal(props){ /* Only written as props (not destru
         setRating(0);
         setStarsFillColorArray([ratingNotActiveColor , ratingNotActiveColor ,ratingNotActiveColor , ratingNotActiveColor ,ratingNotActiveColor ])
         const dialogNode = ratingDialogRef.current;
+        handleModalClose();
         dialogNode.close()
         
     }
@@ -168,7 +171,7 @@ export default function RatingModal(props){ /* Only written as props (not destru
                     className="block px-6 py-4 mx-auto rounded-full bg-emerald-200 text-emerald-800 font-medium cursor-pointer hover:text-white hover:bg-emerald-600 disabled:bg-slate-300 disabled:text-slate-600 disabled:cursor-not-allowed"
                     onClick={HandleRatingSubmit}
                     disabled={(rating===0)?true:false}
-                >Submit</button>
+                >Pay</button>
         </dialog>
     )
 

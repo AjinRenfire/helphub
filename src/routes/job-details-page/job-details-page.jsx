@@ -1,5 +1,5 @@
 import {  Form, redirect, useLocation, useNavigate } from "react-router-dom"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 
 // components
 import BackButton from "../../components/back-button-component/back-button"
@@ -27,7 +27,15 @@ export default function JobsDetailsPage(){
     
     const [chat, setChat] = useState({})
     const [job, setJob] = useState({})
-    const [rating, setRating] = useState(0)
+    const [rating, setRating] = useState(0);
+
+    // const cacheRating = useMemo(()=>
+    //    {return rating;} 
+    // ,[rating]);
+
+    // setRating(cacheRating);
+
+    const [ isModalOpen , setIsModalOpen] = useState(false);
 
     // function to navigate to the previous page
     const back = () => {
@@ -111,17 +119,35 @@ export default function JobsDetailsPage(){
     }
 
     // function to handle the rating change
-    const RatingSubmit = async (event) => {
-        event.preventDefault()
-
-        console.log(event.target.rating.value)
-
+    const RatingSubmit = async (val) => {
+        // event.preventDefault()
         try{
-            await updateRating(job.jobUID, event.target.rating.value)
+            await updateRating(job.jobUID, val)
         }
         catch(error){
             console.log(error)
         }
+    }
+
+
+    function HandleAccept(){
+        setIsModalOpen(true)
+        // updatePrivateStatusOfTheJob(job.jobUID, JOB_PRIVATE_STATUS.WORK_ACCEPTED)
+    }
+
+    function HandleModalClose() {
+        setIsModalOpen(false)
+    }
+
+    function HandlesetRating(rat){
+        
+        setRating(rat)
+        console.log(rat)
+    }
+
+    async function HandlePay(){
+        updatePrivateStatusOfTheJob(job.jobUID, JOB_PRIVATE_STATUS.WORK_ACCEPTED);
+        await RatingSubmit(rating);
     }
 
     return (
@@ -176,75 +202,79 @@ export default function JobsDetailsPage(){
                     {
                         from === '/app/my-jobs/active' && (
                             <div className="space-x-4 flex justify-center items-center">
-                                <button onClick={() => goToChatPage()} className="border-2 border-violet-600 px-6 rounded-full w-auto text-violet-600 py-2 hover:bg-violet-600 hover:text-white">Chat</button>
-                                <button className=" border-2 border-red-600 px-6 rounded-full w-auto text-red-700 py-2 hover:bg-red-600 hover:text-white">Report</button>
-                                
                                 {
                                     // if the helper submitted the work.....
                                     // Ajin style paniru...
-                                    ((job.privateJobStatus === JOB_PRIVATE_STATUS.WORK_SUBMITTED) || (job.privateJobStatus === JOB_PRIVATE_STATUS.WORK_ACCEPTED)) && (
+                                    ((job.privateJobStatus === JOB_PRIVATE_STATUS.WORK_SUBMITTED) || (job.privateJobStatus === JOB_PRIVATE_STATUS.WORK_ACCEPTED)) ? (
                                         <div>
                                            {
                                             // if job private status is Work Submitted
                                             // showing the button to accept the work
                                                 job.privateJobStatus === JOB_PRIVATE_STATUS.WORK_SUBMITTED ? (
                                                     <div>
-                                                        <p>The user has submitted the work</p>  
+                                                        {/* <p>The user has submitted the work</p>   */}
                                                         <button 
                                                             type="button" 
-                                                            onClick={() => updatePrivateStatusOfTheJob(job.jobUID, JOB_PRIVATE_STATUS.WORK_ACCEPTED)} 
+                                                            onClick={HandleAccept} 
+                                                            title="The user has submitted the work"
+                                                            className="border-2 border-emerald-600 px-6 rounded-full w-auto text-emerald-600 py-2 hover:bg-emerald-600 hover:text-white"
                                                         >Accept the work</button>
                                                     </div>
-                                                ) : (
-                                                    // private status must be Work Accepted
-                                                    <div>
-                                                        {
-                                                            // ipothaiku suma Form potruken
-                                                            // but i have an idea other than stars
-                                                            // oru row la, 1 2 3 4 5 display panalam
-                                                            // let the poster, choose anything
-
-                                                            // also unakula RatingMoal enaku implement pana therla.. ne aproma atha paniko
-                                                            <div>
-                                                                <p>Rate the work</p>
-                                                                   
-                                                                <Form onSubmit={(event) => RatingSubmit(event)}>
-                                                                    <input name="rating" type="number" required min='0' max='5' />
-                                                                    <button type="submit">Submit your rating</button>
-                                                                </Form>
-                                                            </div>
-                                                        }
+                                                    ) : (
+                                                    <div className="">
+                                                        
                                                     </div>
+  
                                                 )
                                             }
                                         </div>
+                                    ):(
+                                        <div className="">
+                                            <button 
+                                                disabled
+                                                type="button" 
+                                                title="The user have not submitted the work"
+                                                className="border-2 border-slate-300 px-6 rounded-full w-auto bg-slate-300 text-slate-600 py-2 hover:cursor-not-allowed"
+                                            >Accept the work</button>         
+                                        </div>
+                                                    
                                     )
                                 }
+                                <button onClick={() => goToChatPage()} className="border-2 border-violet-600 px-6 rounded-full w-auto text-violet-600 py-2 hover:bg-violet-600 hover:text-white">Chat</button>
+                                <button className=" border-2 border-red-600 px-6 rounded-full w-auto text-red-700 py-2 hover:bg-red-600 hover:text-white">Report</button>
+                                
+                                
                             </div>
                         ) 
                     }
+
+                    
 
                     {/** Should render if only opened from Job Activities/Active Jobs Page */}
                     {/** Here, the one who opens this page is the helper of the job */}
                     {
                         from === '/app/job-activities/active' && (
-                            <div className="space-x-4 flex justify-center items-center">
-                                {
-                                    // not showing the submit work button, if the private status of the job is Work Submitted
-                                    job.privateJobStatus === JOB_PRIVATE_STATUS.WORK_STILL_IN_PROGRESS && (
-                                        <button 
-                                            className="bg-violet-500 border-2 border-violet-500 px-6 rounded-full w-auto text-white py-2 hover:bg-violet-900 hover:border-violet-900" 
-                                            onClick={HandleSubmit}
-                                        >Submit Work</button>
-                                    )
-                                }
-                                <button onClick={() => goToChatPage()} className="border-2 border-violet-600 px-6 rounded-full w-auto text-violet-600 py-2 hover:bg-violet-600 hover:text-white" >Chat</button>
-                                <button className=" border-2 border-red-600 px-6 rounded-full w-auto text-red-700 py-2 hover:bg-red-600 hover:text-white">Report</button>
-                            
-                                <div>
-                                    {job.privateJobStatus === JOB_PRIVATE_STATUS.WORK_SUBMITTED && <p>You have submitted the work</p>}
+                            <>
+                                <div className="space-x-4 flex justify-center items-center">
+                                    {
+                                        // not showing the submit work button, if the private status of the job is Work Submitted
+                                        job.privateJobStatus === JOB_PRIVATE_STATUS.WORK_STILL_IN_PROGRESS && (
+                                            <button 
+                                                className="bg-violet-500 border-2 border-violet-500 px-6 rounded-full w-auto text-white py-2 hover:bg-violet-900 hover:border-violet-900" 
+                                                onClick={HandleSubmit}
+                                            >Submit Work</button>
+                                        )
+                                    }
+                                    <button onClick={() => goToChatPage()} className="border-2 border-violet-600 px-6 rounded-full w-auto text-violet-600 py-2 hover:bg-violet-600 hover:text-white" >Chat</button>
+                                    <button className=" border-2 border-red-600 px-6 rounded-full w-auto text-red-700 py-2 hover:bg-red-600 hover:text-white">Report</button>
+                                
+                                    
                                 </div>
-                            </div>
+                                <div className=" px-6 py-4 ">
+                                        {job.privateJobStatus === JOB_PRIVATE_STATUS.WORK_SUBMITTED && <p className="text-center px-6 py-4 bg-emerald-200 rounded-lg">You have submitted the work,wait for acceptance</p>}
+                                </div>
+                            </>
+                            
                         ) 
                     }
                     
@@ -252,6 +282,7 @@ export default function JobsDetailsPage(){
                 </div>
             </div>
             {/* <RatingModal  open={open}/> */}
+            <RatingModal isOpen={isModalOpen} handleModalClose={HandleModalClose} rating={rating} setRating={HandlesetRating} handlePay={HandlePay} />
             
         </div>
     )
