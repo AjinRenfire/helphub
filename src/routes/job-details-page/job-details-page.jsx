@@ -1,5 +1,5 @@
 import {  Form, redirect, useLocation, useNavigate } from "react-router-dom"
-import { useEffect, useMemo, useRef, useState } from "react"
+import { useEffect, useMemo, useRef, useState, useContext } from "react"
 
 // components
 import BackButton from "../../components/back-button-component/back-button"
@@ -20,6 +20,9 @@ import { database } from "../../firebase/firebase.config"
 import { FIREBASE_COLLECTION_CHAT_ROOM, FIREBASE_COLLECTION_JOB_LISTINGS } from "../../utils/constants"
 import { JOB_PRIVATE_STATUS } from "../posting-job/post-job-page"
 
+// context
+import { UserContext } from '../../contexts/user.context'
+
 export default function JobsDetailsPage(){
     const location = useLocation()
     const {jobUID, from} = location.state
@@ -29,6 +32,8 @@ export default function JobsDetailsPage(){
     const [job, setJob] = useState({})
     const [rating, setRating] = useState(0);
 
+    const { currentUser } = useContext(UserContext)
+
     // const cacheRating = useMemo(()=>
     //    {return rating;} 
     // ,[rating]);
@@ -36,6 +41,8 @@ export default function JobsDetailsPage(){
     // setRating(cacheRating);
 
     const [ isModalOpen , setIsModalOpen] = useState(false);
+
+    console.log("Job details current user : ", currentUser)
 
     // function to navigate to the previous page
     const back = () => {
@@ -132,13 +139,18 @@ export default function JobsDetailsPage(){
 
     // function to execute when the poster clicks the Pay Button in the Rating Modal
     async function HandlePay(){
-        // only editing the rating and updating the status of the job
-        await PayFunction(job, rating)
+        if(job.cost < currentUser.balance){
+            // only editing the rating and updating the status of the job
+            await PayFunction(job, rating)
 
-        await UpdateBalance(job, updateRating)
+            await UpdateBalance(job, updateRating)
 
-        // doing the rest in the my job/job history route
-        navigate('/app/my-jobs/history')
+            // doing the rest in the my job/job history route
+            navigate('/app/my-jobs/history')
+        }
+        else{
+            console.log("Balance is not enough!!!!!!!")
+        }
     }
 
     return (
