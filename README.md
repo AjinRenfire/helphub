@@ -21,7 +21,7 @@
   
  - **Step 5:** After the dependencies got installed type the following command  
 
-    - `npm install`.This runs it in development build  
+    - `npm run dev`.This runs it in development build  
   
  - **Step 6:** After bundling the packages it hosts in localhost.Click the link to open it.  
 
